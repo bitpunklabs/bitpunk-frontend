@@ -1,12 +1,1 @@
-node_modules/
-.next/
-.pnpm-store/
-dist/
-coverage/
-.turbo/
-.vercel/
-.env
-.env.*
-!.env.example
-.DS_Store
-prompt-composer.md
+asset
