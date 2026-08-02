@@ -1,2 +1,6 @@
 asset
 .DS_Store
+node_modules/
+.next/
+*.tsbuildinfo
+.env.local
