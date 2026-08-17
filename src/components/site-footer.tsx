@@ -3,7 +3,7 @@ import Link from "next/link";
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <span>bitpunk.</span>
+      <span>bitpunk</span>
       <p>For research and education only. Not investment advice.</p>
       <div>
         <Link href="/disclaimer">Disclaimer</Link>

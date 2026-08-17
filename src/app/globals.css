@@ -1,63 +1,567 @@
-:root { --bg:#080a0d; --panel:#11161d; --line:#26313c; --text:#edf2f7; --muted:#95a0ad; --cyan:#65e5ee; --red:#d87676; color-scheme:dark; }
-* { box-sizing:border-box; }
-html { background:var(--bg); }
-body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 Arial, Helvetica, sans-serif; }
-a { color:inherit; text-decoration:none; }
-a:hover { color:var(--cyan); }
-.shell { width:min(1180px, calc(100% - 40px)); margin:auto; }
-.site-header,.site-footer { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:24px 0; border-bottom:1px solid var(--line); }
-.site-header nav,.site-footer div { display:flex; gap:20px; color:var(--muted); }
-.wordmark { font-weight:800; letter-spacing:-.06em; font-size:1.25rem; }
-.account-link { border:1px solid var(--line); padding:7px 12px; border-radius:4px; }
-.hero,.page-section { padding:clamp(72px, 12vw, 150px) 0; }
-.hero { max-width:860px; }
-.eyebrow,.eyebrow-row { color:var(--cyan); font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
-.eyebrow-row { display:flex; justify-content:space-between; gap:12px; }
-h1,h2,p { margin-top:0; }
-h1 { max-width:850px; margin-bottom:24px; font-size:clamp(3rem, 8vw, 6.5rem); line-height:.98; letter-spacing:-.065em; }
-h2 { font-size:clamp(1.4rem, 3vw, 2.1rem); line-height:1.1; letter-spacing:-.035em; }
-.hero-copy,.lead { max-width:650px; color:var(--muted); font-size:1.15rem; }
-.actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
-.button { display:inline-flex; justify-content:center; border:1px solid var(--line); border-radius:4px; padding:11px 16px; font-weight:700; }
-.button-primary { border-color:var(--cyan); background:var(--cyan); color:#071014; }
-.button-secondary { color:var(--text); }
-.principles,.section { padding:48px 0; border-top:1px solid var(--line); }
-.three-column-grid,.content-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.three-column-grid article,.content-card,.pricing-card,.membership-panel,.auth-card { border:1px solid var(--line); background:var(--panel); padding:24px; border-radius:6px; }
-.three-column-grid p,.content-card p,.membership-panel p,.pricing-card p,.article-meta,.disclaimer,.search-summary { color:var(--muted); }
-.section-heading { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:24px; }
-.content-card h2 { margin:12px 0; font-size:1.35rem; }
-.content-card small { color:var(--muted); }
-.membership-panel { margin:64px 0; max-width:720px; }
-.article { max-width:800px; }
-.article-body { margin-top:40px; font-size:1.12rem; }
-.disclaimer { border-top:1px solid var(--line); margin-top:48px; padding-top:20px; font-size:.9rem; }
-.search-form { margin:32px 0; max-width:680px; }
-.search-form label { display:block; margin-bottom:8px; font-weight:700; }
-.search-form div { display:flex; gap:8px; }
-input { min-width:0; flex:1; border:1px solid var(--line); border-radius:4px; padding:11px; background:#080a0d; color:var(--text); }
-.auth-form { display:grid; gap:9px; max-width:440px; margin-top:32px; }
-.auth-form label { font-size:.9rem; font-weight:700; }
-.auth-form .button { margin-top:10px; }
-.form-message,.muted-copy { color:var(--muted); margin:16px 0 0; }
-.account-actions { margin-top:24px; }
-.content-form { display:grid; gap:9px; max-width:760px; margin-top:32px; }
-.content-form label { font-size:.9rem; font-weight:700; }
-.form-row { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; }
-.form-row > div { display:grid; gap:9px; }
-textarea,select { width:100%; border:1px solid var(--line); border-radius:4px; padding:11px; background:#080a0d; color:var(--text); font:inherit; }
-textarea { min-height:110px; resize:vertical; }
-.content-form .button { justify-self:start; margin-top:10px; }
-.success-message { color:var(--cyan); }
-.error-message { color:var(--red); }
-.next-step { margin-top:48px; border-top:1px solid var(--line); padding-top:24px; }
-.next-step p { color:var(--muted); max-width:620px; }
-.admin-list { display:grid; border-top:1px solid var(--line); }
-.admin-list-item { display:grid; grid-template-columns:110px minmax(0, 1fr) 110px; align-items:center; gap:16px; border-bottom:1px solid var(--line); padding:16px 0; }
-.admin-list-item span,.admin-list-item small { color:var(--muted); text-transform:capitalize; }
-.pricing-card { max-width:500px; margin-top:40px; }
-.pricing-card ul { padding-left:20px; color:var(--muted); }
-.pricing-card small { display:block; margin-top:16px; color:var(--muted); }
-.site-footer { margin-top:72px; border-top:1px solid var(--line); border-bottom:0; color:var(--muted); font-size:.9rem; }
-.site-footer p { margin:0; }
-@media (max-width:720px) { .shell { width:min(100% - 28px, 1180px); }.site-header nav { display:none; }.three-column-grid,.content-grid,.form-row { grid-template-columns:1fr; }.site-footer { align-items:flex-start; flex-direction:column; }.search-form div { flex-direction:column; }.admin-list-item { grid-template-columns:1fr; gap:4px; } }
+/* ==========================================================================
+   Bitpunk — Design System v3
+   Black canvas, white type, gold accent. Bold display type on a visible grid.
+   ========================================================================== */
+
+:root {
+  /* Surfaces */
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --surface-raised: #141414;
+
+  /* Rules */
+  --line: #1f1f1f;
+  --line-strong: #333333;
+
+  /* Type */
+  --text: #ffffff;
+  --text-secondary: #a3a3a3;
+  --text-tertiary: #6b6b6b;
+
+  /* Accent — gold. Used sparingly: index numbers, primary action, active state. */
+  --gold: #e3b341;
+  --gold-strong: #f2cc60;
+  --gold-dim: #5c4718;
+
+  /* Functional only. Text / icons / 1px lines. Never as fills. */
+  --positive: #30a46c;
+  --negative: #e5484d;
+
+  /* Metrics */
+  --pad: clamp(20px, 4vw, 56px);
+  --frame: 1400px;
+  --header-h: 64px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
+    Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Helvetica Neue", Helvetica, Arial, "PingFang SC", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--bg); -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 17px/1.6 var(--font-sans);
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+::selection { background: var(--gold); color: #000; }
+
+/* --------------------------------------------------------------------------
+   Frame — the outer rails. Every block draws its own bottom rule.
+   -------------------------------------------------------------------------- */
+
+.frame {
+  width: min(var(--frame), 100%);
+  margin: 0 auto;
+  border-inline: 1px solid var(--line);
+  min-height: 100vh;
+}
+
+.block { padding: clamp(64px, 9vw, 128px) var(--pad); border-bottom: 1px solid var(--line); }
+.block-tight { padding: clamp(40px, 5vw, 64px) var(--pad); border-bottom: 1px solid var(--line); }
+
+/* Faint column rules — the "graph paper" ground. */
+.ruled {
+  background-image: linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: calc(100% / 4) 100%;
+  background-position: 0 0;
+}
+@media (max-width: 900px) { .ruled { background-size: calc(100% / 2) 100%; } }
+
+/* --------------------------------------------------------------------------
+   Typography
+   -------------------------------------------------------------------------- */
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1 {
+  margin: 0 0 32px;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+/* Display scale — hero only. */
+.display,
+.hero h1 {
+  font-size: clamp(2.75rem, 8.5vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 3.25rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+/* Mono label — the programming-style eyebrow. */
+.eyebrow,
+.label {
+  display: block;
+  margin: 0 0 24px;
+  font: 400 0.75rem/1.4 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.label-index { color: var(--gold); }
+
+.eyebrow-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font: 400 0.75rem/1.4 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.hero-copy, .lead {
+  max-width: 62ch;
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+}
+
+.mono { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.02em; }
+
+/* --------------------------------------------------------------------------
+   Header / Footer
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: var(--header-h);
+  padding: 0 var(--pad);
+  border-bottom: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.site-header nav {
+  display: flex;
+  gap: 28px;
+  margin-right: auto;
+  font: 400 0.8125rem/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.site-header nav a:hover { color: var(--text); }
+
+.account-link {
+  border: 1px solid var(--line-strong);
+  padding: 8px 16px;
+  font: 400 0.8125rem/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.account-link:hover { border-color: var(--gold); color: var(--gold); }
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 40px var(--pad);
+  border-bottom: 0;
+  font: 400 0.8125rem/1.6 var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+}
+.site-footer p { margin: 0; max-width: 46ch; }
+.site-footer div { display: flex; gap: 24px; text-transform: uppercase; }
+.site-footer a:hover { color: var(--text); }
+.site-footer span { font-family: var(--font-display); font-weight: 600; color: var(--text); letter-spacing: -0.02em; }
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  padding: clamp(72px, 12vw, 176px) var(--pad) clamp(56px, 8vw, 96px);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero h1 { max-width: 16ch; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+
+.tape {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  padding: 16px var(--pad);
+  border-bottom: 1px solid var(--line);
+  font: 400 0.75rem/1.4 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.tape span::before { content: "// "; color: var(--gold); }
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-strong);
+  padding: 14px 24px;
+  font: 400 0.8125rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-primary { border-color: var(--gold); background: var(--gold); color: #000; }
+.button-primary:hover { border-color: var(--gold-strong); background: var(--gold-strong); color: #000; }
+
+.button-secondary { color: var(--text); }
+.button-secondary:hover { border-color: var(--text); }
+
+/* --------------------------------------------------------------------------
+   Cell grid — hairline-separated cells. The core layout primitive.
+   -------------------------------------------------------------------------- */
+
+.cell-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.cell-grid > * { background: var(--bg); padding: 32px; margin: 0; }
+
+.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.cols-3,
+.three-column-grid,
+.content-grid { grid-template-columns: repeat(3, 1fr); }
+.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.three-column-grid,
+.content-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.three-column-grid > *,
+.content-grid > * { background: var(--bg); padding: 32px; margin: 0; }
+.three-column-grid p { margin-bottom: 0; color: var(--text-secondary); }
+
+/* Stack row — numbered product / feature rows */
+.stack-cell { display: flex; flex-direction: column; gap: 12px; min-height: 240px; }
+.stack-cell .stack-index {
+  font: 400 0.75rem/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+.stack-cell h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.stack-cell p { margin: 0; color: var(--text-secondary); font-size: 0.9375rem; }
+.stack-cell .stack-status { margin-top: auto; padding-top: 20px; }
+
+/* --------------------------------------------------------------------------
+   Badges
+   -------------------------------------------------------------------------- */
+
+.badge {
+  display: inline-block;
+  border: 1px solid var(--line-strong);
+  padding: 5px 10px;
+  font: 400 0.6875rem/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.badge-accent { border-color: var(--gold-dim); color: var(--gold); }
+.badge-muted { color: var(--text-tertiary); }
+.badge-negative { border-color: var(--negative); color: var(--negative); }
+
+/* --------------------------------------------------------------------------
+   Section heading
+   -------------------------------------------------------------------------- */
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.section-heading h2 { margin: 0; max-width: 18ch; }
+.section-heading > a {
+  flex: none;
+  font: 400 0.8125rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 6px;
+}
+.section-heading > a:hover { color: var(--gold); border-color: var(--gold); }
+
+.section, .page-section, .principles { padding: clamp(64px, 9vw, 128px) var(--pad); border-bottom: 1px solid var(--line); }
+
+/* --------------------------------------------------------------------------
+   Content cards
+   -------------------------------------------------------------------------- */
+
+/* An empty grid must not render as a bare hairline. */
+.cell-grid:empty,
+.content-grid:empty,
+.three-column-grid:empty { display: none; }
+
+.empty-state {
+  border: 1px solid var(--line);
+  padding: 48px 32px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.content-card { display: flex; flex-direction: column; gap: 16px; }
+.content-card h2 {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.content-card h2 a:hover { color: var(--gold); }
+.content-card p { margin: 0; color: var(--text-secondary); font-size: 0.9375rem; }
+.content-card small {
+  margin-top: auto;
+  padding-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Panels — membership, pricing, auth
+   -------------------------------------------------------------------------- */
+
+.membership-panel,
+.pricing-card,
+.auth-card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: clamp(28px, 4vw, 48px);
+}
+
+.membership-panel { margin: 0; max-width: 760px; }
+.membership-panel h2 { margin-bottom: 20px; }
+.membership-panel p { color: var(--text-secondary); max-width: 56ch; }
+.membership-panel .button { margin-top: 12px; }
+
+/* Auth pages: a constrained card, not a full-bleed section. */
+.auth-card.page-section {
+  width: min(520px, 100%);
+  margin: clamp(48px, 8vw, 96px) var(--pad);
+  padding: clamp(28px, 4vw, 48px);
+  border: 1px solid var(--line);
+}
+.auth-card h1 { font-size: clamp(1.875rem, 3.5vw, 2.5rem); }
+
+.pricing-card { max-width: 520px; margin-top: 40px; }
+.pricing-card ul { padding-left: 0; list-style: none; color: var(--text-secondary); }
+.pricing-card li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 0.9375rem; }
+.pricing-card li::before { content: "→ "; color: var(--gold); }
+.pricing-card p { color: var(--text-secondary); }
+.pricing-card small { display: block; margin-top: 20px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary); }
+
+/* --------------------------------------------------------------------------
+   Article
+   -------------------------------------------------------------------------- */
+
+.article { max-width: 720px; }
+.article h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+.article-meta { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.04em; color: var(--text-tertiary); }
+.article-body { margin-top: 48px; font-size: 1.0625rem; line-height: 1.75; }
+.article-body h2 { margin: 48px 0 16px; font-size: 1.75rem; }
+.article-body h3 { margin: 32px 0 12px; }
+.article-body p { color: var(--text-secondary); }
+.article-body code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  padding: 2px 6px;
+}
+.article-body blockquote {
+  margin: 32px 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--gold);
+  color: var(--text);
+}
+
+.disclaimer {
+  border-top: 1px solid var(--line);
+  margin-top: 64px;
+  padding-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Forms
+   -------------------------------------------------------------------------- */
+
+.search-form { margin: 32px 0; max-width: 680px; }
+.search-form label,
+.auth-form label,
+.content-form label {
+  display: block;
+  margin-bottom: 8px;
+  font: 400 0.75rem/1.4 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.search-form div { display: flex; gap: 8px; }
+.search-summary { color: var(--text-secondary); }
+
+input, textarea, select {
+  min-width: 0;
+  flex: 1;
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  padding: 13px 14px;
+  background: var(--surface);
+  color: var(--text);
+  font: 400 0.9375rem/1.4 var(--font-mono);
+}
+input:focus, textarea:focus, select:focus { border-color: var(--gold); outline: none; }
+textarea { min-height: 140px; resize: vertical; }
+
+.auth-form { display: grid; gap: 20px; max-width: 440px; margin-top: 32px; }
+.content-form { display: grid; gap: 20px; max-width: 760px; margin-top: 32px; }
+.auth-form .button, .content-form .button { justify-self: start; margin-top: 8px; }
+
+.form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.form-row > div { display: grid; gap: 8px; align-content: start; }
+
+.form-message, .muted-copy { margin: 16px 0 0; color: var(--text-secondary); }
+
+/* Inline links inside prose */
+.muted-copy a, .article-body a, .lead a, .hero-copy a, .membership-panel p a {
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold-dim);
+}
+.muted-copy a:hover, .article-body a:hover, .lead a:hover,
+.hero-copy a:hover, .membership-panel p a:hover { border-color: var(--gold); }
+.success-message { color: var(--positive); }
+.error-message { color: var(--negative); }
+.account-actions { margin-top: 32px; }
+
+.next-step { margin-top: 64px; border-top: 1px solid var(--line); padding-top: 32px; }
+.next-step p { color: var(--text-secondary); max-width: 62ch; }
+
+/* --------------------------------------------------------------------------
+   Admin list
+   -------------------------------------------------------------------------- */
+
+.admin-list { display: grid; border-top: 1px solid var(--line); }
+.admin-list-item {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) 120px;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+}
+.admin-list-item span, .admin-list-item small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.admin-list-item:hover { background: var(--surface); }
+
+/* --------------------------------------------------------------------------
+   Legacy container — kept so pages using .shell still render inside the frame
+   -------------------------------------------------------------------------- */
+
+.shell { width: 100%; padding-inline: var(--pad); }
+.block > .shell, .section > .shell, .hero > .shell { padding-inline: 0; }
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .cols-3, .cols-4, .three-column-grid, .content-grid { grid-template-columns: repeat(2, 1fr); }
+  .site-header nav { display: none; }
+  .section-heading { flex-direction: column; align-items: flex-start; gap: 20px; }
+}
+
+@media (max-width: 620px) {
+  .cols-2, .cols-3, .cols-4, .three-column-grid, .content-grid { grid-template-columns: 1fr; }
+  .cell-grid > *, .three-column-grid > *, .content-grid > * { padding: 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  .site-footer { flex-direction: column; align-items: flex-start; }
+  .admin-list-item { grid-template-columns: 1fr; gap: 6px; }
+  .search-form div { flex-direction: column; }
+  .stack-cell { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

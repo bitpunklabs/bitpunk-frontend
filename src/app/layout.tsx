@@ -17,7 +17,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
-        <div className="shell">
+        <div className="frame">
           <SiteHeader />
           <main>{children}</main>
           <SiteFooter />

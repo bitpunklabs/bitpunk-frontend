@@ -11,7 +11,7 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="wordmark" href="/" aria-label="Bitpunk home">
-        bitpunk.
+        bitpunk
       </Link>
       <nav aria-label="Primary navigation">
         {links.map((link) => (
