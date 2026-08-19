@@ -5,8 +5,8 @@ import { getPublicPosts } from "@/lib/content-repository";
 const stack = [
   {
     index: "01",
-    name: "Playbook",
-    href: "/playbook",
+    name: "Learning",
+    href: "/learning",
     line: "The operating manual for systematic traders.",
     body: "Frameworks for market state, rotation, confirmation and risk boundaries.",
     status: "Open",
@@ -76,8 +76,8 @@ export default async function HomePage() {
           threads and confirmed signals for traders who work by rules.
         </p>
         <div className="actions">
-          <Link className="button button-primary" href="/playbook">
-            Explore Playbook
+          <Link className="button button-primary" href="/learning">
+            Explore Learning
           </Link>
           <Link className="button button-secondary" href="/pricing">
             View membership
@@ -148,7 +148,7 @@ export default async function HomePage() {
             <p className="eyebrow">Public research</p>
             <h2 id="featured-title">Start with a better operating framework.</h2>
           </div>
-          <Link href="/playbook">All Playbook</Link>
+          <Link href="/learning">All lessons</Link>
         </div>
         {featuredPosts.length > 0 ? (
           <div className="content-grid">
