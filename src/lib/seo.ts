@@ -35,6 +35,8 @@ export function buildArticleJsonLd(post: ContentPost) {
     headline: post.seoTitle || post.title,
     description: post.seoDescription || post.excerpt,
     datePublished: post.publishedAt || undefined,
+    author: post.author ? { "@type": "Person", name: post.author } : undefined,
+    keywords: post.tags?.map(({ name }) => name).join(", ") || undefined,
     mainEntityOfPage: new URL(`/${post.kind}/${post.slug}`, siteUrl).toString(),
     publisher: {
       "@type": "Organization",

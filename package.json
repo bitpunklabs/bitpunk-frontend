@@ -12,6 +12,7 @@
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.111.0",
+    "feed": "^6.0.0",
     "hast-util-to-string": "^3.0.1",
     "katex": "^0.18.4",
     "mdast-util-to-string": "^4.0.0",
