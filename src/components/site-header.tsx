@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { PLAYBOOK_URL } from "@/lib/links";
 
@@ -10,7 +11,7 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="wordmark" href="/" aria-label="Bitpunk home">
-        bitpunk
+        <Image src="/brand/logo-dark.png" alt="" width={100} height={30} priority />
       </Link>
       <nav aria-label="Primary navigation">
         {PLAYBOOK_URL ? (

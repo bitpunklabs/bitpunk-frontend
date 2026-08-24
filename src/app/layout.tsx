@@ -11,6 +11,14 @@ export const metadata: Metadata = {
     template: "%s — Bitpunk",
   },
   description: "Structured content and member resources for systematic traders.",
+  icons: {
+    icon: [
+      { url: "/brand/favicon-light.png", media: "(prefers-color-scheme: light)" },
+      { url: "/brand/favicon-dark.png", media: "(prefers-color-scheme: dark)" },
+    ],
+    shortcut: "/brand/favicon-dark.png",
+    apple: "/brand/favicon-dark.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

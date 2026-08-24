@@ -1,4 +1,10 @@
 asset
+!branding/asset/
+branding/asset/*
+!branding/asset/logo-black.png
+!branding/asset/logo-white.png
+!branding/asset/favicon-black.png
+!branding/asset/favicon-white.png
 .DS_Store
 node_modules/
 .next/

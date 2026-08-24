@@ -173,10 +173,14 @@ h3 {
 }
 
 .wordmark {
-  font-family: var(--font-display);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+.wordmark img, .footer-wordmark img {
+  display: block;
+  width: 100px;
+  height: auto;
 }
 
 .site-header nav {
@@ -214,7 +218,7 @@ h3 {
 .site-footer p { margin: 0; max-width: 46ch; }
 .site-footer div { display: flex; gap: 24px; text-transform: uppercase; }
 .site-footer a:hover { color: var(--text); }
-.site-footer span { font-family: var(--font-display); font-weight: 600; color: var(--text); letter-spacing: -0.02em; }
+.footer-wordmark { display: inline-flex; align-items: center; }
 
 /* --------------------------------------------------------------------------
    Hero
