@@ -1,8 +1,7 @@
 import Link from "next/link";
+import { PLAYBOOK_URL } from "@/lib/links";
 
 const links = [
-  { href: "/learning", label: "Learning" },
-  { href: "/blog", label: "Blog" },
   { href: "/pricing", label: "Membership" },
   { href: "/about", label: "About" },
 ];
@@ -14,6 +13,11 @@ export function SiteHeader() {
         bitpunk
       </Link>
       <nav aria-label="Primary navigation">
+        {PLAYBOOK_URL ? (
+          <a href={PLAYBOOK_URL} target="_blank" rel="noopener noreferrer">
+            Playbook <span aria-hidden="true">↗</span>
+          </a>
+        ) : null}
         {links.map((link) => (
           <Link key={link.href} href={link.href}>
             {link.label}
