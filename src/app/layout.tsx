@@ -7,13 +7,17 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "Bitpunk — Market Intelligence for Systematic Traders",
+    default: "Bitpunk — Independent market research and tools",
     template: "%s — Bitpunk",
   },
-  description: "Market research and member access for systematic traders.",
+  description:
+    "A free market Playbook, member community and TradingView tools for systematic traders.",
   icons: {
     icon: [
-      { url: "/brand/favicon-light.png", media: "(prefers-color-scheme: light)" },
+      {
+        url: "/brand/favicon-light.png",
+        media: "(prefers-color-scheme: light)",
+      },
       { url: "/brand/favicon-dark.png", media: "(prefers-color-scheme: dark)" },
     ],
     shortcut: "/brand/favicon-dark.png",
@@ -21,7 +25,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>
