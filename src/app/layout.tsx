@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     default: "Bitpunk — Market Intelligence for Systematic Traders",
     template: "%s — Bitpunk",
   },
-  description: "Structured content and member resources for systematic traders.",
+  description: "Market research and member access for systematic traders.",
   icons: {
     icon: [
       { url: "/brand/favicon-light.png", media: "(prefers-color-scheme: light)" },
