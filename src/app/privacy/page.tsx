@@ -29,6 +29,14 @@ export default function PrivacyPage() {
           is hosted with Vercel. Each provider you choose also processes the
           sign-in under its own privacy terms.
         </p>
+        <h2>Stablecoin payment data</h2>
+        <p>
+          Before checkout opens, the final policy will explain which payment
+          provider processes an order and which order, wallet, network and
+          transaction information Bitpunk keeps for access, accounting,
+          security and support. Blockchain transactions are public and cannot
+          be deleted by Bitpunk.
+        </p>
         <h2>Before launch</h2>
         <p>
           The final policy will identify the operating entity, contact route,

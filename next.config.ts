@@ -22,7 +22,19 @@ const retiredContentPaths = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   async redirects() {
-    return retiredContentPaths.map((source) => ({ source, destination: playbookUrl, permanent: true }));
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.bitpunk.io" }],
+        destination: "https://bitpunk.io/:path*",
+        permanent: true,
+      },
+      ...retiredContentPaths.map((source) => ({
+        source,
+        destination: playbookUrl,
+        permanent: true,
+      })),
+    ];
   },
 };
 

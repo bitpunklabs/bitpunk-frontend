@@ -11,7 +11,28 @@ export const metadata: Metadata = {
     template: "%s — Bitpunk",
   },
   description:
-    "A free market Playbook, member community and TradingView tools for systematic traders.",
+    "Independent market research, a free Playbook, member community and TradingView tools.",
+  openGraph: {
+    type: "website",
+    title: "Bitpunk — Independent market research and tools",
+    description:
+      "Read the free Playbook. Join the community. Use the tools when you need them.",
+    images: [
+      {
+        url: "/brand/hero-system-v1.png",
+        width: 1535,
+        height: 1024,
+        alt: "Bitpunk research system",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bitpunk — Independent market research and tools",
+    description:
+      "Read the free Playbook. Join the community. Use the tools when you need them.",
+    images: ["/brand/hero-system-v1.png"],
+  },
   icons: {
     icon: [
       {
