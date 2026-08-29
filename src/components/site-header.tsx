@@ -3,8 +3,8 @@ import Link from "next/link";
 import { PLAYBOOK_URL } from "@/lib/links";
 
 const links = [
-  { href: "/pricing", label: "Membership" },
-  { href: "/about", label: "About" },
+  { href: "/pricing", label: "./membership" },
+  { href: "/about", label: "./about" },
 ];
 
 export function SiteHeader() {
@@ -16,7 +16,7 @@ export function SiteHeader() {
       <nav aria-label="Primary navigation">
         {PLAYBOOK_URL ? (
           <a href={PLAYBOOK_URL} target="_blank" rel="noopener noreferrer">
-            Playbook <span aria-hidden="true">↗</span>
+            ./playbook <span aria-hidden="true">↗</span>
           </a>
         ) : null}
         {links.map((link) => (
@@ -26,7 +26,7 @@ export function SiteHeader() {
         ))}
       </nav>
       <Link className="account-link" href="/login">
-        Sign in
+        [ sign_in ]
       </Link>
     </header>
   );

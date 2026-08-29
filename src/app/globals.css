@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Bitpunk — Design System v3
-   Black canvas, white type, gold accent. Bold display type on a visible grid.
+   Bitpunk — Editorial Console v4
+   Black canvas, Markdown mono type, gold cursor and a visible research grid.
    ========================================================================== */
 
 :root {
@@ -14,9 +14,9 @@
   --line-strong: #333333;
 
   /* Type */
-  --text: #ffffff;
-  --text-secondary: #a3a3a3;
-  --text-tertiary: #6b6b6b;
+  --text: #f4f4f0;
+  --text-secondary: #a0a09a;
+  --text-tertiary: #686862;
 
   /* Accent — gold. Used sparingly: index numbers, primary action, active state. */
   --gold: #e3b341;
@@ -32,11 +32,11 @@
   --frame: 1400px;
   --header-h: 64px;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
-    Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", sans-serif;
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "Helvetica Neue", Helvetica, Arial, "PingFang SC", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --font-code: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --font-sans: var(--font-code);
+  --font-display: var(--font-code);
+  --font-mono: var(--font-code);
 
   color-scheme: dark;
 }
@@ -49,8 +49,9 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font: 400 17px/1.6 var(--font-sans);
-  font-feature-settings: "ss01", "cv01";
+  font: 400 15.5px/1.65 var(--font-code);
+  font-feature-settings: normal;
+  font-variant-ligatures: none;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -94,16 +95,16 @@ h1 {
   font-size: clamp(2.25rem, 5.5vw, 4.25rem);
   font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.055em;
   text-wrap: balance;
 }
 
 /* Display scale — hero only. */
 .display,
 .hero h1 {
-  font-size: clamp(2.75rem, 8.5vw, 7rem);
-  line-height: 0.9;
-  letter-spacing: -0.045em;
+  font-size: clamp(2.75rem, 7.4vw, 6.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
 }
 
 h2 {
@@ -111,7 +112,7 @@ h2 {
   font-size: clamp(1.75rem, 4vw, 3.25rem);
   font-weight: 700;
   line-height: 0.98;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.055em;
 }
 
 h3 {
@@ -119,7 +120,7 @@ h3 {
   font-size: 1.3rem;
   font-weight: 600;
   line-height: 1.25;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.035em;
 }
 
 /* Mono label — the programming-style eyebrow. */
@@ -128,8 +129,7 @@ h3 {
   display: block;
   margin: 0 0 24px;
   font: 400 0.75rem/1.4 var(--font-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.045em;
   color: var(--text-tertiary);
 }
 
@@ -188,8 +188,7 @@ h3 {
   gap: 28px;
   margin-right: auto;
   font: 400 0.8125rem/1 var(--font-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.025em;
   color: var(--text-secondary);
 }
 .site-header nav a:hover { color: var(--text); }
@@ -198,8 +197,7 @@ h3 {
   border: 1px solid var(--line-strong);
   padding: 8px 16px;
   font: 400 0.8125rem/1 var(--font-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 .account-link:hover { border-color: var(--gold); color: var(--gold); }
 
@@ -216,7 +214,7 @@ h3 {
   color: var(--text-tertiary);
 }
 .site-footer p { margin: 0; max-width: 46ch; }
-.site-footer div { display: flex; gap: 24px; text-transform: uppercase; }
+.site-footer div { display: flex; gap: 24px; }
 .site-footer a:hover { color: var(--text); }
 .footer-wordmark { display: inline-flex; align-items: center; }
 
@@ -234,7 +232,7 @@ h3 {
 .hero-system {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+  grid-template-columns: minmax(0, 0.88fr) minmax(440px, 1.12fr);
   min-height: min(820px, calc(100vh - var(--header-h)));
   padding: 0;
   overflow: hidden;
@@ -247,7 +245,16 @@ h3 {
   padding: clamp(72px, 10vw, 152px) var(--pad);
 }
 
-.hero-content h1 { max-width: 11ch; }
+.hero-content h1 { max-width: 10ch; }
+
+.hero-path span { color: var(--gold); }
+
+.hero-quote {
+  margin: 0;
+  padding-left: 20px;
+  border-left: 1px solid var(--gold-dim);
+  font-size: 0.94rem;
+}
 
 .hero-art {
   position: relative;
@@ -270,10 +277,58 @@ h3 {
 
 .hero-art img {
   object-fit: cover;
-  object-position: 64% center;
+  object-position: 58% center;
   filter: saturate(0.88) contrast(1.04);
   animation: hero-reveal 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+.hero-editor {
+  position: absolute;
+  z-index: 2;
+  right: clamp(20px, 4vw, 48px);
+  bottom: 64px;
+  left: clamp(20px, 4vw, 48px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(4, 4, 4, 0.82);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.hero-editor-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-tertiary);
+  font-size: 0.7rem;
+}
+
+.hero-editor-bar span:last-child { color: var(--text-secondary); }
+.hero-editor-bar i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(227, 179, 65, 0.65);
+}
+
+.hero-editor ol { margin: 0; padding: 0; list-style: none; }
+.hero-editor li {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.hero-editor li:last-child { border-bottom: 0; }
+.hero-editor li > span,
+.hero-editor small { color: var(--text-tertiary); font-size: 0.66rem; }
+.hero-editor code { color: var(--text); font: inherit; font-size: 0.76rem; }
 
 .hero-art-index {
   position: absolute;
@@ -285,8 +340,7 @@ h3 {
   justify-content: space-between;
   gap: 16px;
   font: 400 0.68rem/1 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.45);
 }
 
@@ -313,8 +367,7 @@ h3 {
 .fact-rail span,
 .terms-list span {
   font: 400 0.68rem/1.4 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
   color: var(--text-tertiary);
 }
 
@@ -359,6 +412,7 @@ h3 {
 
 .process-grid h3 { margin-bottom: 12px; }
 .process-grid p { margin: 0; color: var(--text-secondary); font-size: 0.92rem; }
+.process-grid small { display: block; margin-top: 20px; color: var(--text-tertiary); font-size: 0.7rem; }
 
 .playbook-section {
   display: grid;
@@ -546,8 +600,7 @@ h3 {
   border: 1px solid var(--line-strong);
   padding: 14px 24px;
   font: 400 0.8125rem/1 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.025em;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
     border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
     color 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -989,7 +1042,7 @@ textarea { min-height: 140px; resize: vertical; }
   .section-heading { flex-direction: column; align-items: flex-start; gap: 20px; }
   .hero-system { grid-template-columns: 1fr; min-height: 0; }
   .hero-content { padding-bottom: 64px; }
-  .hero-art { min-height: 560px; border-top: 1px solid var(--line); border-left: 0; }
+  .hero-art { min-height: 640px; border-top: 1px solid var(--line); border-left: 0; }
   .hero-art::before { background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), transparent 42%); }
   .fact-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1014,8 +1067,11 @@ textarea { min-height: 140px; resize: vertical; }
   .billing-summary { grid-template-columns: 1fr; }
   .billing-summary div { border-right: 0; border-bottom: 1px solid var(--line); }
   .billing-summary div:last-child { border-bottom: 0; }
-  .hero-art { min-height: 410px; }
-  .hero-art img { object-position: 63% center; }
+  .hero-art { min-height: 530px; }
+  .hero-art img { object-position: 62% center; }
+  .hero-editor { right: 16px; bottom: 58px; left: 16px; }
+  .hero-editor li { grid-template-columns: 28px minmax(0, 1fr); }
+  .hero-editor small { display: none; }
   .fact-rail,
   .process-grid,
   .plan-grid,

@@ -28,7 +28,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="page-section about-hero ruled">
-        <p className="eyebrow">About Bitpunk</p>
+        <p className="eyebrow">~/bitpunk/README.md</p>
         <h1>Independent by design. Practical by default.</h1>
         <p className="lead">
           Bitpunk is a market research and tools business. The free Playbook
@@ -38,7 +38,7 @@ export default function AboutPage() {
       </section>
 
       <section className="block about-statement">
-        <p className="eyebrow">The premise</p>
+        <p className="eyebrow">## premise</p>
         <p className="statement-copy">
           Better decisions rarely come from one more prediction. They come from
           seeing the evidence, knowing what the current view depends on and
@@ -49,7 +49,7 @@ export default function AboutPage() {
       <section className="block" aria-labelledby="principles-title">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">Working principles</p>
+            <p className="eyebrow">principles.map()</p>
             <h2 id="principles-title">How the work is built.</h2>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
       <section className="block about-products" aria-labelledby="products-title">
         <div>
-          <p className="eyebrow">Public work</p>
+          <p className="eyebrow">exports.playbook</p>
           <h2 id="products-title">The Playbook</h2>
           <p>
             Free technical and fundamental analysis on Substack. It is the best
@@ -75,19 +75,20 @@ export default function AboutPage() {
           </p>
         </div>
         <div>
-          <p className="eyebrow">Member workspace</p>
+          <p className="eyebrow">exports.membership</p>
           <h2>Community and tools</h2>
           <p>
-            Plus provides Discord access. Pro adds TradingView tools. Account,
-            access and payment state remain visible and separate so one badge
-            never hides an unfinished setup step.
+            Plus provides lifetime Discord access after one payment. Pro adds
+            Discord and TradingView tools for 30 days. Account, access and
+            payment state remain visible and separate so one badge never hides
+            an unfinished setup step.
           </p>
         </div>
       </section>
 
       <section className="block boundary-section">
         <div>
-          <p className="eyebrow">The boundary</p>
+          <p className="eyebrow">{"// boundary"}</p>
           <h2>You keep the decision.</h2>
         </div>
         <p>

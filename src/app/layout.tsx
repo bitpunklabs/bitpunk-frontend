@@ -19,8 +19,8 @@ export const metadata: Metadata = {
       "Read the free Playbook. Join the community. Use the tools when you need them.",
     images: [
       {
-        url: "/brand/hero-system-v1.png",
-        width: 1535,
+        url: "/brand/hero-terminal-v2.png",
+        width: 1536,
         height: 1024,
         alt: "Bitpunk research system",
       },
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "Bitpunk — Independent market research and tools",
     description:
       "Read the free Playbook. Join the community. Use the tools when you need them.",
-    images: ["/brand/hero-system-v1.png"],
+    images: ["/brand/hero-terminal-v2.png"],
   },
   icons: {
     icon: [
