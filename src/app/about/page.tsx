@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About",
@@ -28,17 +29,33 @@ export default function AboutPage() {
   return (
     <>
       <section className="page-section about-hero ruled">
-        <p className="eyebrow">~/bitpunk/README.md</p>
-        <h1>Independent by design. Practical by default.</h1>
-        <p className="lead">
-          Bitpunk is a market research and tools business. The free Playbook
-          makes the thinking public; membership provides a place to discuss the
-          work and use the tools built around it.
-        </p>
+        <div className="about-hero-copy">
+          <p className="eyebrow">About Bitpunk</p>
+          <h1>Independent by design. Practical by default.</h1>
+          <p className="lead">
+            Bitpunk is a market research and tools business. The free Playbook
+            makes the thinking public; membership provides a place to discuss the
+            work and use the tools built around it.
+          </p>
+        </div>
+        <div className="about-hero-art" aria-hidden="true">
+          <Image
+            src="/brand/hero-editorial-v3.webp"
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 900px) 100vw, 46vw"
+          />
+          <div className="about-art-caption">
+            <span>Open research</span>
+            <span>Independent judgment</span>
+            <span>Reviewable process</span>
+          </div>
+        </div>
       </section>
 
       <section className="block about-statement">
-        <p className="eyebrow">## premise</p>
+        <p className="eyebrow">Our premise</p>
         <p className="statement-copy">
           Better decisions rarely come from one more prediction. They come from
           seeing the evidence, knowing what the current view depends on and
@@ -49,7 +66,7 @@ export default function AboutPage() {
       <section className="block" aria-labelledby="principles-title">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">principles.map()</p>
+            <p className="eyebrow">Working principles</p>
             <h2 id="principles-title">How the work is built.</h2>
           </div>
         </div>
@@ -66,7 +83,7 @@ export default function AboutPage() {
 
       <section className="block about-products" aria-labelledby="products-title">
         <div>
-          <p className="eyebrow">exports.playbook</p>
+          <p className="eyebrow">Open research</p>
           <h2 id="products-title">The Playbook</h2>
           <p>
             Free technical and fundamental analysis on Substack. It is the best
@@ -75,7 +92,7 @@ export default function AboutPage() {
           </p>
         </div>
         <div>
-          <p className="eyebrow">exports.membership</p>
+          <p className="eyebrow">Membership</p>
           <h2>Community and tools</h2>
           <p>
             Plus provides lifetime Discord access after one payment. Pro adds
@@ -88,7 +105,7 @@ export default function AboutPage() {
 
       <section className="block boundary-section">
         <div>
-          <p className="eyebrow">{"// boundary"}</p>
+          <p className="eyebrow">The boundary</p>
           <h2>You keep the decision.</h2>
         </div>
         <p>
