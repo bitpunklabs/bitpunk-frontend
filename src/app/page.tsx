@@ -15,8 +15,8 @@ export default function HomePage() {
           <Link className="button button-primary" href="/indicators">
             Explore Indicators
           </Link>
-          <Link className="button button-secondary" href="/agentics">
-            View Agentics
+          <Link className="button button-secondary" href="/pricing">
+            See pricing
           </Link>
         </div>
       </section>
@@ -44,7 +44,7 @@ export default function HomePage() {
           </div>
           <p className="section-intro">
             The same view of market structure, delivered twice: once for you to
-            read, once for your agent to use.
+            read, once for your agent to use. Agentics is still being built.
           </p>
         </div>
 
@@ -55,13 +55,23 @@ export default function HomePage() {
               <h2>{product.name}</h2>
               <p className="tagline">{product.tagline}</p>
               <p className="is-muted">{product.summary}</p>
-              <div className="actions">
-                <Link className="button button-secondary" href={product.href}>
-                  {product.key === "indicators"
-                    ? "Explore Indicators"
-                    : "View Agentics"}
-                </Link>
-              </div>
+              {product.comingSoon ? (
+                <>
+                  <p>
+                    <span className="badge">Coming soon</span>
+                  </p>
+                  <p className="is-muted">
+                    In development. The capabilities below are what it is being
+                    built to do, not what you can call today.
+                  </p>
+                </>
+              ) : (
+                <div className="actions">
+                  <Link className="button button-secondary" href={product.href}>
+                    Explore {product.name}
+                  </Link>
+                </div>
+              )}
             </div>
             <ul className="capability-list">
               {product.capabilities.map(([title, body]) => (
@@ -129,10 +139,13 @@ export default function HomePage() {
             <div key={tier.key}>
               <span>{tier.name}</span>
               <strong>
-                {tier.price}
-                {tier.priceCaption ? ` ${tier.priceCaption}` : ""}
+                {tier.comingSoon
+                  ? "Coming soon"
+                  : `${tier.price}${tier.priceCaption ? ` ${tier.priceCaption}` : ""}`}
               </strong>
-              {tier.termNote ? <small>{tier.termNote}</small> : null}
+              {tier.comingSoon || !tier.termNote ? null : (
+                <small>{tier.termNote}</small>
+              )}
             </div>
           ))}
           <div>
@@ -141,9 +154,10 @@ export default function HomePage() {
           </div>
         </div>
         <p className="commerce-note">
-          Indicators and Agentics are sold as 30 prepaid days. Nothing renews
-          automatically — you buy the next period yourself when you want it.
-          Agentics includes everything in Indicators. Checkout is not open yet.
+          Indicators is sold as 30 prepaid days. Nothing renews automatically —
+          you buy the next period yourself when you want it. Agentics is still
+          in development and has no price or purchase path yet. Checkout is not
+          open.
         </p>
       </section>
     </>
