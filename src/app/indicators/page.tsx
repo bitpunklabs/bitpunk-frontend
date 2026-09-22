@@ -20,7 +20,7 @@ export default function IndicatorsPage() {
         <p className="hero-copy">{product.summary}</p>
         <div className="actions">
           <Link className="button button-primary" href="/pricing">
-            Get Indicators
+            {tier.cta.label}
           </Link>
           <Link className="button button-secondary" href="/docs">
             Read the docs
@@ -86,9 +86,12 @@ export default function IndicatorsPage() {
           </div>
         </div>
         <p className="tier-term">{tier.termNote}</p>
+        <p className="lead">
+          Indicators is sold as {tier.name}. {tier.inherits}.
+        </p>
         <div className="actions">
           <Link className="button button-primary" href="/pricing">
-            Get Indicators
+            {tier.cta.label}
           </Link>
         </div>
         <p className="commerce-note">

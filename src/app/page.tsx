@@ -139,13 +139,14 @@ export default function HomePage() {
             <div key={tier.key}>
               <span>{tier.name}</span>
               <strong>
-                {tier.comingSoon
-                  ? "Coming soon"
-                  : `${tier.price}${tier.priceCaption ? ` ${tier.priceCaption}` : ""}`}
+                {tier.price}
+                {tier.priceCaption ? ` ${tier.priceCaption}` : ""}
               </strong>
-              {tier.comingSoon || !tier.termNote ? null : (
+              {tier.comingSoon ? (
+                <small>Coming soon</small>
+              ) : tier.termNote ? (
                 <small>{tier.termNote}</small>
-              )}
+              ) : null}
             </div>
           ))}
           <div>
@@ -154,10 +155,10 @@ export default function HomePage() {
           </div>
         </div>
         <p className="commerce-note">
-          Indicators is sold as 30 prepaid days. Nothing renews automatically —
-          you buy the next period yourself when you want it. Agentics is still
-          in development and has no price or purchase path yet. Checkout is not
-          open.
+          Bitpunk Pro is sold as 30 prepaid days. Nothing renews automatically
+          — you buy the next period yourself when you want it. Bitpunk Max adds
+          Agentics, which is still in development: the price is published, but
+          it cannot be bought yet. Checkout is not open.
         </p>
       </section>
     </>

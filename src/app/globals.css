@@ -441,6 +441,30 @@ main { display: block; }
 
 .tier-summary { color: var(--text-secondary); font-size: 16px; }
 
+/* What the plan contains, stated as products. Sits between the term and the
+   summary so the reader learns the contents before the argument for them. */
+.tier-contains {
+  font: 400 12px/1.5 var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Takes the place of the call to action on a plan that is announced but not
+   purchasable. It must never look clickable. */
+.tier-pending {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  margin-block: 18px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Inside a plan column the grid gap already sets the rhythm. */
+.tier .tier-pending { margin-block: 0; }
+
 .tier .button { justify-content: center; }
 
 .tier-features { display: grid; gap: 0; border-top: 1px solid var(--line); }

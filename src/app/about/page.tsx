@@ -89,8 +89,12 @@ export default function AboutPage() {
             <p className="eyebrow">Product 02</p>
             <h3>Agentics</h3>
             <p>
-              Market context, tools and workflows for trading agents. Includes
-              everything in Indicators.
+              <span className="badge">Coming soon</span>
+            </p>
+            <p>
+              Market context, tools and workflows for trading agents. In
+              development; it will ship inside Bitpunk Max alongside
+              Indicators.
             </p>
             <Link className="text-link" href="/agentics">View Agentics</Link>
           </article>
