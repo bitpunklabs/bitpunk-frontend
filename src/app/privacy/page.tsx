@@ -6,7 +6,7 @@ export default function PrivacyPage() {
       <p className="lead">
         Bitpunk is in pre-launch. This notice describes the limited account data
         used during testing. A complete privacy policy will be published before
-        paid membership opens.
+        paid checkout opens.
       </p>
       <div className="article-body">
         <h2>What we receive</h2>
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
         <h2>How we use it</h2>
         <p>
           We use account data to sign you in, secure your account, show
-          connection status, provide support and prepare future membership
+          connection status, provide support and prepare future paid
           access. We do not use it to make trading decisions or sell personal
           advertising.
         </p>

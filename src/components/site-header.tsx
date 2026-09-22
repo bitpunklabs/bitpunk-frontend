@@ -1,45 +1,33 @@
-import Image from "next/image";
 import Link from "next/link";
-import { PLAYBOOK_URL } from "@/lib/links";
+import { Wordmark } from "@/components/wordmark";
+import { BLOG_URL } from "@/lib/links";
 
-const links = [
-  { href: "/pricing", label: "Membership" },
-  { href: "/about", label: "About" },
+const primaryNav = [
+  { href: "/indicators", label: "Indicators" },
+  { href: "/agentics", label: "Agentics" },
+  { href: "/blog", label: "Blog", external: BLOG_URL.length > 0 },
+  { href: "/open-source", label: "Open Source" },
+  { href: "/docs", label: "Docs" },
+  { href: "/pricing", label: "Pricing" },
 ];
 
 export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="wordmark" href="/" aria-label="Bitpunk home">
-        <Image src="/brand/logo-dark.png" alt="" width={100} height={30} priority />
+        <Wordmark />
       </Link>
-      <nav className="desktop-nav" aria-label="Primary navigation">
-        {PLAYBOOK_URL ? (
-          <a href={PLAYBOOK_URL} target="_blank" rel="noopener noreferrer">
-            Playbook <span aria-hidden="true">↗</span>
-          </a>
-        ) : null}
-        {links.map((link) => (
-          <Link key={link.href} href={link.href}>
-            {link.label}
+      <nav className="primary-nav" aria-label="Primary">
+        {primaryNav.map((item) => (
+          <Link key={item.href} href={item.href}>
+            {item.label}
+            {item.external ? <span aria-hidden="true"> ↗</span> : null}
           </Link>
         ))}
       </nav>
       <Link className="account-link" href="/login">
         Sign in
       </Link>
-      <nav className="mobile-nav" aria-label="Mobile navigation">
-        {PLAYBOOK_URL ? (
-          <a href={PLAYBOOK_URL} target="_blank" rel="noopener noreferrer">
-            Playbook <span aria-hidden="true">↗</span>
-          </a>
-        ) : null}
-        {links.map((link) => (
-          <Link key={link.href} href={link.href}>
-            {link.label}
-          </Link>
-        ))}
-      </nav>
     </header>
   );
 }

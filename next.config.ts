@@ -1,17 +1,13 @@
 import type { NextConfig } from "next";
 
-// Learning and Blog merged into Playbook and moved to Substack. Send every old
-// content path there; fall back to the home page until the URL is configured.
-const playbookUrl = process.env.NEXT_PUBLIC_PLAYBOOK_URL || "/";
-
+// Retired content paths from the Playbook era. `/blog` is a real in-app route
+// again (see `src/lib/blog.ts`), so it is deliberately NOT in this list.
 const retiredContentPaths = [
   "/playbook",
   "/playbook/:slug",
   "/learning",
   "/learning/:slug",
-  "/blog",
-  "/blog/:slug",
-  "/blog/rss.xml",
+  "/membership",
   "/content",
   "/content/:slug",
   "/search",
@@ -31,7 +27,7 @@ const nextConfig: NextConfig = {
       },
       ...retiredContentPaths.map((source) => ({
         source,
-        destination: playbookUrl,
+        destination: "/",
         permanent: true,
       })),
     ];

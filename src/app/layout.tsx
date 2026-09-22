@@ -7,31 +7,22 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "Bitpunk — Independent market research and tools",
+    default: "Bitpunk — Market tools for systematic traders",
     template: "%s — Bitpunk",
   },
   description:
-    "Independent market research, a free Playbook, member community and TradingView tools.",
+    "Indicators and agent-native market tools for systematic traders.",
   openGraph: {
     type: "website",
-    title: "Bitpunk — Independent market research and tools",
+    title: "Bitpunk — Market tools for systematic traders",
     description:
-      "Read the free Playbook. Join the community. Use the tools when you need them.",
-    images: [
-      {
-        url: "/brand/hero-editorial-v3.webp",
-        width: 1536,
-        height: 1024,
-        alt: "Bitpunk research system",
-      },
-    ],
+      "Indicators and agent-native market tools for systematic traders.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bitpunk — Independent market research and tools",
+    title: "Bitpunk — Market tools for systematic traders",
     description:
-      "Read the free Playbook. Join the community. Use the tools when you need them.",
-    images: ["/brand/hero-editorial-v3.webp"],
+      "Indicators and agent-native market tools for systematic traders.",
   },
   icons: {
     icon: [
