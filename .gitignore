@@ -12,3 +12,9 @@ node_modules/
 .env.local
 supabase/.temp/
 .vercel
+
+# Internal working documents. Deliberately local-only: the public repository
+# carries the code, not the strategy, pricing decisions, refund abuse-ledger
+# design or the roadmap. Stripped from history on 2026-09-22.
+docs/
+dev-tracker.md
