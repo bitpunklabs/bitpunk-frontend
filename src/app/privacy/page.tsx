@@ -1,47 +1,40 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Privacy",
+  alternates: { canonical: "/privacy" },
+};
 export default function PrivacyPage() {
   return (
-    <section className="page-section article">
-      <p className="eyebrow">Privacy</p>
-      <h1>Your account data has a clear purpose.</h1>
+    <section className="article">
+      <p className="eyebrow">Privacy / This website</p>
+      <h1>
+        JUST HERE
+        <br />
+        TO EXPLORE.
+      </h1>
       <p className="lead">
-        Bitpunk is in pre-launch. This notice describes the limited account data
-        used during testing. A complete privacy policy will be published before
-        paid checkout opens.
+        This version of Bitpunk is a public research showcase. It has no account
+        registration, checkout or newsletter form.
       </p>
       <div className="article-body">
-        <h2>What we receive</h2>
+        <h2>Browsing the site</h2>
         <p>
-          When you sign in, the provider sends an account identifier and may
-          send your name, email address and profile image. If you add an email
-          or connect another provider, we store the information needed to
-          maintain that connection.
+          The site does not add advertising trackers or analytics scripts. Fonts
+          and artwork are served with the website. Hosting infrastructure may
+          process ordinary request information needed to deliver and secure the
+          pages.
         </p>
-        <h2>How we use it</h2>
+        <h2>External destinations</h2>
         <p>
-          We use account data to sign you in, secure your account, show
-          connection status, provide support and prepare future paid
-          access. We do not use it to make trading decisions or sell personal
-          advertising.
+          Links to external publications and GitHub take you to independent
+          services. Their privacy practices apply when you visit them. This site
+          does not receive information you submit on those services.
         </p>
-        <h2>Who operates the systems</h2>
+        <h2>Previous account features</h2>
         <p>
-          Authentication and account data are hosted with Supabase. The website
-          is hosted with Vercel. Each provider you choose also processes the
-          sign-in under its own privacy terms.
-        </p>
-        <h2>Stablecoin payment data</h2>
-        <p>
-          Before checkout opens, the final policy will explain which payment
-          provider processes an order and which order, wallet, network and
-          transaction information Bitpunk keeps for access, accounting,
-          security and support. Blockchain transactions are public and cannot
-          be deleted by Bitpunk.
-        </p>
-        <h2>Before launch</h2>
-        <p>
-          The final policy will identify the operating entity, contact route,
-          legal bases, retention periods, international transfers and the
-          process for exercising applicable data rights.
+          Account features are not available in this version. Closing those
+          website routes does not delete data previously stored by an earlier
+          version of the service.
         </p>
       </div>
     </section>

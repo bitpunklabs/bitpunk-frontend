@@ -1,22 +1,14 @@
 import type { MetadataRoute } from "next";
 import { getSiteUrl } from "@/lib/seo";
-
 const paths = [
   "",
-  "/indicators",
-  "/agentics",
-  "/pricing",
-  "/blog",
   "/open-source",
-  "/docs",
+  "/blog",
   "/about",
-  "/refund-policy",
+  "/privacy",
   "/disclaimer",
   "/terms",
-  "/privacy",
 ];
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = getSiteUrl();
-  return paths.map((path) => ({ url: `${baseUrl}${path}`, lastModified: new Date() }));
+  return paths.map((path) => ({ url: `${getSiteUrl()}${path}` }));
 }

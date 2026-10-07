@@ -1,148 +1,136 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { DISCORD_INVITE_URL } from "@/lib/links";
-
+import { Artwork } from "@/components/artwork";
+import { PageHero, SectionLabel, ArrowLink } from "@/components/editorial";
+import { destinations } from "@/lib/showcase";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Bitpunk builds indicators and agent-native market tools for systematic traders.",
+    "Independent market research with rigor in the work and rebellion in the spirit. Meet Bitpunk.",
+  alternates: { canonical: "/about" },
 };
-
-const principles = [
-  {
-    index: "01",
-    title: "Keep evidence and interpretation separate",
-    body: "A chart, filing or market event is an input. The thesis built from it should stay open to challenge.",
-  },
-  {
-    index: "02",
-    title: "Define what would change the view",
-    body: "A useful market idea includes its horizon, assumptions and invalidation before the outcome is known.",
-  },
-  {
-    index: "03",
-    title: "Design for the next decision",
-    body: "A tool earns its place when it helps someone notice a change, size uncertainty or review an action.",
-  },
-];
-
 export default function AboutPage() {
   return (
     <>
-      <section className="hero">
-        <p className="eyebrow">About</p>
-        <h1>Market systems for systematic traders.</h1>
-        <p className="hero-copy">
-          Bitpunk builds indicators and agent-native market tools for
-          systematic traders.
-        </p>
-      </section>
-
-      <section className="block">
-        <p className="eyebrow">The premise</p>
-        <p className="statement-copy" style={{ marginTop: 20 }}>
-          Better decisions rarely come from one more prediction.
-        </p>
-        <p className="lead">
-          They come from seeing the evidence, knowing what the current view
-          depends on, and recognising when the facts have changed. The work is
-          not to produce more signals — it is to produce better structure.
-        </p>
-      </section>
-
-      <section className="block" aria-labelledby="principles-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Working principles</p>
-            <h2 id="principles-title">How the work is built.</h2>
-          </div>
+      <PageHero
+        eyebrow="Bitpunk / The independent spirit"
+        title={
+          <>
+            A MIND
+            <br />
+            OF OUR <span className="serif-word">own.</span>
+          </>
+        }
+        copy="Bitpunk is a home for independent market research. We follow the evidence, question familiar narratives, and make room for a different view."
+        art="classical-bust-pinned-blindfold"
+        alt="A classical bust with a torn-paper blindfold held by a safety pin."
+      >
+        <ArrowLink href={destinations.github} external solid>
+          Follow the work
+        </ArrowLink>
+      </PageHero>
+      <section className="content-section">
+        <SectionLabel number="01">
+          Rigor in the work. Rebellion in the spirit.
+        </SectionLabel>
+        <div className="about-band">
+          <Artwork
+            name="punk-band-portrait"
+            alt="An engraved illustration of four leather-clad punk musicians."
+          />
+          <p>
+            The DIY impulse is simple: question what’s there, learn how it
+            works, and make something yourself. We bring that attitude to market
+            research: examine the evidence, test the explanation, and form our
+            own view.
+          </p>
         </div>
-        <div className="principle-list">
-          {principles.map((principle) => (
-            <article key={principle.index}>
-              <span>{principle.index}</span>
-              <h3>{principle.title}</h3>
-              <p>{principle.body}</p>
-            </article>
+        <div className="capability-grid">
+          <article className="capability">
+            <span>01</span>
+            <div>
+              <h3>Question the obvious.</h3>
+              <p>
+                Keep evidence and interpretation separate. Give an idea room to
+                be challenged.
+              </p>
+            </div>
+          </article>
+          <article className="capability">
+            <span>02</span>
+            <div>
+              <h3>Show your working.</h3>
+              <p>
+                Make the assumptions, methods and limits visible. Good work
+                should stand up to a closer look.
+              </p>
+            </div>
+          </article>
+          <article className="capability">
+            <span>03</span>
+            <div>
+              <h3>Stay open to revision.</h3>
+              <p>
+                State what would change the thesis. Revisit conclusions as new
+                evidence arrives, and make uncertainty part of the work.
+              </p>
+            </div>
+          </article>
+          <article className="capability">
+            <span>04</span>
+            <div>
+              <h3>Keep your own voice.</h3>
+              <p>
+                Discipline and imagination belong together. Leave space for art,
+                music and a different perspective.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section className="content-section">
+        <SectionLabel number="02">From the visual notebook</SectionLabel>
+        <div className="section-heading">
+          <h2>
+            A LITTLE
+            <br />
+            <span className="serif-word">beautiful friction.</span>
+          </h2>
+          <p>
+            Engraved lines, safety pins and familiar forms turned sideways. A
+            visual nod to the DIY energy of punk and the absurdity of collage.
+          </p>
+        </div>
+        <div className="art-gallery">
+          {[
+            [
+              "banana-safety-pin",
+              "01 / The underground",
+              "A peeled banana held together with a safety pin.",
+            ],
+            [
+              "victorian-iron-head",
+              "02 / A different head",
+              "A Victorian figure with a clothes iron in place of a head.",
+            ],
+            [
+              "rose-thorns-safety-pin",
+              "03 / Tender resistance",
+              "A black rose with thorns and a safety pin.",
+            ],
+          ].map(([name, caption, alt]) => (
+            <figure key={name}>
+              <Artwork
+                name={name}
+                alt={alt}
+                sizes="(max-width: 700px) 85vw, 28vw"
+              />
+              <figcaption>
+                <span>{caption}</span>
+                <span>↗</span>
+              </figcaption>
+            </figure>
           ))}
         </div>
-      </section>
-
-      <section className="block" aria-labelledby="what-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">What Bitpunk makes</p>
-            <h2 id="what-title">Two products, and an open half.</h2>
-          </div>
-        </div>
-        <div className="cell-grid cols-2">
-          <article>
-            <p className="eyebrow">Product 01</p>
-            <h3>Indicators</h3>
-            <p>
-              Trading indicators and screening tools built around market
-              structure, delivered on TradingView.
-            </p>
-            <Link className="text-link" href="/indicators">Explore Indicators</Link>
-          </article>
-          <article>
-            <p className="eyebrow">Product 02</p>
-            <h3>Agentics</h3>
-            <p>
-              <span className="badge">Coming soon</span>
-            </p>
-            <p>
-              Market context, tools and workflows for trading agents. In
-              development; it will ship inside Bitpunk Max alongside
-              Indicators.
-            </p>
-            <Link className="text-link" href="/agentics">View Agentics</Link>
-          </article>
-          <article>
-            <p className="eyebrow">Open</p>
-            <h3>Blog, Open Source and Docs</h3>
-            <p>
-              Free and public. The best way to judge the quality and the limits
-              of the work before paying for anything.
-            </p>
-            <Link className="text-link" href="/blog">Read the Blog</Link>
-          </article>
-          <article>
-            <p className="eyebrow">Community</p>
-            <h3>Discord</h3>
-            <p>
-              Free for everyone. No account and no purchase required. It is
-              also where support tickets go.
-            </p>
-            {DISCORD_INVITE_URL ? (
-              <a
-                className="text-link"
-                href={DISCORD_INVITE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Join Discord <span aria-hidden="true">↗</span>
-              </a>
-            ) : (
-              <span className="is-muted">Opening soon</span>
-            )}
-          </article>
-        </div>
-      </section>
-
-      <section className="block" aria-labelledby="boundary-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">The boundary</p>
-            <h2 id="boundary-title">You keep the decision.</h2>
-          </div>
-        </div>
-        <p className="lead">
-          Bitpunk provides tools, education and market context. It does not
-          know your objectives or risk tolerance, does not manage money and
-          does not provide personal investment advice. Every market decision
-          remains yours.
-        </p>
       </section>
     </>
   );

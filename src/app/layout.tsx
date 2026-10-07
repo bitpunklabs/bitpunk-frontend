@@ -1,51 +1,75 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getSiteUrl } from "@/lib/seo";
 import "./globals.css";
-
+const display = localFont({
+  src: "../fonts/barlow-condensed-bold.ttf",
+  variable: "--font-display",
+  display: "swap",
+  weight: "700",
+});
+const sans = localFont({
+  src: [
+    { path: "../fonts/instrument-sans-regular.ttf", weight: "400" },
+    { path: "../fonts/instrument-sans-semibold.ttf", weight: "600" },
+  ],
+  variable: "--font-sans",
+  display: "swap",
+});
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "Bitpunk — Market tools for systematic traders",
+    default: "Bitpunk — Independent market research.",
     template: "%s — Bitpunk",
   },
   description:
-    "Indicators and agent-native market tools for systematic traders.",
+    "Independent market research, open-source methods and field notes. Evidence, curiosity and a punk point of view.",
   openGraph: {
     type: "website",
-    title: "Bitpunk — Market tools for systematic traders",
+    siteName: "Bitpunk",
+    title: "Bitpunk — Independent market research.",
     description:
-      "Indicators and agent-native market tools for systematic traders.",
+      "Independent market research. Open methods. An independent point of view.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Bitpunk — Market tools for systematic traders",
-    description:
-      "Indicators and agent-native market tools for systematic traders.",
-  },
+  twitter: { card: "summary_large_image" },
   icons: {
     icon: [
+      ...[16, 32, 64].map((size) => ({
+        url: `/brand/favicon-dark${size === 64 ? "" : `-${size}`}.png?v=black-3`,
+        type: "image/png",
+        sizes: `${size}x${size}`,
+      })),
       {
-        url: "/brand/favicon-light.png",
-        media: "(prefers-color-scheme: light)",
+        url: "/brand/favicon.svg?v=black-3",
+        type: "image/svg+xml",
+        sizes: "any",
       },
-      { url: "/brand/favicon-dark.png", media: "(prefers-color-scheme: dark)" },
     ],
-    shortcut: "/brand/favicon-dark.png",
-    apple: "/brand/favicon-dark.png",
+    shortcut: "/favicon.ico?v=black-3",
+    apple: {
+      url: "/brand/apple-touch-icon.png?v=black-3",
+      sizes: "180x180",
+    },
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${display.variable} ${sans.variable}`}
+    >
+      <body id="top">
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
         <div className="frame">
           <SiteHeader />
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
           <SiteFooter />
         </div>
       </body>

@@ -1,165 +1,124 @@
-import Link from "next/link";
-import { BLOG_URL } from "@/lib/links";
-import { products, tiers } from "@/lib/products";
-
+import type { Metadata } from "next";
+import { Artwork } from "@/components/artwork";
+import { HeroArt } from "@/components/hero-art";
+import { ArrowLink, SectionLabel } from "@/components/editorial";
+import { destinations } from "@/lib/showcase";
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 export default function HomePage() {
   return (
     <>
-      <section className="hero">
-        <p className="eyebrow">Market tools for systematic traders</p>
-        <h1>Structure over noise.</h1>
-        <p className="hero-copy">
-          Indicators and agent-native market tools for systematic traders.
-        </p>
-        <div className="actions">
-          <Link className="button button-primary" href="/indicators">
-            Explore Indicators
-          </Link>
-          <Link className="button button-secondary" href="/pricing">
-            See pricing
-          </Link>
+      <section className="home-hero">
+        <div className="hero-copy">
+          <p className="eyebrow">
+            <span className="status-dot" /> Independent market research
+          </p>
+          <h1>
+            MAKE SENSE.
+            <br />
+            <span className="ink-outline">MAKE NOISE.</span>
+          </h1>
+          <p className="hero-deck">
+            For those who read the market
+            <br />
+            and question the consensus.
+          </p>
+          <p className="hero-description">
+            Evidence, open methods and field notes.
+            <br />A considered view. Always open to question.
+          </p>
+          <ArrowLink href="#work" solid>
+            Explore the work
+          </ArrowLink>
         </div>
+        <HeroArt />
       </section>
-
-      <section className="block block-tight" aria-label="Bitpunk Indicators">
-        <div className="product-shot">
-          {/* Real product UI belongs here — no mockup shell, no browser frame.
-              Until the capture exists, an honest placeholder beats a fake one. */}
-          <div className="product-shot-empty">
-            <p className="eyebrow">Product screenshot</p>
-            <p>
-              A real Indicators chart goes here. Nothing is rendered until the
-              capture exists — a mockup would only describe a product that has
-              not been photographed yet.
+      <section id="work" className="work-section">
+        <SectionLabel number="01">Open source</SectionLabel>
+        <div className="journal-spread research-spread">
+          <div className="journal-art research-art">
+            <Artwork
+              name="sculpture-hand-safety-pin"
+              alt="An engraved hand holding a safety pin."
+              sizes="(max-width: 700px) 85vw, 42vw"
+            />
+          </div>
+          <div className="journal-copy research-copy">
+            <h2>
+              RESEARCH
+              <br />
+              <span className="serif-word">in the open.</span>
+            </h2>
+            <p className="lead">
+              A point of view is only as useful
+              <br />
+              as the reasoning behind it.
             </p>
+            <p>
+              Explore the code behind the research, starting with Ticker
+              Universe Builder: market universes with explicit criteria, dated
+              evidence and a record you can inspect.
+            </p>
+            <ArrowLink href="/open-source">Explore open source</ArrowLink>
           </div>
         </div>
       </section>
-
-      <section className="block" aria-labelledby="products-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Products</p>
-            <h2 id="products-title">Two products. One market language.</h2>
+      <section id="blog" className="journal-section">
+        <SectionLabel number="02">Blog</SectionLabel>
+        <div className="journal-spread">
+          <div className="journal-art">
+            <Artwork
+              name="poet-jacket-portrait"
+              alt="An engraved portrait of an independent-minded poet, jacket over one shoulder."
+            />
           </div>
-          <p className="section-intro">
-            The same view of market structure, delivered twice: once for you to
-            read, once for your agent to use. Agentics is still being built.
+          <div className="journal-copy">
+            <h2>
+              THINKING
+              <br />
+              OUT <span className="serif-word">loud.</span>
+            </h2>
+            <p className="lead">
+              Markets, the stories they tell,
+              <br />
+              and the ideas that won’t sit still.
+            </p>
+            <p>
+              Field notes on market behavior, competing explanations and the
+              evidence that changes a view.
+            </p>
+            <ArrowLink
+              href={destinations.substack || "/blog"}
+              external={Boolean(destinations.substack)}
+            >
+              {destinations.substack ? "Read on Substack" : "Explore the blog"}
+            </ArrowLink>
+            <span className="publication-note">
+              {destinations.substack
+                ? "Published on Substack."
+                : "Essays coming soon."}
+            </span>
+          </div>
+        </div>
+      </section>
+      <section id="about" className="manifesto-section">
+        <div>
+          <p className="eyebrow">03 / About</p>
+          <h2>
+            RIGOR IN THE WORK.
+            <br />
+            <span className="serif-word">Rebellion in the spirit.</span>
+          </h2>
+          <p>
+            Question the obvious. Make the reasoning visible. Leave room for a
+            different view. That’s the thread running through everything here.
           </p>
+          <ArrowLink href="/about">Meet Bitpunk</ArrowLink>
         </div>
-
-        {products.map((product) => (
-          <div className="product-row" key={product.key}>
-            <div className="product-row-head">
-              <p className="eyebrow">Product {product.index}</p>
-              <h2>{product.name}</h2>
-              <p className="tagline">{product.tagline}</p>
-              <p className="is-muted">{product.summary}</p>
-              {product.comingSoon ? (
-                <>
-                  <p>
-                    <span className="badge">Coming soon</span>
-                  </p>
-                  <p className="is-muted">
-                    In development. The capabilities below are what it is being
-                    built to do, not what you can call today.
-                  </p>
-                </>
-              ) : (
-                <div className="actions">
-                  <Link className="button button-secondary" href={product.href}>
-                    Explore {product.name}
-                  </Link>
-                </div>
-              )}
-            </div>
-            <ul className="capability-list">
-              {product.capabilities.map(([title, body]) => (
-                <li key={title}>
-                  <strong>{title}</strong>
-                  <span>{body}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </section>
-
-      <section className="block" aria-labelledby="open-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Open</p>
-            <h2 id="open-title">The rest is free.</h2>
-          </div>
-          <p className="section-intro">
-            The work is easier to trust when you can read it before you pay for
-            anything.
-          </p>
-        </div>
-        <div className="cell-grid cols-4">
-          <article>
-            <h3>Blog</h3>
-            <p>Market structure, trading systems, indicator design and engineering notes.</p>
-            {BLOG_URL ? (
-              <a className="text-link" href={BLOG_URL} target="_blank" rel="noopener noreferrer">
-                Read the Blog on Substack <span aria-hidden="true">↗</span>
-              </a>
-            ) : (
-              <Link className="text-link" href="/blog">Read the Blog</Link>
-            )}
-          </article>
-          <article>
-            <h3>Open Source</h3>
-            <p>Tools, schemas and agent utilities published under the Bitpunk org.</p>
-            <Link className="text-link" href="/open-source">Browse projects</Link>
-          </article>
-          <article>
-            <h3>Docs</h3>
-            <p>How to set the indicators up and how to connect an agent.</p>
-            <Link className="text-link" href="/docs">Read the docs</Link>
-          </article>
-          <article>
-            <h3>Discord</h3>
-            <p>Free for everyone. No account and no purchase required to join.</p>
-            <Link className="text-link" href="/about">About the community</Link>
-          </article>
-        </div>
-      </section>
-
-      <section className="block" aria-labelledby="pricing-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Pricing</p>
-            <h2 id="pricing-title">Free, then one step at a time.</h2>
-          </div>
-          <Link className="text-link" href="/pricing">See full pricing</Link>
-        </div>
-        <div className="fact-rail">
-          {tiers.map((tier) => (
-            <div key={tier.key}>
-              <span>{tier.name}</span>
-              <strong>
-                {tier.price}
-                {tier.priceCaption ? ` ${tier.priceCaption}` : ""}
-              </strong>
-              {tier.comingSoon ? (
-                <small>Coming soon</small>
-              ) : tier.termNote ? (
-                <small>{tier.termNote}</small>
-              ) : null}
-            </div>
-          ))}
-          <div>
-            <span>Settlement</span>
-            <strong>USDC · USDT</strong>
-          </div>
-        </div>
-        <p className="commerce-note">
-          Bitpunk Pro is sold as 30 prepaid days. Nothing renews automatically
-          — you buy the next period yourself when you want it. Bitpunk Max adds
-          Agentics, which is still in development: the price is published, but
-          it cannot be bought yet. Checkout is not open.
-        </p>
+        <Artwork
+          name="rose-thorns-safety-pin"
+          alt="A black rose with thorns and a dangling safety pin."
+          sizes="(max-width: 700px) 45vw, 25vw"
+        />
       </section>
     </>
   );

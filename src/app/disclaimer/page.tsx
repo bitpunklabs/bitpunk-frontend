@@ -4,8 +4,8 @@ export default function DisclaimerPage() {
       <p className="eyebrow">Disclaimer</p>
       <h1>Research, not investment advice.</h1>
       <p className="lead">
-        Bitpunk provides market research, educational material and analytical
-        tools. We do not provide personal investment advice or recommendations.
+        Bitpunk provides market research, commentary and educational material.
+        We do not provide personal investment advice or recommendations.
       </p>
       <div className="article-body">
         <h2>You make the decisions</h2>
