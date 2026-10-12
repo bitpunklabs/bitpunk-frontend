@@ -14,7 +14,7 @@ export default function TradingViewPage() {
       <PageHero
         eyebrow="Open source / TradingView"
         title={<>OPEN SCRIPTS.<br /><span className="serif-word">Closer reading.</span></>}
-        copy="Chart studies written in Pine Script. Explore the logic behind an observation, read the conditions, and adapt the code to your own research."
+        copy="Chart studies in Pine Script. Read the logic and adapt it to your own analysis."
         art="classical-bust-candlestick-blindfold"
         alt="A classical bust with a candlestick chart across its eyes."
       >
@@ -29,11 +29,11 @@ export default function TradingViewPage() {
         <div className="split-note">
           <h2>THE LOGIC<br /><span className="serif-word">in plain sight.</span></h2>
           <div>
-            <p>Open-source scripts make their calculations available to read. Start with the study’s description, compare its observations with the chart, and inspect how the conditions are expressed in code.</p>
-            <p>This page will collect Bitpunk’s public scripts and their introductions as they are published.</p>
+            <p>Read how each script works, then explore it on the chart.</p>
+            <p className="notice">Public scripts and introductions coming soon.</p>
             <ArrowLink href="/indicators">Explore paid indicators</ArrowLink>
             <br />
-            <ArrowLink href="/open-source/github">Explore the GitHub projects</ArrowLink>
+            <ArrowLink href="/open-source/github">Explore GitHub projects</ArrowLink>
           </div>
         </div>
       </section>

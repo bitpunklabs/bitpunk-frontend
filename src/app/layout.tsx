@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     template: "%s — Bitpunk",
   },
   description:
-    "Independent market research, open-source methods and field notes. Evidence, curiosity and a punk point of view.",
+    "Research, indicators and open-source tools for those who read the market.",
   openGraph: {
     type: "website",
     siteName: "Bitpunk",
     title: "Bitpunk — Independent market research.",
     description:
-      "Independent market research. Open methods. An independent point of view.",
+      "Research, indicators and open-source tools for those who read the market.",
   },
   twitter: { card: "summary_large_image" },
   icons: {

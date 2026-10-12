@@ -20,7 +20,7 @@ export default function AboutPage() {
             OF OUR <span className="serif-word">own.</span>
           </>
         }
-        copy="Bitpunk is a home for independent market research. We follow the evidence, question familiar narratives, and make room for a different view."
+        copy="Independent market research. Curious minds. Room for a different view."
         art="classical-bust-pinned-blindfold"
         alt="A classical bust with a torn-paper blindfold held by a safety pin."
       >
@@ -38,10 +38,8 @@ export default function AboutPage() {
             alt="An illustrated portrait of four punk musicians."
           />
           <p>
-            The DIY impulse is simple: question what’s there, learn how it
-            works, and make something yourself. We bring that attitude to market
-            research: examine the evidence, test the explanation, and form our
-            own view.
+            Question what’s there. Learn how it works. Make something yourself.
+            That DIY spirit shapes our research.
           </p>
         </div>
         <div className="capability-grid">
@@ -50,8 +48,7 @@ export default function AboutPage() {
             <div>
               <h3>Question the obvious.</h3>
               <p>
-                Keep evidence and interpretation separate. Give an idea room to
-                be challenged.
+                Look at the evidence. Test the idea.
               </p>
             </div>
           </article>
@@ -60,8 +57,7 @@ export default function AboutPage() {
             <div>
               <h3>Show your working.</h3>
               <p>
-                Make the assumptions, methods and limits visible. Good work
-                should stand up to a closer look.
+                Make the reasoning and its limits visible.
               </p>
             </div>
           </article>
@@ -70,8 +66,7 @@ export default function AboutPage() {
             <div>
               <h3>Stay open to revision.</h3>
               <p>
-                State what would change the thesis. Revisit conclusions as new
-                evidence arrives, and make uncertainty part of the work.
+                Revisit your view when the evidence changes.
               </p>
             </div>
           </article>
@@ -80,8 +75,7 @@ export default function AboutPage() {
             <div>
               <h3>Keep your own voice.</h3>
               <p>
-                Discipline and imagination belong together. Leave space for art,
-                music and a different perspective.
+                Leave room for art, music and a different perspective.
               </p>
             </div>
           </article>
@@ -96,8 +90,7 @@ export default function AboutPage() {
             <span className="serif-word">beautiful friction.</span>
           </h2>
           <p>
-            Engraved lines, safety pins and familiar forms turned sideways. A
-            visual nod to the DIY energy of punk and the absurdity of collage.
+            Sketches, safety pins and familiar forms turned sideways.
           </p>
         </div>
         <div className="art-gallery">

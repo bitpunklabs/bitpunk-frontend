@@ -3,15 +3,15 @@ import { PageHero, SectionLabel, ArrowLink } from "@/components/editorial";
 
 export const metadata: Metadata = {
   title: "Indicator",
-  description: "Bitpunk’s paid TradingView indicators: market structure, screening, alerts and structured signals.",
+  description: "TradingView indicators for exploring trend context and market structure.",
   alternates: { canonical: "/indicators" },
 };
 
 const capabilities = [
-  { title: "Market structure", copy: "Read trends, ranges and the levels that frame a chart. Bring each observation back to its market context." },
-  { title: "Screening", copy: "Narrow a broad watchlist to the instruments that deserve a closer look, using a consistent set of conditions." },
-  { title: "Alerts", copy: "Follow defined conditions as they appear on the chart. Keep the signal connected to the reason it matters." },
-  { title: "Structured output", copy: "Carry chart observations into your own workflow with structured signals and webhook output." },
+  { title: "Market structure", copy: "Read trends, ranges and key levels in context." },
+  { title: "Screening", copy: "Find charts that match your criteria." },
+  { title: "Alerts", copy: "Follow the conditions you choose." },
+  { title: "Structured output", copy: "Use chart signals in your own workflow." },
 ];
 
 export default function IndicatorsPage() {
@@ -20,11 +20,11 @@ export default function IndicatorsPage() {
       <PageHero
         eyebrow="BP / Indicator — Paid TradingView tools"
         title={<>READ BETWEEN<br />THE CANDLES.</>}
-        copy="Bitpunk’s paid TradingView indicators bring market structure, screening and alerts into a consistent chart-reading process. Built for a considered view of the market."
+        copy="Explore trend context and market structure. A framework for your own analysis."
         art="classical-bust-candlestick-blindfold"
         alt="A classical bust with a candlestick chart across its eyes."
       >
-        <ArrowLink href="#capabilities" solid>Explore the indicators</ArrowLink>
+        <ArrowLink href="#capabilities" solid>Explore indicators</ArrowLink>
       </PageHero>
       <section className="content-section" id="capabilities">
         <SectionLabel number="01">Inside the toolkit</SectionLabel>
@@ -38,12 +38,12 @@ export default function IndicatorsPage() {
         </div>
       </section>
       <section className="content-section">
-        <SectionLabel number="02">A repeatable reading process</SectionLabel>
+        <SectionLabel number="02">Your own view</SectionLabel>
         <div className="split-note">
           <h2>OBSERVATION FIRST.<br /><span className="serif-word">Judgment stays yours.</span></h2>
           <div>
-            <p>Structure, context and defined conditions give you something to investigate, compare and revisit as the market changes.</p>
-            <p className="notice">Individual indicator introductions and access details are coming soon.</p>
+            <p>Use the tools to explore the chart and form your own view.</p>
+            <p className="notice">Indicator details and access coming soon.</p>
             <ArrowLink href="/open-source/tradingview">Explore open-source scripts</ArrowLink>
           </div>
         </div>

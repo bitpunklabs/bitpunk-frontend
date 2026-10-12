@@ -23,7 +23,7 @@ export const destinations = {
 };
 export const navigation = [
   { href: "/indicators", label: "Indicator" },
-  { href: "/open-source", label: "Open source" },
   { href: "/blog", label: "Blog" },
+  { href: "/open-source", label: "Open source" },
   { href: "/about", label: "About" },
 ];

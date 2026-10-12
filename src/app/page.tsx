@@ -17,13 +17,12 @@ export default function HomePage() {
             <br />
             <span className="ink-outline">MAKE NOISE.</span>
           </h1>
-          <p className="hero-deck">For those who read the market.</p>
-          <p className="hero-description">
-            Research, indicators and open-source tools.
+          <p className="hero-deck">
+            Research, indicators and open-source tools for those who read the market.
           </p>
           <div className="hero-actions">
             <ArrowLink href="#indicators" solid>Explore indicators</ArrowLink>
-            <ArrowLink href="#work">Explore open source</ArrowLink>
+            <ArrowLink href="#blog">Explore research</ArrowLink>
           </div>
         </div>
         <HeroArt />
@@ -33,8 +32,8 @@ export default function HomePage() {
         <div className="journal-spread indicator-spread">
           <div className="journal-copy">
             <h2>READ BETWEEN<br /><span className="serif-word">the candles.</span></h2>
-            <p className="lead">Structure, context,<br />and signals worth a closer look.</p>
-            <p>Paid TradingView indicators for a consistent reading process. Explore market structure, focus your watchlist, and follow defined conditions with alerts and structured output.</p>
+            <p className="lead">A closer look<br />at the market.</p>
+            <p>Explore trend context and market structure with our TradingView indicators.</p>
             <ArrowLink href="/indicators">Explore indicators</ArrowLink>
           </div>
           <div className="journal-art">
@@ -46,8 +45,43 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <section id="blog" className="journal-section">
+        <SectionLabel number="02">Blog</SectionLabel>
+        <div className="journal-spread">
+          <div className="journal-art">
+            <Artwork
+              name="poet-jacket-portrait"
+              alt="An engraved portrait of an independent-minded poet, jacket over one shoulder."
+            />
+          </div>
+          <div className="journal-copy">
+            <h2>
+              THINKING
+              <br />
+              OUT <span className="serif-word">loud.</span>
+            </h2>
+            <p className="lead">
+              Notes on markets.<br />Room for a different view.
+            </p>
+            <p>
+              Research and reflections on a changing market.
+            </p>
+            <ArrowLink
+              href={destinations.substack || "/blog"}
+              external={Boolean(destinations.substack)}
+            >
+              {destinations.substack ? "Read on Substack" : "Explore research"}
+            </ArrowLink>
+            <span className="publication-note">
+              {destinations.substack
+                ? "Published on Substack."
+                : "Essays coming soon."}
+            </span>
+          </div>
+        </div>
+      </section>
       <section id="work" className="work-section">
-        <SectionLabel number="02">Open source</SectionLabel>
+        <SectionLabel number="03">Open source</SectionLabel>
         <div className="journal-spread research-spread">
           <div className="journal-art research-art">
             <Artwork
@@ -63,54 +97,12 @@ export default function HomePage() {
               <span className="serif-word">in the open.</span>
             </h2>
             <p className="lead">
-              A point of view is only as useful
-              <br />
-              as the reasoning behind it.
+              Open ideas.<br />Shared tools.
             </p>
             <p>
-              Explore the code behind the research, starting with Ticker
-              Universe Builder: market universes with explicit criteria, dated
-              evidence and a record you can inspect.
+              Explore the code, follow the methods, and build on the work.
             </p>
             <ArrowLink href="/open-source">Explore open source</ArrowLink>
-          </div>
-        </div>
-      </section>
-      <section id="blog" className="journal-section">
-        <SectionLabel number="03">Blog</SectionLabel>
-        <div className="journal-spread">
-          <div className="journal-art">
-            <Artwork
-              name="poet-jacket-portrait"
-              alt="An engraved portrait of an independent-minded poet, jacket over one shoulder."
-            />
-          </div>
-          <div className="journal-copy">
-            <h2>
-              THINKING
-              <br />
-              OUT <span className="serif-word">loud.</span>
-            </h2>
-            <p className="lead">
-              Markets, the stories they tell,
-              <br />
-              and the ideas that won’t sit still.
-            </p>
-            <p>
-              Field notes on market behavior, competing explanations and the
-              evidence that changes a view.
-            </p>
-            <ArrowLink
-              href={destinations.substack || "/blog"}
-              external={Boolean(destinations.substack)}
-            >
-              {destinations.substack ? "Read on Substack" : "Explore the blog"}
-            </ArrowLink>
-            <span className="publication-note">
-              {destinations.substack
-                ? "Published on Substack."
-                : "Essays coming soon."}
-            </span>
           </div>
         </div>
       </section>
@@ -123,8 +115,7 @@ export default function HomePage() {
             <span className="serif-word">Rebellion in the spirit.</span>
           </h2>
           <p>
-            Question the obvious. Make the reasoning visible. Leave room for a
-            different view. That’s the thread running through everything here.
+            Think independently. Show the reasoning. Stay open to change.
           </p>
           <ArrowLink href="/about">Meet Bitpunk</ArrowLink>
         </div>

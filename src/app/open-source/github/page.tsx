@@ -19,7 +19,7 @@ export default function GitHubPage() {
             TRAVEL <span className="serif-word">open.</span>
           </>
         }
-        copy="Research benefits from a closer look. Read the code, examine the evidence, and follow the reasoning from question to conclusion."
+        copy="Research tools, shared openly. Explore the methods and code behind the work."
         art="sculpture-hand-safety-pin"
         alt="An engraved hand holding a safety pin."
       >
@@ -37,10 +37,8 @@ export default function GitHubPage() {
               BUILDER
             </h2>
             <p>
-              An agent skill for building auditable ticker universes across 14
-              markets. It turns market research into a structured collection of
-              instruments, with dated evidence and an explicit role for every
-              member.
+              Build ticker universes across 14 markets, with clear criteria and
+              dated evidence.
             </p>
             <div className="project-meta">
               <span className="tag">Python</span>
@@ -48,7 +46,7 @@ export default function GitHubPage() {
               <span className="tag">Agent skill</span>
             </div>
             <ArrowLink href={destinations.universe} external solid>
-              Explore the repository
+              View repository
             </ArrowLink>
           </div>
           <dl className="project-spec">
@@ -58,15 +56,15 @@ export default function GitHubPage() {
             </div>
             <div>
               <dt>Outputs</dt>
-              <dd>Watchlists, JSON snapshots and validation reports</dd>
+              <dd>Watchlists, JSON and reports</dd>
             </div>
             <div>
               <dt>Traceability</dt>
-              <dd>Membership roles, reasons and dated evidence</dd>
+              <dd>Clear criteria and dated evidence</dd>
             </div>
             <div>
               <dt>Validation</dt>
-              <dd>Deterministic checks over agent-produced research</dd>
+              <dd>Automated checks</dd>
             </div>
             <div>
               <dt>Runtime</dt>
@@ -81,8 +79,7 @@ export default function GitHubPage() {
           <span className="eyebrow">↳</span>
           <h3>THIS WEBSITE</h3>
           <p>
-            The source behind this little corner of the internet. Built with
-            Next.js and an independent visual language.
+            The code behind this website, built with Next.js.
           </p>
           <ArrowLink href={destinations.website} external>
             View source

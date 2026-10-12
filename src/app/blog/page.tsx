@@ -4,24 +4,24 @@ import { destinations } from "@/lib/showcase";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Independent market research and field notes. Observations, working hypotheses and the reasoning behind a point of view.",
+    "Independent market research, essays and field notes.",
   alternates: { canonical: "/blog" },
 };
 const topics = [
   [
     "01",
     "Markets & methods",
-    "Observations, working hypotheses and the process of changing your mind.",
+    "Observations and ideas worth exploring.",
   ],
   [
     "02",
     "Evidence & context",
-    "The sources, structural shifts and competing explanations behind a market narrative.",
+    "A closer look at the stories behind the market.",
   ],
   [
     "03",
     "Independent thought",
-    "Reading, creative detours and ideas from beyond the chart.",
+    "Ideas from beyond the chart.",
   ],
 ];
 export default function BlogPage() {
@@ -31,7 +31,7 @@ export default function BlogPage() {
         eyebrow={
           destinations.substack
             ? "The Bitpunk Blog / Published on Substack"
-            : "The Bitpunk Blog / Coming to this space"
+            : "The Bitpunk Blog"
         }
         title={
           <>
@@ -40,7 +40,7 @@ export default function BlogPage() {
             OUT <span className="serif-word">loud.</span>
           </>
         }
-        copy="A place for the longer thought. Field notes on markets, evidence and finding a point of view that’s your own."
+        copy="Research, essays and notes on a changing market."
         art="poet-jacket-portrait"
         alt="A monochrome engraved poet with a loose tie and a jacket over one shoulder."
       >
@@ -49,15 +49,11 @@ export default function BlogPage() {
             Read on Substack
           </ArrowLink>
         ) : (
-          <div className="notice">
-            <strong>The blog is coming to this space.</strong>
-            <br />
-            The Substack publication link will appear here when it’s ready.
-          </div>
+          <p className="notice">Essays coming soon.</p>
         )}
       </PageHero>
       <section className="content-section">
-        <SectionLabel number="01">What you’ll find in the margins</SectionLabel>
+        <SectionLabel number="01">In the margins</SectionLabel>
         <div className="topic-list">
           {topics.map(([number, title, text]) => (
             <article key={number}>
@@ -77,11 +73,9 @@ export default function BlogPage() {
           </h2>
           <div>
             <p>
-              The open-source work is another way into the research: inspect a
-              repository, examine an approach, and trace the reasoning back to
-              its evidence.
+              Explore the tools and methods behind the research.
             </p>
-            <ArrowLink href="/open-source">Explore the research code</ArrowLink>
+            <ArrowLink href="/open-source">Explore open source</ArrowLink>
           </div>
         </div>
       </section>

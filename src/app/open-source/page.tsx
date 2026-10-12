@@ -13,11 +13,11 @@ export default function OpenSourcePage() {
       <PageHero
         eyebrow="BP / Open source"
         title={<>GOOD IDEAS<br />TRAVEL <span className="serif-word">open.</span></>}
-        copy="Research benefits from a closer look. Explore the chart studies, inspect the code, and follow the reasoning behind the work."
+        copy="Open scripts and research tools. Read the code and build on the work."
         art="sculpture-hand-safety-pin"
         alt="An engraved hand holding a safety pin."
       >
-        <ArrowLink href="#platforms" solid>Explore the projects</ArrowLink>
+        <ArrowLink href="#platforms" solid>Explore projects</ArrowLink>
       </PageHero>
       <section className="content-section" id="platforms">
         <SectionLabel number="01">Two places to explore</SectionLabel>
@@ -26,7 +26,7 @@ export default function OpenSourcePage() {
             <span>01</span>
             <div>
               <h3>TRADINGVIEW</h3>
-              <p>Open-source chart studies. A place to explore how each script reads the market and how its conditions are defined.</p>
+              <p>Chart studies with the logic open to view.</p>
               <ArrowLink href="/open-source/tradingview">Explore TradingView scripts</ArrowLink>
             </div>
           </article>
@@ -34,7 +34,7 @@ export default function OpenSourcePage() {
             <span>02</span>
             <div>
               <h3>GITHUB</h3>
-              <p>Research tools and the code behind Bitpunk. Browse the repositories, inspect the methods, and build on the work.</p>
+              <p>Research tools and the code behind Bitpunk.</p>
               <ArrowLink href="/open-source/github">Explore GitHub projects</ArrowLink>
             </div>
           </article>
