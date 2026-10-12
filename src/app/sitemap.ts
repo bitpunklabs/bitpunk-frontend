@@ -2,7 +2,10 @@ import type { MetadataRoute } from "next";
 import { getSiteUrl } from "@/lib/seo";
 const paths = [
   "",
+  "/indicators",
   "/open-source",
+  "/open-source/tradingview",
+  "/open-source/github",
   "/blog",
   "/about",
   "/privacy",

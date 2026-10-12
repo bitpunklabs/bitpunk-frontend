@@ -16,7 +16,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 30px;
+  scroll-padding-top: 128px;
 }
 body {
   margin: 0;
@@ -104,8 +104,10 @@ h3 {
   align-items: center;
   gap: 30px;
   border-bottom: 1px solid var(--ink);
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  z-index: 30;
 }
 .wordmark {
   font-weight: 700;
@@ -140,13 +142,11 @@ h3 {
   font-size: 13px;
   font-weight: 600;
 }
-.site-nav > a,
-.nav-source-heading > a {
+.site-nav > a {
   position: relative;
   white-space: nowrap;
 }
-.site-nav > a::after,
-.nav-source-heading > a::after {
+.site-nav > a::after {
   content: "";
   position: absolute;
   bottom: -7px;
@@ -159,71 +159,8 @@ h3 {
   transition: transform 0.2s;
 }
 .site-nav > a:hover::after,
-.site-nav > a[aria-current="page"]::after,
-.nav-source-heading > a:hover::after,
-.nav-source-heading > a[aria-current="page"]::after {
+.site-nav > a[aria-current="page"]::after {
   transform: scaleX(1);
-}
-.nav-source {
-  position: relative;
-}
-.nav-source-heading {
-  display: flex;
-  align-items: center;
-}
-.source-toggle {
-  display: grid;
-  place-items: center;
-  border: 0;
-  background: transparent;
-  width: 28px;
-  height: 44px;
-  padding: 7px;
-}
-.source-toggle svg {
-  width: 12px;
-  transition: transform 0.2s;
-}
-.source-toggle[aria-expanded="true"] svg {
-  transform: rotate(180deg);
-}
-.source-dropdown {
-  position: absolute;
-  z-index: 20;
-  top: 100%;
-  left: -16px;
-  min-width: 230px;
-  padding: 7px;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  box-shadow: 0 12px 25px #171b1c0c;
-}
-.source-dropdown[hidden] {
-  display: none;
-}
-.source-option {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  min-height: 44px;
-  padding: 10px;
-  font-size: 13px;
-}
-.source-option + .source-option {
-  border-top: 1px solid var(--line);
-}
-a.source-option:hover {
-  color: var(--accent);
-  background: #171b1c05;
-}
-.source-option.is-placeholder {
-  color: var(--muted);
-  cursor: default;
-}
-.source-status {
-  font: 9px var(--font-mono);
-  white-space: nowrap;
 }
 .nav-socials {
   display: flex;
@@ -242,6 +179,10 @@ a.source-option:hover {
   background: transparent;
   color: var(--muted);
   cursor: default;
+}
+.social-placeholder.is-available {
+  color: var(--ink);
+  cursor: pointer;
 }
 .social-placeholder > svg {
   width: 18px;
@@ -271,7 +212,6 @@ a.source-option:hover {
 .eyebrow,
 .section-label,
 .art-caption,
-.art-controls,
 .tag,
 .project-type,
 .publication-note,
@@ -351,8 +291,15 @@ a.source-option:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
 }
-.hero-copy > .button {
+.hero-actions {
   margin-top: 29px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 26px;
+}
+.capability .text-link {
+  margin-top: 24px;
 }
 
 .hero-art {
@@ -382,67 +329,6 @@ a.source-option:hover {
   display: block;
   object-fit: contain;
 }
-.art-orbit {
-  position: absolute;
-  width: min(88%, 480px);
-  aspect-ratio: 1;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.art-orbit::after {
-  content: "";
-  position: absolute;
-  inset: 13px;
-  border: 1px dashed var(--line);
-  border-radius: 50%;
-}
-.art-registration {
-  position: absolute;
-  font-family: var(--font-mono);
-  color: var(--muted);
-  font-size: 20px;
-}
-.top-left {
-  top: 2%;
-  left: 5%;
-}
-.bottom-right {
-  bottom: 2%;
-  right: 2%;
-}
-
-.art-controls {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 12px;
-  margin-top: 10px;
-  padding: 13px 0;
-  border-top: 1px solid var(--line);
-  font-size: 9px;
-}
-.side-switch {
-  display: flex;
-  gap: 2px;
-}
-.side-switch button {
-  border: 0;
-  background: none;
-  padding: 8px 11px;
-  text-transform: uppercase;
-  font: inherit;
-  transition: background 0.2s;
-}
-.side-switch button[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--paper);
-}
-.side-switch button:hover {
-  box-shadow: inset 0 -1px var(--ink);
-}
 .work-section,
 .journal-section {
   padding: 34px 0 75px;
@@ -451,7 +337,7 @@ a.source-option:hover {
 }
 .section-label {
   display: grid;
-  grid-template-columns: 70px 1fr auto;
+  grid-template-columns: 70px 1fr;
   gap: 15px;
   font-size: 10px;
 }
@@ -1057,7 +943,7 @@ a.source-option:hover {
   }
 
   .site-nav {
-    gap: 22px;
+    gap: 18px;
   }
   .home-hero {
     min-height: 620px;
@@ -1097,7 +983,10 @@ a.source-option:hover {
     min-height: 88px;
   }
   .site-nav {
-    gap: 18px;
+    gap: 12px;
+  }
+  .nav-socials {
+    padding-left: 8px;
   }
   .wordmark {
     font-size: 42px;
@@ -1185,6 +1074,8 @@ a.source-option:hover {
   }
   .site-nav {
     display: none;
+    max-height: calc(100dvh - 80px);
+    overflow-y: auto;
     position: absolute;
     top: calc(100% + 1px);
     left: -20px;
@@ -1204,38 +1095,13 @@ a.source-option:hover {
     border-bottom: 1px solid var(--line);
     font-size: 16px;
   }
-  .site-nav > a::after,
-  .nav-source-heading > a::after {
+  .site-nav > a::after {
     display: none;
   }
   .site-nav > a[aria-current="page"] {
     color: var(--accent);
   }
 
-  .nav-source {
-    border-bottom: 1px solid var(--line);
-  }
-  .nav-source-heading {
-    justify-content: space-between;
-  }
-  .nav-source-heading > a {
-    flex: 1;
-    padding: 14px 0;
-    font-size: 16px;
-  }
-  .source-toggle {
-    width: 44px;
-  }
-  .nav-source-heading > a::after {
-    display: none;
-  }
-  .source-dropdown {
-    position: static;
-    min-width: 0;
-    width: 100%;
-    margin-bottom: 12px;
-    box-shadow: none;
-  }
   .nav-socials {
     border-left: 0;
     padding: 12px 0 0;
@@ -1279,8 +1145,12 @@ a.source-option:hover {
   .hero-description {
     font-size: 13px;
   }
-  .hero-copy > .button {
+  .hero-actions {
     margin-top: 22px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .hero-actions > .button {
     gap: 50px;
   }
   .hero-art {
@@ -1290,25 +1160,15 @@ a.source-option:hover {
     height: 400px;
     max-height: 110vw;
   }
-  .art-orbit {
-    width: 86%;
-    max-width: 350px;
-    max-height: 95%;
-  }
   .hero-figure {
     max-width: 460px;
   }
-  .art-controls {
-    margin-top: 4px;
-    font-size: 8px;
-  }
-
   .work-section,
   .journal-section {
     padding: 25px 0 40px;
   }
   .section-label {
-    grid-template-columns: 29px 1fr auto;
+    grid-template-columns: 29px 1fr;
     font-size: 8px;
     gap: 8px;
   }

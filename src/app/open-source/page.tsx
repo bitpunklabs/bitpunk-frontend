@@ -1,92 +1,43 @@
 import type { Metadata } from "next";
 import { PageHero, SectionLabel, ArrowLink } from "@/components/editorial";
-import { destinations } from "@/lib/showcase";
+
 export const metadata: Metadata = {
   title: "Open source",
-  description:
-    "Open-source research from Bitpunk Labs. Inspect the methods, evidence and code behind Ticker Universe Builder.",
+  description: "Explore Bitpunk’s open-source TradingView scripts and research projects on GitHub.",
   alternates: { canonical: "/open-source" },
 };
+
 export default function OpenSourcePage() {
   return (
     <>
       <PageHero
-        eyebrow="BP / 01 — Open source"
-        title={
-          <>
-            GOOD IDEAS
-            <br />
-            TRAVEL <span className="serif-word">open.</span>
-          </>
-        }
-        copy="Research benefits from a closer look. Read the code, examine the evidence, and follow the reasoning from question to conclusion."
+        eyebrow="BP / Open source"
+        title={<>GOOD IDEAS<br />TRAVEL <span className="serif-word">open.</span></>}
+        copy="Research benefits from a closer look. Explore the chart studies, inspect the code, and follow the reasoning behind the work."
         art="sculpture-hand-safety-pin"
         alt="An engraved hand holding a safety pin."
       >
-        <ArrowLink href={destinations.github} external solid>
-          Visit Bitpunk on GitHub
-        </ArrowLink>
+        <ArrowLink href="#platforms" solid>Explore the projects</ArrowLink>
       </PageHero>
-      <section className="content-section">
-        <SectionLabel number="01">Featured repository</SectionLabel>
-        <div className="project-feature">
-          <div>
-            <h2>
-              TICKER UNIVERSE
-              <br />
-              BUILDER
-            </h2>
-            <p>
-              An agent skill for building auditable ticker universes across 14
-              markets. It turns market research into a structured collection of
-              instruments, with dated evidence and an explicit role for every
-              member.
-            </p>
-            <div className="project-meta">
-              <span className="tag">Python</span>
-              <span className="tag">MIT license</span>
-              <span className="tag">Agent skill</span>
-            </div>
-            <ArrowLink href={destinations.universe} external solid>
-              Explore the repository
-            </ArrowLink>
-          </div>
-          <dl className="project-spec">
+      <section className="content-section" id="platforms">
+        <SectionLabel number="01">Two places to explore</SectionLabel>
+        <div className="capability-grid">
+          <article className="capability">
+            <span>01</span>
             <div>
-              <dt>Coverage</dt>
-              <dd>14 supported markets</dd>
+              <h3>TRADINGVIEW</h3>
+              <p>Open-source chart studies. A place to explore how each script reads the market and how its conditions are defined.</p>
+              <ArrowLink href="/open-source/tradingview">Explore TradingView scripts</ArrowLink>
             </div>
+          </article>
+          <article className="capability">
+            <span>02</span>
             <div>
-              <dt>Outputs</dt>
-              <dd>Watchlists, JSON snapshots and validation reports</dd>
+              <h3>GITHUB</h3>
+              <p>Research tools and the code behind Bitpunk. Browse the repositories, inspect the methods, and build on the work.</p>
+              <ArrowLink href="/open-source/github">Explore GitHub projects</ArrowLink>
             </div>
-            <div>
-              <dt>Traceability</dt>
-              <dd>Membership roles, reasons and dated evidence</dd>
-            </div>
-            <div>
-              <dt>Validation</dt>
-              <dd>Deterministic checks over agent-produced research</dd>
-            </div>
-            <div>
-              <dt>Runtime</dt>
-              <dd>Python 3.10+ · standard library</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-      <section className="content-section">
-        <SectionLabel number="02">Behind the publication</SectionLabel>
-        <div className="source-row">
-          <span className="eyebrow">↳</span>
-          <h3>THIS WEBSITE</h3>
-          <p>
-            The source behind this little corner of the internet. Built with
-            Next.js and an independent visual language.
-          </p>
-          <ArrowLink href={destinations.website} external>
-            View source
-          </ArrowLink>
+          </article>
         </div>
       </section>
     </>

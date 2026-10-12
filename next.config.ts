@@ -33,7 +33,6 @@ const nextConfig: NextConfig = {
         "/account/:path*",
         "/pricing",
         "/refund-policy",
-        "/indicators",
         "/agentics",
         "/docs",
       ].map((source) => ({

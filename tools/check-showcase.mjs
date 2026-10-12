@@ -3,7 +3,10 @@ import assert from "node:assert/strict";
 const origin = new URL(process.argv[2] || "http://localhost:3000");
 const paths = [
   "/",
+  "/indicators",
   "/open-source",
+  "/open-source/tradingview",
+  "/open-source/github",
   "/blog",
   "/about",
   "/privacy",
@@ -15,7 +18,7 @@ const linkedPages = new Set();
 const assets = new Set();
 const fragments = [];
 const retired =
-  /^(?:\/account|\/auth|\/login|\/register|\/pricing|\/refund-policy|\/indicators|\/agentics|\/docs)(?:\/|$)/;
+  /^(?:\/account|\/auth|\/login|\/register|\/pricing|\/refund-policy|\/agentics|\/docs)(?:\/|$)/;
 for (const path of paths) {
   const response = await fetch(new URL(path, origin));
   assert.equal(response.status, 200, path);
@@ -26,13 +29,6 @@ for (const path of paths) {
   );
   const html = await response.text();
   pages.set(path, html);
-  const visibleCopy = html
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
-    .replace(/<[^>]+>/g, " ");
-  assert.ok(
-    !/\b(indicators|tools)\b/i.test(visibleCopy),
-    `${path} retains retired product copy`,
-  );
   assert.equal(
     (html.match(/<h1(?:\s|>)/g) || []).length,
     1,
@@ -78,7 +74,6 @@ for (const path of [
   "/refund-policy",
   "/auth/callback?code=smoke-only&next=https://example.invalid",
   "/auth/retired",
-  "/indicators",
   "/agentics",
   "/docs",
 ]) {
@@ -103,5 +98,5 @@ assert.match(
   /Sitemap:/,
 );
 console.log(
-  `PASS: ${pages.size} public pages; ${assets.size} image deliveries; internal links and anchors; 12 retired redirects; 404; sitemap; no account forms or session cookies.`,
+  `PASS: ${pages.size} public pages; ${assets.size} image deliveries; internal links and anchors; 11 retired redirects; 404; sitemap; no account forms or session cookies.`,
 );

@@ -26,14 +26,33 @@ export default function HomePage() {
             Evidence, open methods and field notes.
             <br />A considered view. Always open to question.
           </p>
-          <ArrowLink href="#work" solid>
-            Explore the work
-          </ArrowLink>
+          <div className="hero-actions">
+            <ArrowLink href="#indicators" solid>Explore indicators</ArrowLink>
+            <ArrowLink href="#work">Explore open source</ArrowLink>
+          </div>
         </div>
         <HeroArt />
       </section>
+      <section id="indicators" className="work-section">
+        <SectionLabel number="01">Indicator</SectionLabel>
+        <div className="journal-spread indicator-spread">
+          <div className="journal-copy">
+            <h2>READ BETWEEN<br /><span className="serif-word">the candles.</span></h2>
+            <p className="lead">Structure, context,<br />and signals worth a closer look.</p>
+            <p>Paid TradingView indicators for a consistent reading process. Explore market structure, focus your watchlist, and follow defined conditions with alerts and structured output.</p>
+            <ArrowLink href="/indicators">Explore indicators</ArrowLink>
+          </div>
+          <div className="journal-art">
+            <Artwork
+              name="classical-bust-candlestick-blindfold"
+              alt="A classical bust with a candlestick chart across its eyes."
+              sizes="(max-width: 700px) 85vw, 42vw"
+            />
+          </div>
+        </div>
+      </section>
       <section id="work" className="work-section">
-        <SectionLabel number="01">Open source</SectionLabel>
+        <SectionLabel number="02">Open source</SectionLabel>
         <div className="journal-spread research-spread">
           <div className="journal-art research-art">
             <Artwork
@@ -63,7 +82,7 @@ export default function HomePage() {
         </div>
       </section>
       <section id="blog" className="journal-section">
-        <SectionLabel number="02">Blog</SectionLabel>
+        <SectionLabel number="03">Blog</SectionLabel>
         <div className="journal-spread">
           <div className="journal-art">
             <Artwork
@@ -102,7 +121,7 @@ export default function HomePage() {
       </section>
       <section id="about" className="manifesto-section">
         <div>
-          <p className="eyebrow">03 / About</p>
+          <p className="eyebrow">04 / About</p>
           <h2>
             RIGOR IN THE WORK.
             <br />

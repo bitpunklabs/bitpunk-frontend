@@ -38,41 +38,65 @@ function SocialPlaceholders() {
           YouTube · Coming soon
         </span>
       </button>
+      {destinations.discord ? (
+        <a
+          className="social-placeholder is-available"
+          href={destinations.discord}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Join Bitpunk on Discord"
+        >
+          <DiscordIcon />
+          <span className="social-tooltip" aria-hidden="true">
+            Discord
+          </span>
+        </a>
+      ) : (
+        <button
+          type="button"
+          className="social-placeholder"
+          aria-disabled="true"
+          aria-label="Discord — coming soon"
+        >
+          <DiscordIcon />
+          <span className="social-tooltip" aria-hidden="true">
+            Discord · Coming soon
+          </span>
+        </button>
+      )}
     </div>
+  );
+}
+
+function DiscordIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M19.7 5.1a18 18 0 0 0-4.5-1.4l-.6 1.2a16 16 0 0 0-5.2 0l-.6-1.2a18 18 0 0 0-4.5 1.4C1.5 9.2.7 13.2 1.1 17.1a18 18 0 0 0 5.5 2.8l1.1-1.8-1.7-.8.4-.3a13 13 0 0 0 11.2 0l.4.3-1.7.8 1.1 1.8a18 18 0 0 0 5.5-2.8c.5-4.5-.8-8.5-3.2-12ZM8.6 14.7c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.8 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z" />
+    </svg>
   );
 }
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [sourceOpen, setSourceOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
-  const sourceToggle = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     function escape(event: KeyboardEvent) {
-      if (event.key !== "Escape") return;
-      if (sourceOpen) {
-        setSourceOpen(false);
-        sourceToggle.current?.focus();
-      } else if (open) {
+      if (event.key === "Escape" && open) {
         setOpen(false);
         toggle.current?.focus();
       }
     }
     window.addEventListener("keydown", escape);
     return () => window.removeEventListener("keydown", escape);
-  }, [open, sourceOpen]);
-  function closeNavigation() {
-    setOpen(false);
-    setSourceOpen(false);
-  }
+  }, [open]);
   return (
     <header className="site-header">
       <Link
         className="wordmark"
         href="/"
         aria-label="Bitpunk home"
-        onClick={closeNavigation}
+        onClick={() => setOpen(false)}
       >
         <Wordmark />
       </Link>
@@ -82,107 +106,29 @@ export function SiteHeader() {
         type="button"
         aria-expanded={open}
         aria-controls="site-navigation"
-        onClick={() => {
-          setOpen(!open);
-          setSourceOpen(false);
-        }}
+        onClick={() => setOpen(!open)}
       >
-        {open ? "Close −" : "Menu +"}
+        {open ? "Close" : "Menu"}
       </button>
       <nav
         id="site-navigation"
         className={open ? "site-nav is-open" : "site-nav"}
         aria-label="Main navigation"
       >
-        {navigation.map(({ href, label }) =>
-          href === "/open-source" ? (
-            <div
-              key={href}
-              className="nav-source"
-              onPointerEnter={(event) => {
-                if (
-                  event.pointerType === "mouse" &&
-                  window.matchMedia("(min-width: 701px) and (hover: hover)")
-                    .matches
-                )
-                  setSourceOpen(true);
-              }}
-              onPointerLeave={(event) => {
-                if (
-                  event.pointerType === "mouse" &&
-                  window.matchMedia("(min-width: 701px) and (hover: hover)")
-                    .matches
-                )
-                  setSourceOpen(false);
-              }}
-              onBlur={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget))
-                  setSourceOpen(false);
-              }}
-            >
-              <div className="nav-source-heading">
-                <Link
-                  href={href}
-                  aria-current={pathname === href ? "page" : undefined}
-                  onClick={closeNavigation}
-                >
-                  {label}
-                </Link>
-                <button
-                  ref={sourceToggle}
-                  type="button"
-                  className="source-toggle"
-                  aria-label="Open source links"
-                  aria-expanded={sourceOpen}
-                  aria-controls="source-destinations"
-                  onClick={() => setSourceOpen(!sourceOpen)}
-                >
-                  <svg viewBox="0 0 12 12" aria-hidden="true">
-                    <path
-                      d="m3 4.5 3 3 3-3"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.4"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div
-                id="source-destinations"
-                className="source-dropdown"
-                hidden={!sourceOpen}
-              >
-                <span
-                  className="source-option is-placeholder"
-                  role="link"
-                  aria-disabled="true"
-                >
-                  <span>TradingView</span>
-                  <span className="source-status">Coming soon</span>
-                </span>
-                <a
-                  className="source-option"
-                  href={destinations.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeNavigation}
-                >
-                  <span>GitHub</span>
-                  <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
-          ) : (
-            <Link
-              key={href}
-              href={href}
-              aria-current={pathname === href ? "page" : undefined}
-              onClick={closeNavigation}
-            >
-              {label}
-            </Link>
-          ),
-        )}
+        {navigation.map(({ href, label }) => (
+          <Link
+            key={href}
+            href={href}
+            aria-current={
+              pathname === href || pathname.startsWith(`${href}/`)
+                ? "page"
+                : undefined
+            }
+            onClick={() => setOpen(false)}
+          >
+            {label}
+          </Link>
+        ))}
         <SocialPlaceholders />
       </nav>
     </header>

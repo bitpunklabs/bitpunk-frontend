@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/wordmark";
-import { destinations, navigation } from "@/lib/showcase";
+import { navigation } from "@/lib/showcase";
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -12,13 +12,7 @@ export function SiteFooter() {
               {item.label}
             </Link>
           ))}
-          <a
-            href={destinations.github}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub ↗
-          </a>
+          <Link href="/open-source/github">GitHub</Link>
         </nav>
       </div>
       <Link href="/" className="footer-wordmark" aria-label="Bitpunk home">
