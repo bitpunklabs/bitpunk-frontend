@@ -35,7 +35,7 @@ export default function AboutPage() {
         <div className="about-band">
           <Artwork
             name="punk-band-portrait"
-            alt="An engraved illustration of four leather-clad punk musicians."
+            alt="An illustrated portrait of four punk musicians."
           />
           <p>
             The DIY impulse is simple: question what’s there, learn how it
@@ -126,7 +126,6 @@ export default function AboutPage() {
               />
               <figcaption>
                 <span>{caption}</span>
-                <span>↗</span>
               </figcaption>
             </figure>
           ))}
