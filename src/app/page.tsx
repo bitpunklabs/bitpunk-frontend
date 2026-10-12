@@ -17,14 +17,9 @@ export default function HomePage() {
             <br />
             <span className="ink-outline">MAKE NOISE.</span>
           </h1>
-          <p className="hero-deck">
-            For those who read the market
-            <br />
-            and question the consensus.
-          </p>
+          <p className="hero-deck">For those who read the market.</p>
           <p className="hero-description">
-            Evidence, open methods and field notes.
-            <br />A considered view. Always open to question.
+            Research, indicators and open-source tools.
           </p>
           <div className="hero-actions">
             <ArrowLink href="#indicators" solid>Explore indicators</ArrowLink>
