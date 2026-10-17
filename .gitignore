@@ -2,6 +2,7 @@ asset
 .DS_Store
 node_modules/
 .next/
+.playwright-mcp/
 *.tsbuildinfo
 .env.local
 supabase/.temp/
