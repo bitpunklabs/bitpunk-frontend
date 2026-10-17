@@ -19,12 +19,15 @@ export function MarbleHero({ scene, section, eyebrow, title, copy, parent, child
   parent?: { href: string; label: string };
   children?: React.ReactNode;
 }) {
+  const artwork = scene === "opensource"
+    ? "/art/marble-pages/opensource-hand-v2.webp"
+    : `/art/marble-pages/${scene}.webp`;
   return (
     <section className={styles.hero} data-scene={scene} aria-label={`${section} introduction`}
-      style={{ "--hero-scene": `url("/art/marble-pages/${scene}.webp")` } as CSSProperties}>
+      style={{ "--hero-scene": `url("${artwork}")` } as CSSProperties}>
       <div className={styles.heroArtwork} aria-hidden="true">
         <div className={styles.heroImage}>
-          <Image src={`/art/marble-pages/${scene}.webp`} alt="" fill sizes="100vw"
+          <Image src={artwork} alt="" fill sizes="100vw"
             unoptimized loading="eager" fetchPriority="high" />
         </div>
       </div>
