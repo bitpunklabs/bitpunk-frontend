@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MarblePage, MarbleHero, MarbleContent, PageAction, CollectionLink, RelatedRoom, marbleStyles as s } from "@/components/marble-page";
+import { MarblePage, MarbleHero, MarbleContent, PageAction, CollectionLink, marbleStyles as s } from "@/components/marble-page";
 
 export const metadata: Metadata = {
   title: "Open source",
@@ -25,8 +25,6 @@ export default function OpenSourcePage() {
               copy="Research tools and the methods behind them." action="Explore projects" />
           </div>
         </section>
-        <RelatedRoom label="The independent spirit" title={<>Rigor in the work.<br /><em>Room to question.</em></>}
-          href="/about" action="About Bitpunk" />
       </MarbleContent>
     </MarblePage>
   );

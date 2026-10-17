@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { MarblePage, MarbleHero, MarbleContent, PageAction, Availability, RelatedRoom, marbleStyles as s } from "@/components/marble-page";
+import { MarblePage, MarbleHero, MarbleContent, PageAction, Availability, marbleStyles as s } from "@/components/marble-page";
 import { destinations } from "@/lib/showcase";
 
 export const metadata: Metadata = {
-  title: "Substack",
+  title: "Research",
   description: "Independent market research, essays and field notes.",
   alternates: { canonical: "/blog" },
 };
@@ -21,6 +21,12 @@ export default function BlogPage() {
           <h2 id="publications-title" className={s.kicker}>Where we publish</h2>
           <div className={s.readingGrid}>
             <article className={s.channel}>
+              <p className={s.kicker}>From the notebook</p>
+              <h3>X</h3>
+              <p>Charts, short observations and work in progress.</p>
+              <Availability>Profile coming soon</Availability>
+            </article>
+            <article className={s.channel}>
               <p className={s.kicker}>Longer reads</p>
               <h3>Substack</h3>
               <p>Essays, market context and ideas worth spending time with.</p>
@@ -29,15 +35,13 @@ export default function BlogPage() {
                 : <Availability>Publication coming soon</Availability>}
             </article>
             <article className={s.channel}>
-              <p className={s.kicker}>From the notebook</p>
-              <h3>X</h3>
-              <p>Charts, short observations and work in progress.</p>
-              <Availability>Profile coming soon</Availability>
+              <p className={s.kicker}>Methods & tools</p>
+              <h3>GitHub</h3>
+              <p>Open-source tools behind the research.</p>
+              <PageAction href="/open-source/github" quiet>Explore the code</PageAction>
             </article>
           </div>
         </section>
-        <RelatedRoom label="Behind the writing" title={<>The methods,<br /><em>in the open.</em></>}
-          href="/open-source" action="Explore open source" />
       </MarbleContent>
     </MarblePage>
   );

@@ -67,6 +67,7 @@
 .detailList p { font-size: 14px; color: var(--muted); margin-top: 10px; max-width: 38ch; }
 .detailList .textLink { margin-top: 12px; }
 .readingGrid, .collectionGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: clamp(.75rem, 2cqw, 2rem); align-items: start; }
+.readingGrid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
 .channel { padding: clamp(.75rem, 1.2cqw, 1.25rem) 0 clamp(1rem, 1.8cqw, 1.75rem); border-top: 1px solid var(--stone-line); }
 .channel h3 { font-size: clamp(1.5rem, 4cqw, 2.75rem); line-height: 1.1; margin-top: .4em; }
 .channel p:not(.kicker) { max-width: 33ch; font-size: .9375rem; color: var(--muted); margin-top: .8em; }
