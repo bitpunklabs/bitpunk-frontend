@@ -1,84 +1,44 @@
 import type { Metadata } from "next";
-import { PageHero, SectionLabel, ArrowLink } from "@/components/editorial";
+import { MarblePage, MarbleHero, MarbleContent, PageAction, Availability, RelatedRoom, marbleStyles as s } from "@/components/marble-page";
 import { destinations } from "@/lib/showcase";
+
 export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Independent market research, essays and field notes.",
+  title: "Substack",
+  description: "Independent market research, essays and field notes.",
   alternates: { canonical: "/blog" },
 };
-const topics = [
-  [
-    "01",
-    "Markets & methods",
-    "Observations and ideas worth exploring.",
-  ],
-  [
-    "02",
-    "Evidence & context",
-    "A closer look at the stories behind the market.",
-  ],
-  [
-    "03",
-    "Independent thought",
-    "Ideas from beyond the chart.",
-  ],
-];
+
 export default function BlogPage() {
   return (
-    <>
-      <PageHero
-        eyebrow={
-          destinations.substack
-            ? "The Bitpunk Blog / Published on Substack"
-            : "The Bitpunk Blog"
-        }
-        title={
-          <>
-            THINKING
-            <br />
-            OUT <span className="serif-word">loud.</span>
-          </>
-        }
-        copy="Research, essays and notes on a changing market."
-        art="poet-jacket-portrait"
-        alt="A monochrome engraved poet with a loose tie and a jacket over one shoulder."
-      >
-        {destinations.substack ? (
-          <ArrowLink href={destinations.substack} external solid>
-            Read on Substack
-          </ArrowLink>
-        ) : (
-          <p className="notice">Essays coming soon.</p>
-        )}
-      </PageHero>
-      <section className="content-section">
-        <SectionLabel number="01">In the margins</SectionLabel>
-        <div className="topic-list">
-          {topics.map(([number, title, text]) => (
-            <article key={number}>
-              <span className="eyebrow">{number}</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
+    <MarblePage>
+      <MarbleHero scene="research" section="Research" eyebrow="Essays & field notes"
+        title={<>Room for<br /><em>another view.</em></>}
+        copy="Research and observations on a changing market.">
+        <PageAction href="#publications">Explore the writing</PageAction>
+      </MarbleHero>
+      <MarbleContent>
+        <section className={s.chapter} id="publications" aria-labelledby="publications-title">
+          <h2 id="publications-title" className={s.kicker}>Where we publish</h2>
+          <div className={s.readingGrid}>
+            <article className={s.channel}>
+              <p className={s.kicker}>Longer reads</p>
+              <h3>Substack</h3>
+              <p>Essays, market context and ideas worth spending time with.</p>
+              {destinations.substack
+                ? <PageAction href={destinations.substack} external quiet>Read on Substack</PageAction>
+                : <Availability>Publication coming soon</Availability>}
             </article>
-          ))}
-        </div>
-      </section>
-      <section className="content-section">
-        <div className="split-note">
-          <h2>
-            FOLLOW THE WORK.
-            <br />
-            <span className="serif-word">Form your own view.</span>
-          </h2>
-          <div>
-            <p>
-              Explore the tools and methods behind the research.
-            </p>
-            <ArrowLink href="/open-source">Explore open source</ArrowLink>
+            <article className={s.channel}>
+              <p className={s.kicker}>From the notebook</p>
+              <h3>X</h3>
+              <p>Charts, short observations and work in progress.</p>
+              <Availability>Profile coming soon</Availability>
+            </article>
           </div>
-        </div>
-      </section>
-    </>
+        </section>
+        <RelatedRoom label="Behind the writing" title={<>The methods,<br /><em>in the open.</em></>}
+          href="/open-source" action="Explore open source" />
+      </MarbleContent>
+    </MarblePage>
   );
 }

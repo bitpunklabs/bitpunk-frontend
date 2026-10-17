@@ -1,19 +1,11 @@
-import { Artwork } from "@/components/artwork";
-import { ArrowLink } from "@/components/editorial";
+import { MarblePage, MarbleHero, PageAction } from "@/components/marble-page";
 export default function NotFound() {
   return (
-    <section className="not-found">
-      <p className="eyebrow">404 / Off the record</p>
-      <Artwork
-        name="wired-microphone"
-        alt="An engraved microphone and tangled cable."
-        sizes="400px"
-      />
-      <h1>LOST THE SIGNAL.</h1>
-      <p>This page isn’t in the collection.</p>
-      <ArrowLink href="/" solid>
-        Back to Bitpunk
-      </ArrowLink>
-    </section>
+    <MarblePage>
+      <MarbleHero scene="opensource" section="Page not found" eyebrow="404 / Outside the collection"
+        title={<>A different<br /><em>turn.</em></>} copy="This page isn’t in the collection.">
+        <PageAction href="/">Back to Bitpunk</PageAction>
+      </MarbleHero>
+    </MarblePage>
   );
 }

@@ -1,42 +1,37 @@
 import type { Metadata } from "next";
-import { PageHero, SectionLabel, ArrowLink } from "@/components/editorial";
+import { MarblePage, MarbleHero, MarbleContent, PageAction, Availability, RelatedRoom, marbleStyles as s } from "@/components/marble-page";
 import { destinations } from "@/lib/showcase";
 
 export const metadata: Metadata = {
   title: "TradingView",
-  description: "An introduction to Bitpunk’s open-source TradingView chart studies and their approach.",
+  description: "Open-source chart studies from Bitpunk.",
   alternates: { canonical: "/open-source/tradingview" },
 };
 
 export default function TradingViewPage() {
   return (
-    <>
-      <PageHero
-        eyebrow="Open source / TradingView"
-        title={<>OPEN SCRIPTS.<br /><span className="serif-word">Closer reading.</span></>}
-        copy="Chart studies in Pine Script. Read the logic and adapt it to your own analysis."
-        art="classical-bust-candlestick-blindfold"
-        alt="A classical bust with a candlestick chart across its eyes."
-      >
-        {destinations.tradingview ? (
-          <ArrowLink href={destinations.tradingview} external solid>Visit Bitpunk on TradingView</ArrowLink>
-        ) : (
-          <p className="notice">TradingView profile link coming soon.</p>
-        )}
-      </PageHero>
-      <section className="content-section">
-        <SectionLabel number="01">Read, inspect, adapt</SectionLabel>
-        <div className="split-note">
-          <h2>THE LOGIC<br /><span className="serif-word">in plain sight.</span></h2>
-          <div>
-            <p>Read how each script works, then explore it on the chart.</p>
-            <p className="notice">Public scripts and introductions coming soon.</p>
-            <ArrowLink href="/indicators">Explore paid indicators</ArrowLink>
-            <br />
-            <ArrowLink href="/open-source/github">Explore GitHub projects</ArrowLink>
+    <MarblePage>
+      <MarbleHero scene="indicators" section="TradingView" parent={{href:"/open-source", label:"Open source"}}
+        eyebrow="Open-source chart studies" title={<>Studies to<br /><em>build on.</em></>}
+        copy="Pine Script studies. Read the logic and explore it on the chart.">
+        {destinations.tradingview
+          ? <PageAction href={destinations.tradingview} external>Visit TradingView</PageAction>
+          : <Availability>TradingView profile coming soon</Availability>}
+      </MarbleHero>
+      <MarbleContent>
+        <section className={s.chapter} aria-labelledby="scripts-title">
+          <p className={s.kicker}>The scripts</p>
+          <div className={s.featureGrid}>
+            <div className={s.featureIntro}><h2 id="scripts-title">The logic,<br /><em>in plain sight.</em></h2><p>Open methods for a closer reading of price.</p><Availability>Script collection coming soon</Availability></div>
+            <div className={s.detailList}>
+              <article><h3>Read the source</h3><p>Explore the idea behind each study.</p></article>
+              <article><h3>Follow your curiosity</h3><p>Use the work as a starting point for your own analysis.</p></article>
+            </div>
           </div>
-        </div>
-      </section>
-    </>
+        </section>
+        <RelatedRoom label="More from the collection" title={<>The tools behind<br /><em>the research.</em></>}
+          href="/open-source/github" action="Explore GitHub projects" />
+      </MarbleContent>
+    </MarblePage>
   );
 }
