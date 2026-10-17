@@ -11,34 +11,28 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <MarblePage>
-      <MarbleHero scene="research" section="Research" eyebrow="Essays & field notes"
-        title={<>Room for<br /><em>another view.</em></>}
-        copy="Research and observations on a changing market.">
-        <PageAction href="#publications">Explore the writing</PageAction>
-      </MarbleHero>
+      <MarbleHero scene="research" section="Research"
+        title={<>Room for{" "}<br /><em>another view.</em></>}
+        copy="Research and observations on a changing market." />
       <MarbleContent>
-        <section className={s.chapter} id="publications" aria-labelledby="publications-title">
-          <h2 id="publications-title" className={s.kicker}>Where we publish</h2>
+        <section className={s.chapter} aria-label="Research channels">
           <div className={s.readingGrid}>
             <article className={s.channel}>
-              <p className={s.kicker}>From the notebook</p>
-              <h3>X</h3>
-              <p>Charts, short observations and work in progress.</p>
-              <Availability>Profile coming soon</Availability>
+              <h2>X</h2>
+              <p>Charts, observations and work in progress.</p>
+              <div className={s.channelAction}><Availability>Coming soon</Availability></div>
             </article>
             <article className={s.channel}>
-              <p className={s.kicker}>Longer reads</p>
-              <h3>Substack</h3>
-              <p>Essays, market context and ideas worth spending time with.</p>
-              {destinations.substack
+              <h2>Substack</h2>
+              <p>Longer essays and market context.</p>
+              <div className={s.channelAction}>{destinations.substack
                 ? <PageAction href={destinations.substack} external quiet>Read on Substack</PageAction>
-                : <Availability>Publication coming soon</Availability>}
+                : <Availability>Coming soon</Availability>}</div>
             </article>
             <article className={s.channel}>
-              <p className={s.kicker}>Methods & tools</p>
-              <h3>GitHub</h3>
-              <p>Open-source tools behind the research.</p>
-              <PageAction href="/open-source/github" quiet>Explore the code</PageAction>
+              <h2>GitHub</h2>
+              <p>Open tools and methods behind the research.</p>
+              <div className={s.channelAction}><PageAction href="/open-source/github" quiet>Explore the code</PageAction></div>
             </article>
           </div>
         </section>

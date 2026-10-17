@@ -24,7 +24,6 @@ export function SiteFooter() {
         <div>
           <Link href="/privacy">Privacy</Link>
           <Link href="/disclaimer">Disclaimer</Link>
-          <a href="#top">Back to top ↑</a>
         </div>
       </div>
       </div>

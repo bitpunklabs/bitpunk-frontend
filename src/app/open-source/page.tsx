@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MarblePage, MarbleHero, MarbleContent, PageAction, CollectionLink, marbleStyles as s } from "@/components/marble-page";
+import { MarblePage, MarbleHero, MarbleContent, CollectionLink, marbleStyles as s } from "@/components/marble-page";
 
 export const metadata: Metadata = {
   title: "Open source",
@@ -10,19 +10,16 @@ export const metadata: Metadata = {
 export default function OpenSourcePage() {
   return (
     <MarblePage>
-      <MarbleHero scene="opensource" section="Open source" eyebrow="Read. Explore. Build."
-        title={<>Ideas,<br /><em>made open.</em></>}
-        copy="Scripts and research tools, with the work in view.">
-        <PageAction href="#platforms">Explore the collection</PageAction>
-      </MarbleHero>
+      <MarbleHero scene="opensource" section="Open source"
+        title={<>Ideas,{" "}<br /><em>made open.</em></>}
+        copy="Open scripts and research tools." />
       <MarbleContent>
-        <section className={s.chapter} id="platforms" aria-labelledby="platforms-title">
-          <h2 className={s.kicker} id="platforms-title">Two places to explore</h2>
+        <section className={s.chapter} aria-label="Open-source collections">
           <div className={s.collectionGrid}>
-            <CollectionLink href="/open-source/tradingview" label="Chart studies" title="TradingView"
-              copy="Open scripts. A closer look at the chart." action="Explore scripts" />
-            <CollectionLink href="/open-source/github" label="Tools & code" title="GitHub"
-              copy="Research tools and the methods behind them." action="Explore projects" />
+            <CollectionLink href="/open-source/tradingview" title="TradingView"
+              copy="Open chart studies in Pine Script." action="View scripts" />
+            <CollectionLink href="/open-source/github" title="GitHub"
+              copy="Research tools and reusable code." action="View projects" />
           </div>
         </section>
       </MarbleContent>

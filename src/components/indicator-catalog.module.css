@@ -10,7 +10,7 @@
   border-top: 1px solid var(--stone-line);
   padding-block: clamp(1.25rem, 2cqw, 2rem) .25rem;
 }
-.name { font-size: clamp(2rem, 3cqw, 2.75rem); line-height: 1.1; margin-top: .4em; }
+.name { font-size: clamp(1.75rem, 3cqw, 2.5rem); line-height: 1.1; }
 .description {
   max-width: 42ch;
   margin-top: 1em;
@@ -18,12 +18,12 @@
   font-size: .9375rem;
   line-height: 1.7;
 }
-.resources { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: auto; padding-top: 1.5rem; }
+.resources { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem 2rem; min-height: 5.25rem; margin-top: auto; padding-top: 1.25rem; }
 .pendingResource {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: .5rem;
+  gap: .25rem;
   padding: 0;
   border: 0;
   background: transparent;
@@ -31,6 +31,6 @@
   font: inherit;
   cursor: default;
 }
-.resourceLabel { padding-block: .35em; border-bottom: 1px solid var(--stone-line); font-size: .8125rem; }
-.resourceStatus { font: .5625rem/1.5 var(--font-mono); }
+.resourceLabel { display: inline-flex; align-items: center; min-height: 2.5rem; padding-block: .5rem; border-bottom: 1px solid var(--stone-line); font-size: .8125rem; line-height: 1.5; }
+.resourceStatus { font: .625rem/1.5 var(--font-mono); }
 .pendingResource:focus-visible { outline: 1px solid var(--brand-orange); outline-offset: 5px; }

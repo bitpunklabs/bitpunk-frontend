@@ -1,26 +1,9 @@
-export type AboutPerson = {
-  name: string;
-  role: string;
-  bio: string;
-  profileUrl: string | null;
-};
-
-// Owner-editable copy. Empty factual sections stay hidden until supplied.
+// Owner-editable prose. No separate principles, team or empty status sections.
 // Filling guide: design/about-content-framework-2026-10-17.md.
-export const aboutContent: {
-  introduction: string;
-  principles: readonly { title: string; copy: string }[];
-  origin: string | null;
-  people: readonly AboutPerson[];
-  contact: { label: string; href: string } | null;
-} = {
-  introduction: "Independent research. Curious minds. A different perspective.",
-  principles: [
-    { title: "Think independently.", copy: "Form a view. Stay open to being wrong." },
-    { title: "Show the reasoning.", copy: "Make the ideas and assumptions clear." },
-    { title: "Keep questioning.", copy: "Look closely. Revisit what you think you know." },
+export const aboutContent = {
+  introduction: "An independent perspective on markets.",
+  paragraphs: [
+    "We study price, trends and market structure, connecting what we observe to the wider context.",
+    "We value independent thinking, clear reasoning and a willingness to revisit our assumptions. We share ideas and tools as a starting point for your own understanding.",
   ],
-  origin: null,
-  people: [],
-  contact: null,
 };

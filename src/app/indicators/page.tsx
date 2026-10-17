@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { MarblePage, MarbleHero, MarbleContent, PageAction } from "@/components/marble-page";
-import { IndicatorCatalog } from "@/components/indicator-catalog";
+import { IndicatorOverview } from "@/components/indicator-overview";
 
 export const metadata: Metadata = {
   title: "Indicators",
@@ -9,16 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function IndicatorsPage() {
-  return (
-    <MarblePage>
-      <MarbleHero scene="indicators" section="Indicators" eyebrow="TradingView indicators"
-        title={<>Price has<br /><em>layers.</em></>}
-        copy="Explore the context and structure beneath the candles.">
-        <PageAction href="#toolkit">Inside the toolkit</PageAction>
-      </MarbleHero>
-      <MarbleContent>
-        <IndicatorCatalog />
-      </MarbleContent>
-    </MarblePage>
-  );
+  return <IndicatorOverview />;
 }

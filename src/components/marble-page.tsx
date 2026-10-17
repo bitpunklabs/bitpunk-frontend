@@ -13,7 +13,7 @@ export function MarblePage({ children }: { children: React.ReactNode }) {
 export function MarbleHero({ scene, section, eyebrow, title, copy, parent, children }: {
   scene: Scene;
   section: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: React.ReactNode;
   copy: string;
   parent?: { href: string; label: string };
@@ -36,7 +36,7 @@ export function MarbleHero({ scene, section, eyebrow, title, copy, parent, child
           <span aria-current="page">{section}</span>
         </nav>
         <div className={styles.heroCopy}>
-          <p className={styles.kicker}>{eyebrow}</p>
+          {eyebrow && <p className={styles.kicker}>{eyebrow}</p>}
           <h1>{title}</h1>
           <p className={styles.lead}>{copy}</p>
           {children && <div className={styles.actions}>{children}</div>}
@@ -63,26 +63,14 @@ export function Availability({ children = "Coming soon" }: { children?: React.Re
   return <span className={styles.availability}>{children}</span>;
 }
 
-export function CollectionLink({ href, label, title, copy, action }: {
-  href: string; label: string; title: string; copy: string; action: string;
+export function CollectionLink({ href, title, copy, action }: {
+  href: string; title: string; copy: string; action: string;
 }) {
   return (
     <Link className={styles.collectionLink} href={href}>
-      <span className={styles.kicker}>{label}</span>
-      <h3>{title}</h3>
+      <h2>{title}</h2>
       <p>{copy}</p>
       <span className={styles.linkCaption}>{action}</span>
     </Link>
-  );
-}
-
-export function RelatedRoom({ label, title, href, action }: {
-  label: string; title: React.ReactNode; href: string; action: string;
-}) {
-  return (
-    <aside className={styles.related}>
-      <div><p className={styles.kicker}>{label}</p><h2>{title}</h2></div>
-      <PageAction href={href}>{action}</PageAction>
-    </aside>
   );
 }

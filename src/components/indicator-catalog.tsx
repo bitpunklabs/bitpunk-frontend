@@ -20,20 +20,17 @@ export function IndicatorResource({ href, label, product }: {
 
 export function IndicatorCatalog() {
   return (
-    <section className={marbleStyles.chapter} id="toolkit" aria-labelledby="toolkit-title">
-      <h2 id="toolkit-title" className={marbleStyles.kicker}>The toolkit</h2>
+    <section className={marbleStyles.chapter} aria-label="Indicators">
       <div className={styles.grid}>
         <article className={styles.product} aria-labelledby="alpha-title">
-          <p className={marbleStyles.kicker}>{alphaIndicator.role}</p>
-          <h3 className={styles.name} id="alpha-title">{alphaIndicator.name}</h3>
+          <h2 className={styles.name} id="alpha-title">{alphaIndicator.name}</h2>
           <p className={styles.description}>{alphaIndicator.description}</p>
           <div className={styles.resources}>
             <PageAction href={alphaIndicator.overviewUrl} quiet>Explore Alpha</PageAction>
           </div>
         </article>
         <article className={styles.product} aria-labelledby="open-indicators-title">
-          <p className={marbleStyles.kicker}>{openIndicatorCollection.role}</p>
-          <h3 className={styles.name} id="open-indicators-title">{openIndicatorCollection.name}</h3>
+          <h2 className={styles.name} id="open-indicators-title">{openIndicatorCollection.name}</h2>
           <p className={styles.description}>{openIndicatorCollection.description}</p>
           <div className={styles.resources}>
             <IndicatorResource href={openIndicatorCollection.tradingViewUrl} label="TradingView"
