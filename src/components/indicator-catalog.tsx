@@ -1,8 +1,8 @@
-import { indicators } from "@/lib/indicators";
+import { alphaIndicator, openIndicatorCollection } from "@/lib/indicators";
 import { PageAction, marbleStyles } from "./marble-page";
 import styles from "./indicator-catalog.module.css";
 
-function ProductResource({ href, label, product }: {
+export function IndicatorResource({ href, label, product }: {
   href: string | null;
   label: string;
   product: string;
@@ -23,17 +23,23 @@ export function IndicatorCatalog() {
     <section className={marbleStyles.chapter} id="toolkit" aria-labelledby="toolkit-title">
       <h2 id="toolkit-title" className={marbleStyles.kicker}>The toolkit</h2>
       <div className={styles.grid}>
-        {indicators.map(product => (
-          <article className={styles.product} key={product.id} aria-labelledby={`${product.id}-title`}>
-            <p className={marbleStyles.kicker}>{product.role}</p>
-            <h3 className={styles.name} id={`${product.id}-title`}>{product.name}</h3>
-            <p className={styles.description}>{product.description}</p>
-            <div className={styles.resources}>
-              <ProductResource href={product.documentationUrl} label="Documentation" product={product.name} />
-              <ProductResource href={product.tradingViewUrl} label="TradingView" product={product.name} />
-            </div>
-          </article>
-        ))}
+        <article className={styles.product} aria-labelledby="alpha-title">
+          <p className={marbleStyles.kicker}>{alphaIndicator.role}</p>
+          <h3 className={styles.name} id="alpha-title">{alphaIndicator.name}</h3>
+          <p className={styles.description}>{alphaIndicator.description}</p>
+          <div className={styles.resources}>
+            <PageAction href={alphaIndicator.overviewUrl} quiet>Explore Alpha</PageAction>
+          </div>
+        </article>
+        <article className={styles.product} aria-labelledby="open-indicators-title">
+          <p className={marbleStyles.kicker}>{openIndicatorCollection.role}</p>
+          <h3 className={styles.name} id="open-indicators-title">{openIndicatorCollection.name}</h3>
+          <p className={styles.description}>{openIndicatorCollection.description}</p>
+          <div className={styles.resources}>
+            <IndicatorResource href={openIndicatorCollection.tradingViewUrl} label="TradingView"
+              product={openIndicatorCollection.name} />
+          </div>
+        </article>
       </div>
     </section>
   );

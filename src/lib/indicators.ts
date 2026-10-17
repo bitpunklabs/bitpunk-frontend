@@ -1,29 +1,20 @@
-// Curated public summaries only. Product sources and internal docs stay in
-// bitpunk-lab; this website does not import or distribute those files.
-export type IndicatorProduct = {
-  id: string;
-  name: string;
-  role: string;
-  description: string;
-  documentationUrl: string | null;
-  tradingViewUrl: string | null;
+import { destinations } from "./showcase";
+
+// Curated public copy only; no source or internal documentation is imported.
+// Screener is not published and has no public catalog entry.
+export const alphaIndicator = {
+  name: "Alpha",
+  role: "Chart analysis",
+  description: "Read momentum signals alongside trend, structure and volume context.",
+  overviewUrl: "/indicators/alpha",
+  documentationUrl: null as string | null,
+  tradingViewUrl: null as string | null,
 };
 
-export const indicators: readonly IndicatorProduct[] = [
-  {
-    id: "alpha",
-    name: "Alpha",
-    role: "Chart analysis",
-    description: "Read momentum signals alongside trend, structure and volume context.",
-    documentationUrl: null,
-    tradingViewUrl: null,
-  },
-  {
-    id: "screener",
-    name: "Screener",
-    role: "Watchlist screening",
-    description: "Shortlist possible momentum turns across your watchlist in TradingView’s Pine Screener.",
-    documentationUrl: null,
-    tradingViewUrl: null,
-  },
-];
+// One collection entry: individual open studies are maintained on TradingView.
+export const openIndicatorCollection = {
+  name: "Open-source indicators",
+  role: "Open studies",
+  description: "Explore the latest open chart studies on TradingView.",
+  tradingViewUrl: destinations.tradingview,
+};

@@ -3,6 +3,7 @@ import { getSiteUrl } from "@/lib/seo";
 const paths = [
   "",
   "/indicators",
+  "/indicators/alpha",
   "/open-source",
   "/open-source/tradingview",
   "/open-source/github",
