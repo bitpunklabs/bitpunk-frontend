@@ -10,7 +10,6 @@ const paths = [
   "/blog",
   "/about",
   "/privacy",
-  "/terms",
   "/disclaimer",
 ];
 const pages = new Map();

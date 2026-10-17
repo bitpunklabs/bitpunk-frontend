@@ -1,30 +1,53 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Disclaimer",
+  alternates: { canonical: "/disclaimer" },
+};
+
 export default function DisclaimerPage() {
   return (
-    <section className="page-section article">
-      <p className="eyebrow">Disclaimer</p>
-      <h1>Research, not investment advice.</h1>
+    <section className="article">
+      <p className="eyebrow"><time dateTime="2026-10-17">Updated 17 October 2026</time></p>
+      <h1>Disclaimer</h1>
       <p className="lead">
-        Bitpunk provides market research, commentary and educational material.
-        We do not provide personal investment advice or recommendations.
+        Trading involves risk. You can lose all the money you invest, and
+        leveraged positions can create losses beyond your initial deposit.
       </p>
       <div className="article-body">
-        <h2>You make the decisions</h2>
+        <h2>Research, not personal advice</h2>
         <p>
-          Nothing on Bitpunk is an instruction to buy, sell or hold an asset.
-          Our work does not take your objectives, financial position, experience
-          or risk tolerance into account.
+          Our research, indicators and open-source tools provide general
+          information, not personal investment advice or an offer to buy or sell
+          an investment. They do not consider your finances, objectives or risk
+          tolerance. Make your own assessment and seek qualified independent
+          advice when needed.
         </p>
-        <h2>Markets involve risk</h2>
+        <h2>Manage risk before trading</h2>
         <p>
-          Prices can move quickly and losses can exceed your expectations.
-          Historical results, examples and model outputs do not guarantee future
-          performance.
+          Decide what you can afford to lose, limit position size and leverage,
+          and plan how you will exit. Account for fees, slippage and liquidity.
+          Stop-loss orders may not execute at the intended price, especially
+          during gaps or fast markets. Risk controls cannot eliminate losses.
         </p>
-        <h2>Check the information</h2>
+        <h2>Know the limits of the tools</h2>
         <p>
-          Data and third-party information may be delayed, incomplete or
-          incorrect. Verify material information independently before acting on
-          it.
+          Indicators can produce false signals. Past performance does not
+          guarantee future results. Backtests and simulations are hypothetical,
+          depend on assumptions and may not reflect live execution, costs or
+          liquidity. No tool or strategy guarantees a profit.
+        </p>
+        <h2>Verify prices and context</h2>
+        <p>
+          Content and market data may be delayed, incomplete or incorrect.
+          Some displayed quotes are CFD references rather than the underlying
+          cash index. Verify the instrument, current information and executable
+          price with your broker before acting.
+        </p>
+        <h2>Our commercial interest</h2>
+        <p>
+          Bitpunk develops paid indicators and has a commercial interest in
+          those products. Payment does not guarantee investment results.
         </p>
       </div>
     </section>
