@@ -20,7 +20,7 @@ export function MarbleHero({ scene, section, eyebrow, title, copy, parent, child
   children?: React.ReactNode;
 }) {
   const artwork = scene === "opensource"
-    ? "/art/marble-pages/opensource-hand-v2.webp"
+    ? "/art/marble-pages/opensource-hand-v3.webp"
     : `/art/marble-pages/${scene}.webp`;
   return (
     <section className={styles.hero} data-scene={scene} aria-label={`${section} introduction`}

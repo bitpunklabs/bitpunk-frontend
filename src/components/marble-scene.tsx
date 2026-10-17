@@ -10,8 +10,8 @@ import { marbleMotionVariants, type MarbleMotionVariant } from "@/lib/marble-mot
 const portraitMedia = "(max-width: 700px), (max-aspect-ratio: 6/5)";
 
 const plates = {
-  desktop: { src: "/art/marble-scene/panorama-hand-v2.webp", width: 2170, height: 725 },
-  mobile: { src: "/art/marble-scene/mobile-hand-v2.webp", width: 971, height: 1620 },
+  desktop: { src: "/art/marble-scene/panorama-hand-v3.webp", width: 2170, height: 725 },
+  mobile: { src: "/art/marble-scene/mobile-hand-v3.webp", width: 971, height: 1620 },
 };
 
 type Region = readonly [number, number, number, number];
