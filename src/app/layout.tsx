@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { MarketTicker } from "@/components/market-ticker";
 import { getSiteUrl } from "@/lib/seo";
 import "./globals.css";
+import "./marble-chrome.css";
 const display = localFont({
   src: "../fonts/barlow-condensed-bold.ttf",
   variable: "--font-display",
@@ -68,7 +70,10 @@ export default function RootLayout({
           Skip to content
         </a>
         <div className="frame">
-          <SiteHeader />
+          <div className="site-chrome" data-site-chrome>
+            <SiteHeader />
+            <MarketTicker />
+          </div>
           <main id="main-content">{children}</main>
           <SiteFooter />
         </div>

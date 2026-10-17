@@ -4,8 +4,12 @@ import { navigation } from "@/lib/showcase";
 export function SiteFooter() {
   return (
     <footer className="site-footer">
+      <div className="footer-inner">
       <div className="footer-top">
-        <p>An independent point of view.</p>
+        <div>
+          <Link href="/" className="footer-signature" aria-label="Bitpunk home"><Wordmark /></Link>
+          <p>Independent in thought.<br /><em>Open in spirit.</em></p>
+        </div>
         <nav aria-label="Footer navigation">
           {navigation.map((item) => (
             <Link key={item.href} href={item.href}>
@@ -15,9 +19,6 @@ export function SiteFooter() {
           <Link href="/open-source/github">GitHub</Link>
         </nav>
       </div>
-      <Link href="/" className="footer-wordmark" aria-label="Bitpunk home">
-        <Wordmark />
-      </Link>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} BITPUNK LABS</span>
         <div>
@@ -25,6 +26,7 @@ export function SiteFooter() {
           <Link href="/disclaimer">Disclaimer</Link>
           <a href="#top">Back to top ↑</a>
         </div>
+      </div>
       </div>
     </footer>
   );

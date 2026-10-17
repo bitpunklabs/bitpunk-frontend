@@ -22,8 +22,9 @@ export const destinations = {
   ),
 };
 export const navigation = [
-  { href: "/indicators", label: "Indicator" },
-  { href: "/blog", label: "Blog" },
+  { href: "/", label: "Home" },
+  { href: "/indicators", label: "Indicators" },
+  { href: "/blog", label: "Research" },
   { href: "/open-source", label: "Open source" },
   { href: "/about", label: "About" },
 ];

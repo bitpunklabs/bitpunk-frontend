@@ -1,0 +1,46 @@
+.ticker {
+  --ticker-scale: .8;
+  --tv-widget-accent-color: var(--brand-orange);
+  --tv-widget-text-color: var(--ink);
+  --tv-widget-price-text-color: var(--ink);
+  --tv-widget-text-secondary-color: var(--muted);
+  --tv-widget-link-color: var(--ink);
+  --tv-widget-border-color: #cfc9bd;
+  --tv-widget-hover-background-color: #e8e0d3;
+  --tv-widget-background-color: transparent;
+  --tv-widget-font-family: Georgia, "Times New Roman", serif;
+  --tv-widget-positive-color: #496d5c;
+  --tv-widget-negative-color: #a35b49;
+  display: flex;
+  align-items: stretch;
+  height: var(--market-ticker-height);
+  background: var(--stone, #f1ece2);
+  border-bottom: 1px solid #cfc9bd;
+  color-scheme: light;
+}
+.quotes {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.widget {
+  display: block;
+  width: calc(100% / var(--ticker-scale));
+  height: 74px;
+  transform: scale(var(--ticker-scale));
+  transform-origin: left top;
+  font-variant-numeric: tabular-nums;
+}
+.fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 0 1.25rem;
+  font-size: .75rem;
+  color: var(--muted);
+}
+.fallback a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.quotes:has(:global(tv-ticker-tape):defined) .fallback:not([data-failed]) { display: none; }
