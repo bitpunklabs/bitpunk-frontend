@@ -161,12 +161,8 @@
 .about { left: 67%; top: 52%; width: 40%; height: 48%; }
 .about .label { left: 59%; top: 59%; }
 
-/* Persistent shared chrome; this layout applies only around the art scene. */
+/* Full-width frame around the art scene; the footer uses the shared layout. */
 :global(.frame):has(.home) { max-width: none; padding: 0; background: #f1ece2; }
-:global(.frame):has(.home) > :global(.site-footer) { margin: 0; padding: 0 3.2%; border: 0; }
-:global(.frame):has(.home) :global(.footer-top),
-:global(.frame):has(.home) :global(.footer-wordmark) { display: none; }
-:global(.frame):has(.home) :global(.footer-bottom) { border-color: #cfc9bd; padding: 18px 0; }
 
 @media (max-width: 700px), (max-aspect-ratio: 6/5) {
   .home { height: auto; min-height: 0; container-type: inline-size; }
@@ -189,7 +185,6 @@
   .opensource .label { left: 50%; top: 50%; max-width: 25cqw; width: max-content; white-space: normal; }
   .about { left: 64%; top: 65%; width: 36%; height: 35%; }
   .about .label { left: 52%; top: 80%; width: max-content; max-width: 31cqw; white-space: normal; }
-  :global(.frame):has(.home) :global(.footer-bottom) { gap: 12px; font-size: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home:not([data-motion="baseline"]) :is(.lightCrop, .labelGlow),
