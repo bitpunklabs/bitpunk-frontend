@@ -83,14 +83,14 @@
 }
 @media (max-width: 700px), (max-aspect-ratio: 6/5) {
   .heroInner {
-    min-height: max(20rem, min(44svh, 48cqw));
+    /* Match the previous artwork size, without reserving an empty band above it. */
+    min-height: max(18rem, min(40svh, 42cqw));
     width: 100%;
     padding: clamp(.875rem, 2.2cqw, 1.5rem) 2.2cqw 3cqw;
   }
   .heroImage {
-    inset: auto 0 3% auto;
-    height: 86%;
-    mask-image: var(--hero-wall-mask-portrait);
+    inset: 0 0 auto auto;
+    height: 100%;
   }
   .heroCopy { width: 58%; padding-top: 0; margin: clamp(1rem, 2.5cqw, 2rem) 0 0; max-width: none; }
   .hero h1 { font-size: clamp(3rem, 8.4cqw, 6rem); line-height: 1.02; }
@@ -103,16 +103,21 @@
   .channel > p, .collectionLink > p { font-size: .875rem; }
 }
 @media (max-width: 700px) {
-  .heroInner { min-height: max(22rem, min(54svh, 105cqw)); padding-inline: 6cqw; padding-bottom: 4cqw; }
+  .heroInner { min-height: max(18rem, min(40svh, 76cqw)); padding-inline: 6cqw; padding-bottom: 4cqw; }
   .heroCopy { width: 100%; padding-top: clamp(.75rem, 3.6cqw, 1.25rem); margin: 0; max-width: none; }
   .hero h1 { font-size: clamp(2.75rem, 13cqw, 4.75rem); }
   .lead { max-width: 52cqw; }
   /* Continue the same scene's empty left wall behind the title. The sculpture
      remains an overlapping background, with no separate image row or bitmap. */
   .heroImage {
-    inset: auto 0 0 auto;
-    height: 72%;
     transform: translateX(18%);
+  }
+  .heroArtwork::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* A quiet clearing under the copy, with artwork still reaching the top. */
+    background: linear-gradient(90deg, rgb(241 236 226 / 64%), rgb(241 236 226 / 28%) 38%, transparent 72%);
   }
   .hero[data-scene="opensource"] .heroImage { transform: translateX(8%); }
   .hero[data-scene="about"] .heroImage { transform: translateX(10%); }
