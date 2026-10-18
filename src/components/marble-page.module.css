@@ -1,4 +1,15 @@
-.page { background: var(--stone); container-type: inline-size; }
+.page { position: relative; isolation: isolate; background: var(--stone); container-type: inline-size; }
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("/art/marble-pages/wall-masks/wall-grain.webp") repeat;
+  background-size: 16rem 16rem;
+  mix-blend-mode: soft-light;
+  opacity: .055;
+  pointer-events: none;
+}
 .page h1, .page h2, .page h3 {
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 400;
@@ -6,21 +17,19 @@
 }
 .page em { font-weight: inherit; }
 .hero { position: relative; isolation: isolate; overflow: hidden; container-type: inline-size; }
-.heroArtwork { position: absolute; inset: 0; z-index: -1; mask-image: linear-gradient(#000 82%, transparent); }
-.heroArtwork::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--hero-scene) left center / auto max(100%, 92cqw) no-repeat;
-}
+.heroArtwork { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .heroImage {
   position: absolute;
   inset: 0 10% 0 auto;
   height: 100%;
   aspect-ratio: 12 / 5;
-  mask-image: linear-gradient(90deg, transparent, #000 16%, #000 94%, transparent);
+  /* The wall matte is registered to the ORIGINAL scene, not the viewport.
+     Drapery and contact shadows share the sculpture's one transform. */
+  mask-image: var(--hero-wall-mask);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
 }
-.heroArtwork img { object-fit: cover; object-position: center top; }
+.heroArtwork img { object-fit: cover; }
 .heroInner {
   position: relative;
   min-height: max(20rem, min(46svh, 28cqw));
@@ -81,20 +90,8 @@
   .heroImage {
     inset: auto 0 3% auto;
     height: 86%;
-    mask-image: linear-gradient(90deg, transparent, #000 12%),
-      linear-gradient(transparent, #000 6%, #000 94%, transparent);
-    mask-composite: intersect;
+    mask-image: var(--hero-wall-mask-portrait);
   }
-  .heroArtwork::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgb(241 236 226 / 64%), rgb(241 236 226 / 22%) 46%, transparent 74%);
-    pointer-events: none;
-  }
-  .heroArtwork img { object-position: 74% top; }
-  .hero[data-scene="opensource"] .heroArtwork img { object-position: 82% center; }
-  .hero[data-scene="about"] .heroArtwork img { object-position: 78% center; }
   .heroCopy { width: 58%; padding-top: 0; margin: clamp(1rem, 2.5cqw, 2rem) 0 0; max-width: none; }
   .hero h1 { font-size: clamp(3rem, 8.4cqw, 6rem); line-height: 1.02; }
   .heroCopy > .kicker { margin-bottom: 1.4em; font-size: .5625rem; }
@@ -116,11 +113,6 @@
     inset: auto 0 0 auto;
     height: 72%;
     transform: translateX(18%);
-    mask-image: linear-gradient(90deg, transparent, #000 8%),
-      linear-gradient(transparent, #000 12%);
-  }
-  .heroArtwork::after {
-    background: linear-gradient(90deg, rgb(241 236 226 / 58%), rgb(241 236 226 / 24%) 42%, transparent 80%);
   }
   .hero[data-scene="opensource"] .heroImage { transform: translateX(8%); }
   .hero[data-scene="about"] .heroImage { transform: translateX(10%); }

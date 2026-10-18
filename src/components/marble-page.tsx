@@ -24,7 +24,10 @@ export function MarbleHero({ scene, section, eyebrow, title, copy, parent, child
     : `/art/marble-pages/${scene}.webp`;
   return (
     <section className={styles.hero} data-scene={scene} aria-label={`${section} introduction`}
-      style={{ "--hero-scene": `url("${artwork}")` } as CSSProperties}>
+      style={{
+        "--hero-wall-mask": `url("/art/marble-pages/wall-masks/${scene}.webp")`,
+        "--hero-wall-mask-portrait": `url("/art/marble-pages/wall-masks/${scene}-portrait.webp")`,
+      } as CSSProperties}>
       <div className={styles.heroArtwork} aria-hidden="true">
         <div className={styles.heroImage}>
           <Image src={artwork} alt="" fill sizes="100vw"
