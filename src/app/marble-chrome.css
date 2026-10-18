@@ -8,7 +8,9 @@
 }
 body { background: var(--stone); }
 html { scroll-padding-top: calc(var(--site-chrome-height) + 20px); }
-.frame { max-width: none; padding: 0; }
+.frame { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; max-width: none; padding: 0; }
+.frame > main { flex: 1 0 auto; min-width: 0; }
+.site-chrome, .site-footer { flex-shrink: 0; }
 .site-chrome { position: sticky; top: 0; z-index: 30; background: var(--stone); }
 .site-footer { position: static; margin: 0; padding: 0 3.2%; border: 0; background: var(--stone); }
 .footer-inner { max-width: none; margin: 0; padding: 0; }
