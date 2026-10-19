@@ -4,7 +4,7 @@ import { destinations } from "./showcase";
 // Screener is not published and has no public catalog entry.
 export const alphaIndicator = {
   name: "Alpha",
-  description: "Read momentum signals alongside trend, structure and volume context.",
+  description: "Read market context alongside trend, momentum, and structures.",
   overviewUrl: "/indicators/alpha",
   documentationUrl: null as string | null,
   tradingViewUrl: null as string | null,
