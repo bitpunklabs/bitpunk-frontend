@@ -1,25 +1,42 @@
-asset
+# Generated state and local configuration.
 .DS_Store
 node_modules/
 .next/
+.next-*/
+.pnpm-store/
 .playwright-mcp/
 *.tsbuildinfo
-.env.local
-supabase/.temp/
-.vercel
+.env*
+!.env.example
+/.vercel
+/.codex
+/temp
+/tmp
+/output
+/.private
+*.log
+*.bundle
+*.pem
+*.key
+*.p12
+*.pfx
 
-# Internal working documents. Deliberately local-only: the public repository
-# carries the code, not the strategy, pricing decisions, refund abuse-ledger
-# design or the roadmap. Stripped from history on 2026-09-22.
-docs/
-dev-tracker.md
-/temp/
-/branding/
+# Proprietary originals, delivery images, design records and working material.
+/asset
+/branding
+/design
+/docs
+/dev-tracker.md
+/public/art
+/public/brand
+/public/favicon.ico
 
-# The public resources route is application code, not local documentation.
-!src/app/docs/
-!src/app/docs/**
-
-# Preserve the retired resources page with the other archived showcase routes.
-!src/legacy/project-showcase/docs/
-!src/legacy/project-showcase/docs/**
+# Retired applications and local artwork/review tooling.
+/src/legacy
+/src/app/review
+/src/components/marble-*-assets.json
+/src/components/marble-edge-contours.json
+/supabase
+/tests/account-boundaries.test.mjs
+/tools/art
+/tools/build-brand-assets.mjs

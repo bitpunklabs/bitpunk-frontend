@@ -1,8 +1,9 @@
 import { MarblePage, MarbleHero, MarbleContent } from "./marble-page";
 import { IndicatorCatalog } from "./indicator-catalog";
-import { defaultIndicatorHeadline, indicatorIntroduction, type IndicatorHeadline } from "@/lib/indicator-copy";
+import { defaultIndicatorHeadline, indicatorIntroduction } from "@/lib/indicator-copy";
 
-export function IndicatorOverview({ headline = defaultIndicatorHeadline }: { headline?: IndicatorHeadline }) {
+export function IndicatorOverview() {
+  const headline = defaultIndicatorHeadline;
   return (
     <MarblePage>
       <MarbleHero scene="indicators" section="Indicators" eyebrow="TradingView indicators"

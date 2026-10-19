@@ -6,3 +6,16 @@ node_modules/
 *.tsbuildinfo
 supabase/.temp/
 .DS_Store
+branding/
+design/
+docs/
+temp/
+tmp/
+output/
+.private/
+.codex/
+.playwright-mcp/
+.pnpm-store/
+src/legacy/
+dev-tracker.md
+*.bundle

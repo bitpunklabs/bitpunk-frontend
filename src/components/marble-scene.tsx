@@ -3,16 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Wordmark } from "@/components/wordmark";
 import styles from "./marble-scene.module.css";
-import glowAssets from "./marble-glow-assets.json";
-import motionAssets from "./marble-motion-assets.json";
-import { marbleMotionVariants, type MarbleMotionVariant } from "@/lib/marble-motion";
+import { getHomeArtwork, type SceneCrop } from "@/lib/scene-assets";
 
 const portraitMedia = "(max-width: 700px), (max-aspect-ratio: 6/5)";
 
-const plates = {
-  desktop: { src: "/art/marble-scene/panorama-hand-v3.webp", width: 2170, height: 725 },
-  mobile: { src: "/art/marble-scene/mobile-hand-v3.webp", width: 971, height: 1620 },
-};
+const { plates, motion: motionAssets } = getHomeArtwork();
 
 type Region = readonly [number, number, number, number];
 const entries = [
@@ -27,9 +22,7 @@ const entries = [
 ] as const;
 
 type Entry = typeof entries[number];
-type MovingMotion = Exclude<MarbleMotionVariant, "baseline">;
 type GlowStyle = CSSProperties & Record<`--${string}`, string>;
-type SceneCrop = { src: string; x: number; y: number; width: number; height: number };
 type ResponsiveCrops = { desktop: SceneCrop; mobile: SceneCrop };
 
 /** Cropped, pre-baked light shares the background's original pixel coordinates. */
@@ -54,10 +47,10 @@ function cropStyle(entry: Entry, crops: ResponsiveCrops) {
   return style;
 }
 
-function LightCrop({ entry, motion }: { entry: Entry; motion: MarbleMotionVariant }) {
+function LightCrop({ entry }: { entry: Entry }) {
   const crops = {
-    desktop: motion === "baseline" ? glowAssets.desktop[entry.id] : motionAssets.variants[motion].desktop[entry.id].glow,
-    mobile: motion === "baseline" ? glowAssets.mobile[entry.id] : motionAssets.variants[motion].mobile[entry.id].glow,
+    desktop: motionAssets.desktop[entry.id].glow,
+    mobile: motionAssets.mobile[entry.id].glow,
   };
   const desktop = crops.desktop;
   return (
@@ -71,8 +64,8 @@ function LightCrop({ entry, motion }: { entry: Entry; motion: MarbleMotionVarian
 }
 
 /** Static alpha mask + the already loaded plate; no second sculpture bitmap. */
-function MotionArt({ entry, motion }: { entry: Entry; motion: MovingMotion }) {
-  const assets = motionAssets.variants[motion];
+function MotionArt({ entry }: { entry: Entry }) {
+  const assets = motionAssets;
   const style = cropStyle(entry, { desktop: assets.desktop[entry.id], mobile: assets.mobile[entry.id] });
   for (const mode of ["desktop", "mobile"] as const) {
     const plate = plates[mode], crop = assets[mode][entry.id];
@@ -94,30 +87,28 @@ function MotionArt({ entry, motion }: { entry: Entry; motion: MovingMotion }) {
   );
 }
 
-function motionOrigin(entry: Entry, motion: MovingMotion) {
+function motionOrigin(entry: Entry) {
   const style = {} as GlowStyle;
   for (const mode of ["desktop", "mobile"] as const) {
     const plate = plates[mode];
     const coreWidth = mode === "mobile" ? plate.width : plate.height * 1585 / 992;
     const coreX = (plate.width - coreWidth) / 2;
     const [x, y, width, height] = entry[mode];
-    const [px, py] = motionAssets.variants[motion][mode][entry.id].origin;
+    const [px, py] = motionAssets[mode][entry.id].origin;
     style[`--${mode}-origin`] = `${(px - coreX - x * coreWidth) / (width * coreWidth) * 100}% ${(py - y * plate.height) / (height * plate.height) * 100}%`;
   }
   return style;
 }
 
-export function MarbleScene({ motion = "baseline" }: { motion?: MarbleMotionVariant }) {
-  const setting = marbleMotionVariants[motion];
+export function MarbleScene() {
   const motionStyle = {
-    "--hover-scale": setting.scale,
-    "--motion-duration": `${setting.duration}ms`,
-    "--hover-lift": setting.lift,
+    "--hover-scale": 1.018,
+    "--motion-duration": "620ms",
+    "--hover-lift": "0px",
   } as CSSProperties;
-  const moving = motion !== "baseline";
   return (
-    <section className={styles.home} style={moving ? motionStyle : undefined}
-      aria-labelledby="home-title" data-home-scene data-label-style="ink" data-motion={motion}>
+    <section className={styles.home} style={motionStyle}
+      aria-labelledby="home-title" data-home-scene data-label-style="ink" data-motion="a">
       <picture>
         <source media={portraitMedia} srcSet={plates.mobile.src} />
         <Image className={styles.plate} src={plates.desktop.src} alt="" aria-hidden="true"
@@ -135,8 +126,8 @@ export function MarbleScene({ motion = "baseline" }: { motion?: MarbleMotionVari
         <nav aria-label="Explore Bitpunk" className={styles.entries}>
           {entries.map(entry => {
             const contents = <>
-              {motion !== "baseline" && <MotionArt entry={entry} motion={motion} />}
-              <LightCrop entry={entry} motion={motion} />
+              <MotionArt entry={entry} />
+              <LightCrop entry={entry} />
               <span className={styles.label}>
                 <span className={styles.labelGlow} aria-hidden="true">{entry.label}</span>
                 {entry.label}
@@ -144,7 +135,7 @@ export function MarbleScene({ motion = "baseline" }: { motion?: MarbleMotionVari
             </>;
             return <Link key={entry.id} id={entry.anchor} href={entry.href}
               className={`${styles.entry} ${styles[entry.id]}`}>
-              {motion !== "baseline" ? <span className={styles.motionItem} style={motionOrigin(entry, motion)}>{contents}</span> : contents}
+              <span className={styles.motionItem} style={motionOrigin(entry)}>{contents}</span>
             </Link>
           })}
         </nav>

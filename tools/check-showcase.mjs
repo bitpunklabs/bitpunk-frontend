@@ -4,6 +4,7 @@ const origin = new URL(process.argv[2] || "http://localhost:3000");
 const paths = [
   "/",
   "/indicators",
+  "/indicators/alpha",
   "/open-source",
   "/open-source/tradingview",
   "/open-source/github",
@@ -63,6 +64,9 @@ for (const url of assets) {
   assert.equal(response.status, 200, url);
   assert.match(response.headers.get("content-type"), /^image\//, url);
 }
+for (const path of ["/review/indicators-copy", "/review/marble-motion"]) {
+  assert.equal((await fetch(new URL(path, origin))).status, 404, `${path} must be retired`);
+}
 for (const path of [
   "/login",
   "/register",
@@ -85,7 +89,7 @@ for (const path of [
 }
 const missing = await fetch(new URL("/not-a-real-bitpunk-page", origin));
 assert.equal(missing.status, 404);
-assert.match(await missing.text(), /LOST THE SIGNAL/);
+assert.match(await missing.text(), /Back to Bitpunk/);
 const sitemap = await (await fetch(new URL("/sitemap.xml", origin))).text();
 for (const [, url] of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g))
   assert.ok(

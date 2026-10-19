@@ -3,20 +3,19 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node tools/check-private-assets.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node --test tests/*.test.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "assets:check": "node tools/check-private-assets.mjs",
+    "privacy:check": "node tools/check-public-repo.mjs --history",
+    "prepare": "node tools/install-git-hooks.mjs"
   },
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
-    "@supabase/ssr": "^0.12.4",
-    "@supabase/supabase-js": "^2.111.0",
     "next": "^16.2.12",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "zod": "^4.4.3"
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
