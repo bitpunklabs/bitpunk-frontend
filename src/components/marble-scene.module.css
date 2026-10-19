@@ -32,25 +32,29 @@
 .identity {
   position: absolute;
   z-index: 2;
-  top: 30%;
-  left: 33%;
-  width: 34%;
+  top: calc(50svh - var(--site-chrome-height));
+  left: 50%;
+  width: calc(var(--art-height) * var(--core-ratio) * .34);
+  transform: translate(-50%, -50%);
   text-align: center;
   pointer-events: none;
 }
 .brand {
   font-family: var(--font-display), Impact, sans-serif;
-  font-size: 10.5cqw;
+  font-size: calc(var(--art-height) * var(--core-ratio) * .105);
   font-weight: 700;
   letter-spacing: -.025em;
   line-height: .95;
   white-space: nowrap;
 }
 .description {
+  position: absolute;
+  top: 100%;
+  width: 100%;
   max-width: none;
-  margin: 2cqw auto 0;
+  margin: calc(var(--art-height) * var(--core-ratio) * .02) auto 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.55cqw;
+  font-size: calc(var(--art-height) * var(--core-ratio) * .0155);
   font-weight: 400;
   line-height: 1.45;
   letter-spacing: -.02em;
@@ -168,7 +172,7 @@
   .home { height: auto; min-height: 0; container-type: inline-size; }
   .scene { position: relative; left: auto; top: auto; width: 100%; height: auto; transform: none; aspect-ratio: 971 / 1620; }
   .plate { inset: 0; width: 100%; height: 100%; max-width: 100%; transform: none; }
-  .identity { top: 34.5%; left: 8%; width: 84%; }
+  .identity { width: 84%; }
   .brand { font-size: 20cqw; }
   .description { font-size: 4.2cqw; margin-top: 3.6cqw; line-height: 1.4; }
   .label { font-size: 5.5cqw; padding: 6px 9px; }

@@ -7,7 +7,7 @@ import { getHomeArtwork, type SceneCrop } from "@/lib/scene-assets";
 
 const portraitMedia = "(max-width: 700px), (max-aspect-ratio: 6/5)";
 
-const { plates, motion: motionAssets } = getHomeArtwork();
+const { plates, motion: motionAssets, wordmark } = getHomeArtwork();
 
 type Region = readonly [number, number, number, number];
 const entries = [
@@ -115,14 +115,14 @@ export function MarbleScene() {
           width={plates.desktop.width} height={plates.desktop.height}
           unoptimized loading="eager" fetchPriority="high" />
       </picture>
+      <div className={styles.identity}>
+        <div className={styles.brand}><Wordmark artwork={wordmark} /></div>
+        <h1 id="home-title" className={styles.description}>
+          <span>Research, indicators and open-source tools</span>{" "}
+          <em>for those who read the market.</em>
+        </h1>
+      </div>
       <div className={styles.scene}>
-        <div className={styles.identity}>
-          <div className={styles.brand} aria-label="Bitpunk"><Wordmark /></div>
-          <h1 id="home-title" className={styles.description}>
-            <span>Research, indicators and open-source tools</span>{" "}
-            <em>for those who read the market.</em>
-          </h1>
-        </div>
         <nav aria-label="Explore Bitpunk" className={styles.entries}>
           {entries.map(entry => {
             const contents = <>

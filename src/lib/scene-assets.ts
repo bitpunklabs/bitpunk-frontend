@@ -10,9 +10,16 @@ export type SceneCrop = {
 };
 type EntryId = "indicators" | "research" | "opensource" | "about";
 type MotionCrop = SceneCrop & { origin: [number, number]; glow: SceneCrop };
+export type WordmarkArtwork = {
+  width: number;
+  height: number;
+  lettering: SceneCrop;
+  star: SceneCrop & { staticSrc: string };
+};
 export type HomeArtwork = {
   plates: Record<"desktop" | "mobile", { src: string; width: number; height: number }>;
   motion: Record<"desktop" | "mobile", Record<EntryId, MotionCrop>>;
+  wordmark: WordmarkArtwork;
 };
 
 /** Proprietary artwork metadata is supplied locally, outside the Git repository. */
