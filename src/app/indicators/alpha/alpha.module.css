@@ -1,3 +1,4 @@
+.showcase { max-width: 68rem; margin: 0 auto; scroll-margin-top: calc(var(--site-chrome-height) + 1.5rem); }
 .perspectives {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));

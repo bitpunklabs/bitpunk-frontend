@@ -1,0 +1,6 @@
+.review { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 2rem; padding: 1rem 0; margin-bottom: 1rem; border-block: 1px solid var(--stone-line); }
+.label { color: #9e7053; font: .625rem/1.5 var(--font-mono); letter-spacing: .05em; }
+.directions { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+.directions a { padding: .4rem 0; border-bottom: 1px solid transparent; font-size: .75rem; color: var(--muted); }
+.directions a[aria-current], .directions a:hover { border-color: var(--brand-orange); color: var(--ink); }
+.description { width: 100%; color: var(--muted); font: italic .875rem/1.5 Georgia, "Times New Roman", serif; }

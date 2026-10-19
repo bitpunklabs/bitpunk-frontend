@@ -1,6 +1,9 @@
 import { alphaIndicator, openIndicatorCollection } from "@/lib/indicators";
 import { PageAction, marbleStyles } from "./marble-page";
 import styles from "./indicator-catalog.module.css";
+import { AlphaShowcase } from "./alpha-showcase";
+import { getAlphaScreenshots } from "@/lib/scene-assets";
+import type { AlphaShowcaseVariant } from "@/lib/alpha-showcase";
 
 export function IndicatorResource({ href, label, product }: {
   href: string | null;
@@ -18,20 +21,26 @@ export function IndicatorResource({ href, label, product }: {
   );
 }
 
-export function IndicatorCatalog() {
+export function IndicatorCatalog({ variant = "stack" }: { variant?: AlphaShowcaseVariant }) {
+  const screenshots = getAlphaScreenshots();
   return (
     <section className={marbleStyles.chapter} aria-label="Indicators">
       <div className={styles.grid}>
-        <article className={styles.product} aria-labelledby="alpha-title">
-          <h2 className={styles.name} id="alpha-title">{alphaIndicator.name}</h2>
-          <p className={styles.description}>{alphaIndicator.description}</p>
-          <div className={styles.resources}>
-            <PageAction href={alphaIndicator.overviewUrl} quiet>Explore Alpha</PageAction>
+        <article id="alpha" className={`${styles.product} ${styles.alpha}`} aria-labelledby="alpha-title">
+          <div className={styles.introduction}>
+            <h2 className={styles.name} id="alpha-title">{alphaIndicator.name}</h2>
+            <p className={styles.description}>{alphaIndicator.description}</p>
+            <div className={styles.resources}>
+              <PageAction href={alphaIndicator.overviewUrl} quiet>Explore Alpha</PageAction>
+            </div>
           </div>
+          <AlphaShowcase key={variant} slides={screenshots} variant={variant} />
         </article>
         <article className={styles.product} aria-labelledby="open-indicators-title">
-          <h2 className={styles.name} id="open-indicators-title">{openIndicatorCollection.name}</h2>
-          <p className={styles.description}>{openIndicatorCollection.description}</p>
+          <div className={styles.introduction}>
+            <h2 className={styles.name} id="open-indicators-title">{openIndicatorCollection.name}</h2>
+            <p className={styles.description}>{openIndicatorCollection.description}</p>
+          </div>
           <div className={styles.resources}>
             <IndicatorResource href={openIndicatorCollection.tradingViewUrl} label="TradingView"
               product={openIndicatorCollection.name} />

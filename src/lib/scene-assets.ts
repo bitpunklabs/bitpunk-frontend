@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import type { MarketScreenshot } from "./alpha-showcase";
 
 export type SceneCrop = {
   src: string;
@@ -30,4 +31,14 @@ export function getHomeArtwork(): HomeArtwork {
   } catch {
     throw new Error("Private artwork is missing. Restore the authorised asset pack described in RUNNING.md.");
   }
+}
+
+/** Screenshots and third-party marks are delivered through the private asset pack. */
+export function getAlphaScreenshots(): MarketScreenshot[] {
+  const file = join(process.cwd(), "public/art/site-assets.json");
+  const slides = JSON.parse(readFileSync(file, "utf8")).showcases?.alpha;
+  if (!Array.isArray(slides) || slides.length < 2) {
+    throw new Error("Alpha screenshots are missing. Restore the current authorised asset pack.");
+  }
+  return slides as MarketScreenshot[];
 }

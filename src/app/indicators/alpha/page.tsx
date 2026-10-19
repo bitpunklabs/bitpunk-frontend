@@ -4,6 +4,10 @@ import { MarblePage, MarbleHero, MarbleContent, marbleStyles as s } from "@/comp
 import { IndicatorResource } from "@/components/indicator-catalog";
 import { alphaIndicator } from "@/lib/indicators";
 import styles from "./alpha.module.css";
+import { AlphaShowcase } from "@/components/alpha-showcase";
+import { AlphaShowcaseReview } from "@/components/alpha-showcase-review";
+import { getAlphaScreenshots } from "@/lib/scene-assets";
+import { alphaShowcaseVariant } from "@/lib/alpha-showcase";
 
 export const metadata: Metadata = {
   title: "Alpha",
@@ -17,13 +21,21 @@ const perspectives = [
   { title: "Understand momentum.", copy: "Read trend alignment, structure and divergence with each signal." },
 ];
 
-export default function AlphaPage() {
+export default async function AlphaPage({ searchParams }: {
+  searchParams: Promise<{ showcase?: string }>;
+}) {
+  const preview = process.env.NODE_ENV === "development" ? (await searchParams).showcase : undefined;
+  const variant = alphaShowcaseVariant(preview);
   return (
     <MarblePage>
       <MarbleHero scene="indicators" section="Alpha" parent={{ href: "/indicators", label: "Indicators" }}
         eyebrow="Alpha / TradingView indicator" title={<>Signals,{" "}<br /><em>in context.</em></>}
         copy="Trend, structure and momentum. Read together." />
       <MarbleContent>
+        {preview && <AlphaShowcaseReview variant={variant} basePath="/indicators/alpha" />}
+        <section id="alpha" className={`${s.chapter} ${styles.showcase}`} aria-label="Alpha chart examples">
+          <AlphaShowcase key={variant} slides={getAlphaScreenshots()} variant={variant} />
+        </section>
         <section className={s.chapter} aria-label="Alpha features">
           <div className={styles.perspectives}>
             {perspectives.map(item => (

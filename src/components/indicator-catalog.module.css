@@ -5,11 +5,16 @@
 }
 .product {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
   border-top: 1px solid var(--stone-line);
   padding-block: clamp(1.25rem, 2cqw, 2rem) .25rem;
+  scroll-margin-top: calc(var(--site-chrome-height) + 1.5rem);
 }
+.alpha { display: grid; grid-template-columns: minmax(12rem, .6fr) minmax(0, 1.65fr); gap: clamp(1rem, 3cqw, 3rem); }
+.introduction { min-width: 0; }
+.alpha .description { max-width: 28ch; }
 .name { font-size: clamp(1.75rem, 3cqw, 2.5rem); line-height: 1.1; }
 .description {
   max-width: 42ch;
@@ -18,7 +23,7 @@
   font-size: .9375rem;
   line-height: 1.7;
 }
-.resources { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem 2rem; min-height: 5.25rem; margin-top: auto; padding-top: 1.25rem; }
+.resources { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem 2rem; padding-top: 1.25rem; }
 .pendingResource {
   display: inline-flex;
   flex-direction: column;
@@ -34,3 +39,10 @@
 .resourceLabel { display: inline-flex; align-items: center; min-height: 2.5rem; padding-block: .5rem; border-bottom: 1px solid var(--stone-line); font-size: .8125rem; line-height: 1.5; }
 .resourceStatus { font: .625rem/1.5 var(--font-mono); }
 .pendingResource:focus-visible { outline: 1px solid var(--brand-orange); outline-offset: 5px; }
+@media (max-width: 900px) {
+  .alpha { grid-template-columns: minmax(0, 1fr); gap: .5rem; }
+  .alpha .description { max-width: 42ch; }
+}
+@media (max-width: 600px) {
+  .product { flex-direction: column; align-items: flex-start; gap: .5rem; }
+}
