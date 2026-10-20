@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import type { KeyboardEvent, PointerEvent } from "react";
+import type { KeyboardEvent, PointerEvent, RefObject } from "react";
 import type { ImageShowcaseSlide, ImageShowcaseVariant } from "@/lib/image-showcase";
 import styles from "./image-showcase.module.css";
 
@@ -41,12 +41,78 @@ type Gesture = {
   travel: number;
 };
 
+/** The progress animation is the playback clock, so the fill and advance cannot drift. */
+function useAutoAdvance(root: RefObject<HTMLDivElement | null>, progress: RefObject<HTMLSpanElement | null>, advance: () => void,
+  interval: number, enabled: boolean) {
+  useEffect(() => {
+    const node = root.current;
+    const bar = progress.current;
+    if (!node || !bar || !enabled || !Number.isFinite(interval) || interval <= 0) return;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let hovered = window.matchMedia("(hover: hover)").matches && node.matches(":hover");
+    let keyboardFocus = !!document.activeElement && node.contains(document.activeElement) &&
+      document.activeElement.matches(":focus-visible");
+    let held = false;
+    let inView = false;
+    let playback: Animation | undefined;
+    const clear = () => { playback?.cancel(); playback = undefined; };
+    const canAdvance = () => inView && !document.hidden && !motion.matches && !hovered && !keyboardFocus && !held;
+    const restart = () => {
+      clear();
+      if (!canAdvance()) return;
+      const animation = bar.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }],
+        { duration: interval, easing: "linear", fill: "forwards" });
+      playback = animation;
+      void animation.finished.then(() => {
+        if (playback === animation && canAdvance()) { advance(); restart(); }
+      }, () => { /* Pausing or unmounting cancels the current reading interval. */ });
+    };
+    const events: [string, EventListener][] = [
+      ["pointerenter", event => {
+        if ("pointerType" in event && event.pointerType === "mouse") { hovered = true; restart(); }
+      }],
+      ["pointerleave", () => { hovered = false; restart(); }],
+      ["pointerdown", () => { held = true; keyboardFocus = false; restart(); }],
+      ["pointerup", () => { held = false; restart(); }],
+      ["pointercancel", () => { held = false; restart(); }],
+      ["lostpointercapture", () => { held = false; restart(); }],
+      ["click", restart],
+      ["focusin", event => {
+        keyboardFocus = event.target instanceof Element && event.target.matches(":focus-visible");
+        restart();
+      }],
+      ["focusout", event => {
+        if (!node.contains((event as FocusEvent).relatedTarget as Node | null)) keyboardFocus = false;
+        restart();
+      }],
+      ["keydown", () => { keyboardFocus = true; restart(); }],
+    ];
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting && entry.intersectionRatio >= .2;
+      restart();
+    }, { threshold: .2 });
+    observer.observe(node);
+    events.forEach(([name, handler]) => node.addEventListener(name, handler));
+    document.addEventListener("visibilitychange", restart);
+    motion.addEventListener("change", restart);
+    return () => {
+      clear();
+      observer.disconnect();
+      events.forEach(([name, handler]) => node.removeEventListener(name, handler));
+      document.removeEventListener("visibilitychange", restart);
+      motion.removeEventListener("change", restart);
+    };
+  }, [root, progress, advance, interval, enabled]);
+}
+
 export type ImageShowcaseProps = {
   slides: readonly ImageShowcaseSlide[];
   label: string;
   variant?: ImageShowcaseVariant;
   selectionLabel?: string;
   fullViewLabel?: string;
+  /** Milliseconds between automatic advances; use 0 to disable. */
+  autoPlayInterval?: number;
 };
 
 export function ImageShowcase(props: ImageShowcaseProps) {
@@ -57,11 +123,14 @@ export function ImageShowcase(props: ImageShowcaseProps) {
 }
 
 function ImageShowcaseGallery({ slides, label, variant = "stack",
-  selectionLabel = "Choose an image", fullViewLabel = "View full image" }: ImageShowcaseProps) {
+  selectionLabel = "Choose an image", fullViewLabel = "View full image", autoPlayInterval = 6000 }: ImageShowcaseProps) {
   const galleryId = useId();
+  const root = useRef<HTMLDivElement>(null);
+  const progress = useRef<HTMLSpanElement>(null);
   const [selected, setSelected] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [imagesReady, setImagesReady] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const windows = useRef<(HTMLElement | null)[]>([]);
   const images = useRef<(HTMLImageElement | null)[]>([]);
   const position = useRef(0);
@@ -116,6 +185,9 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
     };
     frame.current = requestAnimationFrame(tick);
   }, [paint, slides.length, stopFrame]);
+
+  const advance = useCallback(() => settle(target.current + 1), [settle]);
+  useAutoAdvance(root, progress, advance, autoPlayInterval, imagesReady && slides.length > 1 && !dialogOpen);
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -200,7 +272,7 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
   }
 
   return (
-    <div className={styles.showcase} data-variant={variant} data-active={current.id} data-single={slides.length === 1 || undefined}>
+    <div ref={root} className={styles.showcase} data-variant={variant} data-active={current.id} data-single={slides.length === 1 || undefined}>
       <div className={styles.viewport}>
         <div id={galleryId} className={styles.stage} style={{ aspectRatio: stageRatio }} role="group" aria-roledescription="carousel"
           aria-label={label}
@@ -239,7 +311,9 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
         </>}
       </div>
       <div className={styles.controls}>
-        {slides.length > 1 && <div className={styles.selectors} role="group" aria-label={selectionLabel}>
+        {slides.length > 1 && <div className={styles.selectorGroup}>
+          {autoPlayInterval > 0 && <div className={styles.progress} aria-hidden="true"><span ref={progress} /></div>}
+          <div className={styles.selectors} role="group" aria-label={selectionLabel}>
           {slides.map((slide, index) => (
             <button key={slide.id} className={styles.selector} type="button"
               aria-label={`Show ${slide.label}`} aria-pressed={selected === index} aria-controls={galleryId}
@@ -248,13 +322,13 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
               {slide.label}
             </button>
           ))}
+          </div>
         </div>}
-        <button className={styles.fullView} type="button" onClick={() => dialog.current?.showModal()}>{fullViewLabel}</button>
+        <button className={styles.fullView} type="button" onClick={() => {
+          dialog.current?.showModal(); setDialogOpen(true);
+        }}>{fullViewLabel}</button>
       </div>
-      {slides.length > 1 && <div className={styles.caption}>
-        <p className={styles.count} aria-live="polite" aria-atomic="true">{String(selected + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</p>
-      </div>}
-      <dialog className={styles.dialog} ref={dialog} aria-label={current.alt}>
+      <dialog className={styles.dialog} ref={dialog} aria-label={current.alt} onClose={() => setDialogOpen(false)}>
         <div className={styles.dialogBar}>
           <span>{current.title ?? current.label} <i>{[current.meta, current.badge].filter(Boolean).join(" / ")}</i></span>
           <button type="button" onClick={() => dialog.current?.close()}>Close</button>
