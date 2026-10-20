@@ -11,6 +11,8 @@
   --tv-widget-font-family: Georgia, "Times New Roman", serif;
   --tv-widget-positive-color: #496d5c;
   --tv-widget-negative-color: #a35b49;
+  --tv-widget-positive-line-color: #756e63;
+  --tv-widget-negative-line-color: #756e63;
   display: flex;
   align-items: stretch;
   height: var(--market-ticker-height);

@@ -23,7 +23,6 @@ type TickerElement = HTMLElement & {
   _contextOverrides?: Record<string, { timeFrame: string; interval: string }>;
   updateComplete?: Promise<boolean>;
   requestUpdate?: () => void;
-  lx?: (symbol: string) => NativeTemplate;
   hideChart?: boolean;
 };
 type NativeTemplate = { strings: readonly string[]; values: unknown[] };
@@ -99,14 +98,24 @@ function observeQuoteTone(widget: TickerElement) {
 // The provider observes CSS tokens at the widget root, so each native row
 // adapts its own line-color subscription to the daily change shown beside it.
 function alignChartColors(widget: TickerElement, palette: ChartPalette) {
-  const renderItem = widget.lx;
-  const sample = renderItem?.(marketSymbols[0]);
-  if (!renderItem || !sample?.strings?.join("").includes("<tv-ticker-chart-item ") ||
-      sample.strings.length !== sample.values.length + 1) return false;
+  // Vendor-generated callback names can change between releases. Identify the
+  // template instead of pinning a generated method name such as `lx` or `ux`.
+  const entry = Object.entries(Object.getOwnPropertyDescriptors(widget)).find(([, descriptor]) =>
+    typeof descriptor.value === "function" &&
+    Function.prototype.toString.call(descriptor.value).includes("<tv-ticker-chart-item "));
+  if (!entry) return false;
+  const [key, descriptor] = entry;
+  if (!descriptor.writable && !descriptor.configurable) return false;
+  const renderItem = descriptor.value as (symbol: string) => NativeTemplate;
+  const sample = renderItem.call(widget, marketSymbols[0]);
+  if (!sample?.strings?.join("").includes("<tv-ticker-chart-item ") ||
+      sample.strings.length !== sample.values.length + 1 ||
+      !/^\s*>\s*<\/tv-ticker-chart-item\b/.test(sample.strings.at(-1) ?? "")) return false;
   const parts = [...sample.strings.slice(0, -1), " hide-currency @css-vars-observer-register=", sample.strings.at(-1)!];
   const strings = Object.assign(parts, { raw: [...parts] });
-  widget.lx = (symbol) => {
-    const template = renderItem(symbol);
+  const renderWithPalette = (symbol: string) => {
+    const template = renderItem.call(widget, symbol);
+    if (template.strings !== sample.strings) return template;
     function chartPalette(event: Event) {
       const detail = (event as CustomEvent<CssSubscription>).detail;
       if (!detail?.props?.some(prop => lineColorProps.includes(prop))) return;
@@ -131,6 +140,7 @@ function alignChartColors(widget: TickerElement, palette: ChartPalette) {
     }
     return { ...template, strings, values: [...template.values, chartPalette] };
   };
+  Object.defineProperty(widget, key, { ...descriptor, value: renderWithPalette });
   widget.requestUpdate?.();
   return true;
 }
@@ -183,8 +193,13 @@ export function MarketTicker() {
     }
     if (!adaptedWidgets.has(widget)) {
       const palette = palettes.get(widget);
-      // A changed provider template falls back to quotes without misleading colors.
-      if (!palette || !alignChartColors(widget, palette)) widget.hideChart = true;
+      // Preserve native history even when the vendor changes its template. The
+      // public CSS tokens keep unadapted lines neutral instead of hiding them.
+      let aligned = false;
+      try { aligned = !!palette && alignChartColors(widget, palette); }
+      catch { /* Unknown vendor templates retain their native, neutral lines. */ }
+      widget.dataset.chartColors = aligned ? "daily" : "neutral";
+      widget.hideChart = false;
       adaptedWidgets.add(widget);
     }
   }
