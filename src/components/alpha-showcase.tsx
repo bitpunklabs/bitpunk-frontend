@@ -33,9 +33,9 @@ function windowPose(index: number, position: number, count: number, variant: Alp
 
 type Gesture = {
   id: number;
-  startY: number;
+  startX: number;
   startPosition: number;
-  lastY: number;
+  lastX: number;
   lastAt: number;
   velocity: number;
   travel: number;
@@ -128,9 +128,9 @@ export function AlphaShowcase({ slides, variant = "stack" }: {
     if (!event.isPrimary || event.button !== 0) return;
     stopFrame();
     gesture.current = {
-      id: event.pointerId, startY: event.clientY, startPosition: position.current,
-      lastY: event.clientY, lastAt: event.timeStamp, velocity: 0,
-      travel: Math.max(100, event.currentTarget.clientHeight * .32),
+      id: event.pointerId, startX: event.clientX, startPosition: position.current,
+      lastX: event.clientX, lastAt: event.timeStamp, velocity: 0,
+      travel: Math.max(100, event.currentTarget.clientWidth * .28),
     };
     event.currentTarget.setPointerCapture(event.pointerId);
     setDragging(true);
@@ -139,10 +139,10 @@ export function AlphaShowcase({ slides, variant = "stack" }: {
   function moveDrag(event: PointerEvent<HTMLDivElement>) {
     const drag = gesture.current;
     if (!drag || drag.id !== event.pointerId) return;
-    drag.velocity = (event.clientY - drag.lastY) / Math.max(8, event.timeStamp - drag.lastAt);
-    drag.lastY = event.clientY;
+    drag.velocity = (event.clientX - drag.lastX) / Math.max(8, event.timeStamp - drag.lastAt);
+    drag.lastX = event.clientX;
     drag.lastAt = event.timeStamp;
-    const delta = Math.max(-.96, Math.min(.96, (drag.startY - event.clientY) / drag.travel));
+    const delta = Math.max(-.96, Math.min(.96, (drag.startX - event.clientX) / drag.travel));
     position.current = drag.startPosition + delta;
     if (frame.current === null) {
       frame.current = requestAnimationFrame(() => { frame.current = null; paint(position.current); });
@@ -156,7 +156,7 @@ export function AlphaShowcase({ slides, variant = "stack" }: {
     setDragging(false);
     const distance = position.current - drag.startPosition;
     const speed = event.timeStamp - drag.lastAt < 90 ? drag.velocity : 0;
-    const moved = Math.abs(event.clientY - drag.startY) > 10;
+    const moved = Math.abs(event.clientX - drag.startX) > 10;
     const step = !cancelled && moved && (Math.abs(distance) > .16 || Math.abs(speed) > .4)
       ? Math.sign(distance || -speed) : 0;
     settle(Math.round(drag.startPosition) + step);
@@ -223,7 +223,7 @@ export function AlphaShowcase({ slides, variant = "stack" }: {
         <button className={styles.fullView} type="button" onClick={() => dialog.current?.showModal()}>View full chart</button>
       </div>
       <div className={styles.caption}>
-        <p id="alpha-gesture-hint">Hold &amp; drag up or down</p>
+        <p id="alpha-gesture-hint">Hold &amp; drag left or right</p>
         <p className={styles.count} aria-live="polite" aria-atomic="true">{String(selected + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</p>
       </div>
       <dialog className={styles.dialog} ref={dialog} aria-label={`${current.name} Alpha chart`}>

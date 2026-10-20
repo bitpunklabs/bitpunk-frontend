@@ -3,7 +3,7 @@ import { destinations } from "./showcase";
 // Curated public copy only; no source or internal documentation is imported.
 // Screener is not published and has no public catalog entry.
 export const alphaIndicator = {
-  name: "Alpha",
+  name: 'The "bitpunk.alpha" indicator',
   description: "Read market context alongside trend, momentum, and structures.",
   overviewUrl: "/indicators/alpha",
   documentationUrl: null as string | null,
