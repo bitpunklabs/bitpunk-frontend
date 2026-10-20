@@ -28,7 +28,7 @@ export function IndicatorCatalog({ variant = "stack" }: { variant?: AlphaShowcas
       <div className={styles.grid}>
         <article id="alpha" className={`${styles.product} ${styles.alpha}`} aria-labelledby="alpha-title">
           <div className={styles.introduction}>
-            <h2 className={styles.name} id="alpha-title">{alphaIndicator.name}</h2>
+            <h2 className={styles.name} id="alpha-title">The &quot;<em>bitpunk.alpha</em>&quot; indicator</h2>
             <p className={styles.description}>{alphaIndicator.description}</p>
             <div className={styles.resources}>
               <PageAction href={alphaIndicator.overviewUrl} quiet>Explore Alpha</PageAction>

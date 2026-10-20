@@ -3,7 +3,7 @@
   width: 100%;
   container-type: inline-size;
 }
-.viewport { overflow: clip; padding: 1.5rem 0 .25rem; }
+.viewport { position: relative; overflow: clip; padding: 1.5rem 0 .25rem; }
 .stage {
   position: relative;
   width: 100%;
@@ -16,6 +16,7 @@
   touch-action: pan-y pinch-zoom;
 }
 .stage[data-dragging] { cursor: grabbing; }
+.showcase[data-single] .stage { cursor: default; }
 .stage[aria-busy="true"] .window[aria-hidden="true"] { visibility: hidden; }
 .stage:focus-visible { outline: 1px solid var(--brand-orange); outline-offset: -3px; }
 .window {
@@ -41,14 +42,38 @@
   color: var(--ink);
 }
 .windowBar > img { width: clamp(1rem, 2.6cqw, 1.375rem); height: auto; flex: 0 0 auto; }
-.ticker { font-size: clamp(.625rem, 1.35cqw, .8125rem); font-weight: 600; letter-spacing: .025em; }
-.marketName { color: #797267; font-family: Georgia, "Times New Roman", serif; font-size: clamp(.625rem, 1.35cqw, .8125rem); }
+.title { font-size: clamp(.625rem, 1.35cqw, .8125rem); font-weight: 600; letter-spacing: .025em; }
+.subtitle { color: #797267; font-family: Georgia, "Times New Roman", serif; font-size: clamp(.625rem, 1.35cqw, .8125rem); }
 .windowMeta { display: flex; align-items: center; gap: 1rem; margin-left: auto; font: .5625rem/1 var(--font-mono); color: #797267; }
 .windowMeta i { font: italic .875rem/1 Georgia, "Times New Roman", serif; color: #34342e; }
-.chart { display: block; width: 100%; height: auto; max-width: none; border: 4px solid #242421; border-top: 0; pointer-events: none; }
+.image { display: block; width: 100%; height: auto; max-width: none; border: 4px solid #242421; border-top: 0; pointer-events: none; }
+.arrow {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(2.75rem, 6cqw, 3.5rem);
+  height: clamp(2.75rem, 6cqw, 3.5rem);
+  padding: 0;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: rgb(51 47 39 / 46%);
+  touch-action: manipulation;
+  transition: color 180ms ease;
+}
+.previous { left: 0; }
+.next { right: 0; }
+.arrow svg { width: clamp(1rem, 2.4cqw, 1.375rem); height: auto; overflow: visible; filter: drop-shadow(0 1px 1px rgb(245 240 230 / 70%)); }
+.arrow path { fill: currentColor; stroke: currentColor; stroke-width: .7; stroke-linejoin: round; }
+.arrow:hover, .arrow:focus-visible { color: var(--brand-orange); }
+.arrow:focus-visible { outline: 1px solid var(--brand-orange); outline-offset: -3px; }
+.arrow:active { color: var(--accent); }
 .controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.25rem; margin-top: .25rem; padding-inline: 4%; }
-.markets { display: flex; gap: clamp(.75rem, 2.7cqw, 1.75rem); }
-.market {
+.selectors { display: flex; gap: clamp(.75rem, 2.7cqw, 1.75rem); }
+.selector {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -60,19 +85,17 @@
   color: #6d675d;
   font-size: .75rem;
 }
-.market img { width: 1.125rem; height: 1.125rem; opacity: .65; }
-.market::after { content: ""; position: absolute; left: 0; right: 0; bottom: .15rem; height: 1px; background: var(--brand-orange); transform: scaleX(0); transition: transform 180ms; }
-.market[aria-pressed="true"] { color: var(--ink); }
-.market[aria-pressed="true"] img { opacity: 1; }
-.market[aria-pressed="true"]::after { transform: scaleX(1); }
-.market:hover { color: var(--ink); }
+.selector img { width: 1.125rem; height: 1.125rem; opacity: .65; }
+.selector::after { content: ""; position: absolute; left: 0; right: 0; bottom: .15rem; height: 1px; background: var(--brand-orange); transform: scaleX(0); transition: transform 180ms; }
+.selector[aria-pressed="true"] { color: var(--ink); }
+.selector[aria-pressed="true"] img { opacity: 1; }
+.selector[aria-pressed="true"]::after { transform: scaleX(1); }
+.selector:hover { color: var(--ink); }
 .fullView { min-height: 2.75rem; padding: .5rem 0; border: 0; border-bottom: 1px solid #aaa08f; background: transparent; font-size: .6875rem; color: #6d675d; }
 .fullView:hover { color: var(--ink); border-color: var(--brand-orange); }
-.caption { display: flex; justify-content: space-between; gap: 1rem; padding-inline: 4%; margin-top: .625rem; color: var(--muted); font: .625rem/1.5 var(--font-mono); letter-spacing: .02em; }
+.caption { display: flex; justify-content: flex-end; padding-inline: 4%; margin-top: .625rem; color: var(--muted); font: .625rem/1.5 var(--font-mono); letter-spacing: .02em; }
 .count { color: var(--muted); }
-.showcase[data-variant="fan"] .stage { aspect-ratio: 1.35; }
 .showcase[data-variant="fan"] .window { width: 74%; }
-.showcase[data-variant="orbit"] .stage { aspect-ratio: 1.35; }
 .showcase[data-variant="orbit"] .window { width: 82%; }
 .dialog { width: min(96vw, 90rem); max-width: none; max-height: 94svh; padding: 0; border: 1px solid #b8ad9a; border-radius: 8px; background: var(--stone); color: var(--ink); box-shadow: 0 20px 80px rgb(0 0 0 / 30%); }
 .dialog::backdrop { background: rgb(26 25 22 / 76%); }
@@ -83,20 +106,26 @@
 .dialogImage img { display: block; width: 100%; height: auto; }
 .original { display: inline-block; margin: .75rem 1rem; font-size: .75rem; text-decoration: underline; text-underline-offset: .25em; }
 @media (max-width: 700px) {
-  .viewport { padding-top: 1rem; }
+  .viewport { padding: 1rem .5rem .25rem; }
   .window { border-radius: 6px; }
   .windowBar { gap: .4rem; }
-  .marketName { display: none; }
+  .subtitle { display: none; }
   .windowMeta { gap: .6rem; }
   .windowMeta i { font-size: .75rem; }
-  .chart { border-width: 2px; border-top-width: 0; }
+  .image { border-width: 2px; border-top-width: 0; }
   .controls { padding-inline: 1%; gap: .75rem; }
-  .markets { gap: .75rem; }
-  .market { font-size: .6875rem; gap: .35rem; }
-  .market img { width: 1rem; height: 1rem; }
+  .selectors { gap: .75rem; }
+  .selector { font-size: .6875rem; gap: .35rem; }
+  .selector img { width: 1rem; height: 1rem; }
   .caption { padding-inline: 1%; font-size: .5625rem; }
   .fullView { font-size: .625rem; }
+  .previous svg { transform: translateX(-2px); }
+  .next svg { transform: translateX(2px); }
+}
+@media (hover: none) {
+  .arrow { color: rgb(51 47 39 / 60%); }
+  .arrow:active { color: var(--brand-orange); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .market::after { transition: none; }
+  .selector::after, .arrow { transition: none; }
 }

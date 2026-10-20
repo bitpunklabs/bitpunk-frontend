@@ -1,10 +1,12 @@
+import type { ImageShowcaseVariant } from "./image-showcase";
+
 export const alphaShowcaseDirections = [
   { id: "stack", label: "A / Perspective stack", description: "Layered windows. A quiet sense of depth." },
   { id: "fan", label: "B / Open fan", description: "Three markets, arranged on an open display." },
   { id: "orbit", label: "C / Vertical orbit", description: "A continuous exchange between the foreground and the background." },
 ] as const;
 
-export type AlphaShowcaseVariant = typeof alphaShowcaseDirections[number]["id"];
+export type AlphaShowcaseVariant = ImageShowcaseVariant;
 export type MarketScreenshot = {
   id: string;
   ticker: string;
@@ -17,6 +19,6 @@ export type MarketScreenshot = {
   height: number;
 };
 
-export function alphaShowcaseVariant(value?: string): AlphaShowcaseVariant {
+export function alphaShowcaseVariant(value?: string): ImageShowcaseVariant {
   return alphaShowcaseDirections.find(direction => direction.id === value)?.id ?? "stack";
 }
