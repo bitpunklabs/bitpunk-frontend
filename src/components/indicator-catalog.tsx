@@ -31,7 +31,8 @@ export function IndicatorCatalog({ variant = "stack" }: { variant?: AlphaShowcas
             <h2 className={styles.name} id="alpha-title">The &quot;<em>bitpunk.alpha</em>&quot; indicator</h2>
             <p className={styles.description}>{alphaIndicator.description}</p>
             <div className={styles.resources}>
-              <PageAction href={alphaIndicator.overviewUrl} quiet>Explore Alpha</PageAction>
+              <PageAction href={alphaIndicator.tradingViewUrl} external quiet>Explore Alpha</PageAction>
+              <PageAction href={alphaIndicator.documentationUrl} quiet>Read the Doc</PageAction>
             </div>
           </div>
           <AlphaShowcase key={variant} slides={screenshots} variant={variant} />

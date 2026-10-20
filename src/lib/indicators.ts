@@ -5,9 +5,8 @@ import { destinations } from "./showcase";
 export const alphaIndicator = {
   name: 'The "bitpunk.alpha" indicator',
   description: "Read market context alongside trend, momentum, and structures.",
-  overviewUrl: "/indicators/alpha",
-  documentationUrl: null as string | null,
-  tradingViewUrl: null as string | null,
+  documentationUrl: "/indicators/alpha",
+  tradingViewUrl: "https://www.tradingview.com/script/SGxnp5Zk/",
 };
 
 // One collection entry: individual open studies are maintained on TradingView.
