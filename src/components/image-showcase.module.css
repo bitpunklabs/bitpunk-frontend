@@ -64,7 +64,7 @@
   touch-action: manipulation;
   transition: color 180ms ease;
 }
-.previous { left: 0; }
+.previous { left: clamp(.25rem, 1.5cqw, 1rem); }
 .next { right: 0; }
 .arrow svg { width: clamp(1rem, 2.4cqw, 1.375rem); height: auto; overflow: visible; filter: drop-shadow(0 1px 1px rgb(245 240 230 / 70%)); }
 .arrow path { fill: currentColor; stroke: currentColor; stroke-width: .7; stroke-linejoin: round; }
