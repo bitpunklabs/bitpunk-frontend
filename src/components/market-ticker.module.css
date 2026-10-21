@@ -17,15 +17,19 @@
   align-items: stretch;
   height: var(--market-ticker-height);
   background: var(--stone, #f1ece2);
-  border-bottom: 1px solid #cfc9bd;
+  overflow: clip;
   color-scheme: light;
 }
+.ticker[data-ready] { border-bottom: 1px solid #cfc9bd; }
 .quotes {
   position: relative;
   flex: 1;
   min-width: 0;
+  height: var(--market-ticker-size);
   overflow: hidden;
+  visibility: hidden;
 }
+.ticker[data-ready] .quotes { visibility: visible; }
 .widget {
   display: block;
   width: calc(100% / var(--ticker-scale));
@@ -34,15 +38,3 @@
   transform-origin: left top;
   font-variant-numeric: tabular-nums;
 }
-.fallback {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  gap: 1em;
-  padding: 0 1.25rem;
-  font-size: .75rem;
-  color: var(--muted);
-}
-.fallback a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-.quotes:has(:global(tv-ticker-tape):defined) .fallback:not([data-failed]) { display: none; }

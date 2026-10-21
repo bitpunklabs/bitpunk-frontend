@@ -2,6 +2,8 @@
 
 import { type DetailedHTMLProps, type HTMLAttributes, useCallback, useRef, useState, useSyncExternalStore } from "react";
 import Script from "next/script";
+import { observeTickerReadiness } from "@/lib/market-ticker-readiness";
+import type { MarketTickerStatus } from "@/lib/market-ticker-readiness";
 import styles from "./market-ticker.module.css";
 
 const marketSymbols = [
@@ -162,63 +164,67 @@ function subscribeToMotion(onChange: () => void) {
   return () => media.removeEventListener("change", onChange);
 }
 
+async function compactChartWidth(widget: TickerElement) {
+  await customElements.whenDefined("tv-ticker-tape");
+  if (!widget.isConnected) return;
+  await widget.updateComplete;
+  if (!widget.isConnected) return;
+  // The current compact widget has no chart-width attribute. This optional
+  // native layout hint leaves fonts and height unchanged and reduces only
+  // the spare horizontal space available to its chart. If the provider
+  // changes this field, keep its default layout instead of patching internals.
+  if (typeof widget._itemWidth === "number" && widget._itemWidth === 376) {
+    widget._itemWidth = 350;
+  }
+  if (widget._contextOverrides && typeof widget._contextOverrides === "object") {
+    widget._contextOverrides = Object.fromEntries(marketSymbols.map(symbol => [symbol, { timeFrame: "1M", interval: "1D" }]));
+  }
+  if (!adaptedWidgets.has(widget)) {
+    const palette = palettes.get(widget);
+    // Preserve native history even when the vendor changes its template. The
+    // public CSS tokens keep unadapted lines neutral instead of hiding them.
+    let aligned = false;
+    try { aligned = !!palette && alignChartColors(widget, palette); }
+    catch { /* Unknown vendor templates retain their native, neutral lines. */ }
+    widget.dataset.chartColors = aligned ? "daily" : "neutral";
+    widget.hideChart = false;
+    adaptedWidgets.add(widget);
+  }
+  await widget.updateComplete;
+}
+
 export function MarketTicker() {
-  const widgetRef = useRef<TickerElement>(null);
+  const [status, setStatus] = useState<MarketTickerStatus>("loading");
+  const readiness = useRef<ReturnType<typeof observeTickerReadiness> | null>(null);
   const captureWidget = useCallback((widget: TickerElement | null) => {
-    widgetRef.current = widget;
     if (!widget) return;
-    return observeQuoteTone(widget);
+    const removeToneObserver = observeQuoteTone(widget);
+    const observer = observeTickerReadiness(widget, setStatus, { prepared: compactChartWidth(widget) });
+    readiness.current = observer;
+    return () => {
+      removeToneObserver();
+      observer.dispose();
+      if (readiness.current === observer) readiness.current = null;
+    };
   }, []);
-  const [failed, setFailed] = useState(false);
   const reducedMotion = useSyncExternalStore(
     subscribeToMotion,
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     () => false,
   );
 
-  async function compactChartWidth() {
-    await customElements.whenDefined("tv-ticker-tape");
-    const widget = widgetRef.current;
-    if (!widget) return;
-    await widget.updateComplete;
-    // The current compact widget has no chart-width attribute. This optional
-    // native layout hint leaves fonts and height unchanged and reduces only
-    // the spare horizontal space available to its chart. If the provider
-    // changes this field, keep its default layout instead of patching internals.
-    if (typeof widget._itemWidth === "number" && widget._itemWidth === 376) {
-      widget._itemWidth = 350;
-    }
-    if (widget._contextOverrides && typeof widget._contextOverrides === "object") {
-      widget._contextOverrides = Object.fromEntries(marketSymbols.map(symbol => [symbol, { timeFrame: "1M", interval: "1D" }]));
-    }
-    if (!adaptedWidgets.has(widget)) {
-      const palette = palettes.get(widget);
-      // Preserve native history even when the vendor changes its template. The
-      // public CSS tokens keep unadapted lines neutral instead of hiding them.
-      let aligned = false;
-      try { aligned = !!palette && alignChartColors(widget, palette); }
-      catch { /* Unknown vendor templates retain their native, neutral lines. */ }
-      widget.dataset.chartColors = aligned ? "daily" : "neutral";
-      widget.hideChart = false;
-      adaptedWidgets.add(widget);
-    }
-  }
-
   return (
-    <section className={styles.ticker} aria-label="World markets — CFD references and spot prices" data-market-ticker>
+    <section className={styles.ticker} aria-label="World markets — CFD references and spot prices" data-market-ticker
+      data-state={status} data-ready={status === "ready" || undefined} aria-hidden={status !== "ready"} inert={status !== "ready"}>
       <div className={styles.quotes}>
-        {!failed && <tv-ticker-tape ref={captureWidget} className={styles.widget}
+        {status !== "failed" && <tv-ticker-tape ref={captureWidget} className={styles.widget}
           symbols={symbols} symbol-titles={JSON.stringify(marketNames)} theme="light" transparent=""
           line-chart-type="Line" hide-logo="" item-size="compact"
           disable-scroll={reducedMotion ? "" : undefined} />}
-        <p className={styles.fallback} data-failed={failed || undefined}>
-          {failed ? "Market data unavailable." : "Loading market data…"}{" "}
-          <a href="https://www.tradingview.com/markets/" target="_blank" rel="noopener noreferrer">View markets</a>
-        </p>
       </div>
       <Script src="https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"
-        type="module" strategy="afterInteractive" onReady={() => { void compactChartWidth(); }}
-        onError={() => setFailed(true)} />
+        type="module" strategy="afterInteractive"
+        onError={() => { if (readiness.current) readiness.current.fail(); else setStatus("failed"); }} />
     </section>
   );
 }
