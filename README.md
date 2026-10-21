@@ -39,6 +39,6 @@ pnpm build
 pnpm privacy:check
 ```
 
-Installation configures the tracked Git hooks. Commit checks inspect staged paths and secrets; push checks inspect reachable history as well. Gitleaks must be installed for these checks to pass. Do not bypass the hooks or force-add ignored artwork/configuration.
+Installation configures the tracked Git hooks. Commit checks inspect staged paths, secrets and the configured Git identity; push checks inspect reachable history and commit metadata as well. Use a GitHub noreply email for both author and committer identities. Gitleaks must be installed for these checks to pass. Do not bypass the hooks or force-add ignored artwork/configuration.
 
 See [RUNNING.md](RUNNING.md) for private assets, deployment and production checks.

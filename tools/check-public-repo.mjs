@@ -6,6 +6,18 @@ const policy = JSON.parse(readFileSync(new URL('../.privacy-policy.json', import
 const staged = process.argv.includes('--staged');
 const history = process.argv.includes('--history');
 const git = args => execFileSync('git', args, { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+const isPrivateEmail = email => !/^[^@\s]+@users\.noreply\.github\.com$/i.test(email.trim());
+if (staged) {
+  const identities = ['GIT_AUTHOR_IDENT', 'GIT_COMMITTER_IDENT'].map(name => git(['var', name]));
+  if (identities.some(value => isPrivateEmail(value.match(/<([^<>]+)>/)?.[1] || ''))) {
+    console.error('BLOCKED: configure a GitHub noreply identity before committing. Personal email values are not printed.');
+    process.exit(1);
+  }
+}
+if (history && git(['log', '--all', '--format=%ae%n%ce']).split('\n').filter(Boolean).some(isPrivateEmail)) {
+  console.error('BLOCKED: reachable commit metadata contains non-noreply email addresses. Clean author and committer identities before publishing.');
+  process.exit(1);
+}
 const normalise = value => value.replaceAll('\\', '/').replace(/^\.\//, '');
 function isPrivate(input) {
   const path = normalise(input);
