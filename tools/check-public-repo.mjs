@@ -18,6 +18,10 @@ if (history && git(['log', '--all', '--format=%ae%n%ce']).split('\n').filter(Boo
   console.error('BLOCKED: reachable commit metadata contains non-noreply email addresses. Clean author and committer identities before publishing.');
   process.exit(1);
 }
+if (history && /\/(?:Users|Volumes)\/|[\w.%+-]+@(?:gmail|outlook)\.com\b/i.test(git(['log', '--all', '--format=%B']))) {
+  console.error('BLOCKED: commit messages contain personal workspace paths or email addresses. Redact historical messages before publishing.');
+  process.exit(1);
+}
 const normalise = value => value.replaceAll('\\', '/').replace(/^\.\//, '');
 function isPrivate(input) {
   const path = normalise(input);
