@@ -1,0 +1,20 @@
+.embed { position: relative; min-width: 0; color: #0f1419; font: 14px/1.5 Arial, Helvetica, sans-serif; }
+.mount { position: relative; min-height: 180px; }
+.placeholder { position: absolute; z-index: 1; top: 0; left: 0; right: 0; display: flex; align-items: center; gap: 12px; min-height: 180px; padding: 24px; border: 1px solid #d8dce1; border-radius: 14px; background: #fff; color: #536471; }
+.placeholder svg { flex-shrink: 0; width: 22px; height: 22px; color: #0f1419; }
+.frame { display: block; width: 100%; border: 0; background: #fff; }
+.embed[data-official-embed="tradingview"] .frame { height: auto; min-height: 340px; aspect-ratio: 4 / 5; }
+.xHost { min-width: 0; }
+.xHost :global(.twitter-tweet) { margin: 0 !important; }
+.xHost :global(.twitter-timeline) { width: 100% !important; margin: 0 !important; }
+.embed[data-official-embed="x-timeline"] .mount { min-height: 440px; }
+.embed[data-official-embed="x-timeline"][data-status="failed"] .mount { min-height: 180px; }
+.embed[data-official-embed="x-timeline"][data-status="ready"] .source { display: none; }
+.source { display: inline-flex; align-items: center; min-height: 36px; padding-block: 8px; color: #536471; font-size: 12px; }
+.embed[data-status="loading"] .frame { visibility: hidden; }
+.embed[data-status="failed"] :is(.frame, .xHost) { display: none; }
+.source:hover { text-decoration: underline; }
+.embed[data-theme="dark"] { color: #e7e9ea; }
+.embed[data-theme="dark"] .placeholder { border-color: #343a40; background: #121417; color: #a0a8b0; }
+.embed[data-theme="dark"] .placeholder svg { color: #e7e9ea; }
+.embed[data-theme="dark"] .source { color: #9aa4ad; }

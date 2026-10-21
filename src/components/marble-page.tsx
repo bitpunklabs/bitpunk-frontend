@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { ActionLabel, actionStyles } from "./action-label";
 import styles from "./marble-page.module.css";
 
 export { default as marbleStyles } from "./marble-page.module.css";
@@ -58,10 +59,11 @@ export function MarbleContent({ children }: { children: React.ReactNode }) {
 export function PageAction({ href, external = false, quiet = false, children }: {
   href: string; external?: boolean; quiet?: boolean; children: React.ReactNode;
 }) {
-  const className = quiet ? styles.textLink : styles.action;
+  const className = `${actionStyles.interactive} ${quiet ? styles.textLink : styles.action}`;
+  const label = <ActionLabel>{children}</ActionLabel>;
   return external
-    ? <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}</a>
-    : <Link className={className} href={href}>{children}</Link>;
+    ? <a className={className} href={href} target="_blank" rel="noopener noreferrer">{label}</a>
+    : <Link className={className} href={href}>{label}</Link>;
 }
 
 export function Availability({ children = "Coming soon" }: { children?: React.ReactNode }) {
@@ -72,10 +74,10 @@ export function CollectionLink({ href, title, copy, action }: {
   href: string; title: string; copy: string; action: string;
 }) {
   return (
-    <Link className={styles.collectionLink} href={href}>
+    <Link className={`${styles.collectionLink} ${actionStyles.interactive}`} href={href}>
       <h2>{title}</h2>
       <p>{copy}</p>
-      <span className={styles.linkCaption}>{action}</span>
+      <span className={styles.linkCaption}><ActionLabel>{action}</ActionLabel></span>
     </Link>
   );
 }

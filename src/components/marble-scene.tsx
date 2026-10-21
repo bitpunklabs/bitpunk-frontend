@@ -13,7 +13,7 @@ type Region = readonly [number, number, number, number];
 const entries = [
   { id: "indicators", href: "/indicators", label: "Indicators", anchor: "indicators",
     desktop: [0, .33, .41, .67], mobile: [0, .63, .67, .37] },
-  { id: "research", href: "/blog", label: "Research", anchor: "blog",
+  { id: "research", href: "/research", label: "Research", anchor: "research",
     desktop: [.69, .02, .31, .50], mobile: [.50, 0, .50, .33] },
   { id: "opensource", href: "/open-source", label: "Open source", anchor: "work",
     desktop: [.035, .02, .32, .34], mobile: [0, 0, .50, .31] },
@@ -116,10 +116,14 @@ export function MarbleScene() {
           unoptimized loading="eager" fetchPriority="high" />
       </picture>
       <div className={styles.identity}>
-        <div className={styles.brand}><Wordmark artwork={wordmark} /></div>
+        <div className={styles.brand}>
+          <span className={styles.brandAnchor} data-home-logo-anchor>
+            <Wordmark artwork={wordmark} />
+          </span>
+        </div>
         <h1 id="home-title" className={styles.description}>
           <span>Research, indicators and open-source tools</span>{" "}
-          <em>for those who read the market.</em>
+          <span>for those who read the market.</span>
         </h1>
       </div>
       <div className={styles.scene}>

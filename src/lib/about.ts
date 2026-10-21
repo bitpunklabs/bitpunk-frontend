@@ -3,7 +3,7 @@
 export const aboutContent = {
   introduction: "An independent perspective on markets.",
   paragraphs: [
-    "We study price, trends and market structure, connecting what we observe to the wider context.",
-    "We value independent thinking, clear reasoning and a willingness to revisit our assumptions. We share ideas and tools as a starting point for your own understanding.",
+    "We study how markets move and build tools that make price behaviour easier to understand.",
+    "Independent thinking guides the work. Our research and open tools give you ideas to explore, question and build on.",
   ],
 };

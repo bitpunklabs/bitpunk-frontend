@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { MarketScreenshot } from "./alpha-showcase";
+import type { ImageShowcaseSlide } from "./image-showcase";
 
 export type SceneCrop = {
   src: string;
@@ -41,4 +42,23 @@ export function getAlphaScreenshots(): MarketScreenshot[] {
     throw new Error("Alpha screenshots are missing. Restore the current authorised asset pack.");
   }
   return slides as MarketScreenshot[];
+}
+
+export function getAlphaCaseStudies(): ImageShowcaseSlide[] {
+  const file = join(process.cwd(), "public/art/site-assets.json");
+  const slides = JSON.parse(readFileSync(file, "utf8")).showcases?.alphaStudies;
+  if (!Array.isArray(slides) || slides.length !== 3 ||
+      !["momentum", "trend", "market-structure"].every(id => slides.some(slide => slide.id === id))) {
+    throw new Error("Alpha case studies are missing. Restore the current authorised asset pack.");
+  }
+  return slides as ImageShowcaseSlide[];
+}
+
+export function getOpenSourceScreenshots(): ImageShowcaseSlide[] {
+  const file = join(process.cwd(), "public/art/site-assets.json");
+  const slides = JSON.parse(readFileSync(file, "utf8")).showcases?.openSource;
+  if (!Array.isArray(slides) || slides.length < 2) {
+    throw new Error("Open-source screenshots are missing. Restore the current authorised asset pack.");
+  }
+  return slides as ImageShowcaseSlide[];
 }

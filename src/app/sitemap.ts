@@ -7,7 +7,7 @@ const paths = [
   "/open-source",
   "/open-source/tradingview",
   "/open-source/github",
-  "/blog",
+  "/research",
   "/about",
   "/privacy",
   "/disclaimer",

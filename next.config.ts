@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
-// Retired content paths from the Playbook era. `/blog` is a real in-app route
-// again, so it is deliberately NOT in this list.
+// Retired content paths from the Playbook era.
 const retiredContentPaths = [
   "/playbook",
   "/playbook/:slug",
@@ -19,6 +18,11 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
+      {
+        source: "/blog",
+        destination: "/research",
+        permanent: true,
+      },
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.bitpunk.io" }],

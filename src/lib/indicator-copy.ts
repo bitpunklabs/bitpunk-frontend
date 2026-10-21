@@ -1,2 +1,2 @@
 export const defaultIndicatorHeadline = { lines: ["Beyond", "the candles."] } as const;
-export const indicatorIntroduction = "Exploring the mechanics of market behaviour.";
+export const indicatorIntroduction = "A clearer view of every market move.";

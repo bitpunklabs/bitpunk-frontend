@@ -1,9 +1,9 @@
 .prose {
-  max-width: 66ch;
-  padding-block: clamp(.5rem, 1cqw, 1rem) clamp(.75rem, 1.5cqw, 1.5rem);
-  color: #55564f;
-  font-size: clamp(1rem, .95cqw, 1.125rem);
-  line-height: 1.85;
+  max-width: var(--measure-reading);
+  padding-block: clamp(.375rem, .75cqw, .75rem) clamp(.5rem, 1cqw, 1rem);
+  color: var(--muted);
+  font: var(--type-body);
   text-wrap: pretty;
 }
-.prose p + p { margin-top: 1.25em; }
+.prose p + p { margin-top: var(--paragraph-gap); }
+.prose :is(em, strong) { color: var(--ink); font: var(--type-copy-emphasis); letter-spacing: 0; }

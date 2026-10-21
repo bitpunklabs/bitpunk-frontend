@@ -10,7 +10,9 @@ try {
   console.error('Private artwork is missing. Restore the authorised asset pack described in RUNNING.md.');
   process.exit(1);
 }
-if (pack.version !== 1 || !Array.isArray(pack.files) || !pack.files.length || !pack.home?.wordmark || !Array.isArray(pack.showcases?.alpha)) {
+if (pack.version !== 1 || !Array.isArray(pack.files) || !pack.files.length || !pack.home?.wordmark ||
+    !Array.isArray(pack.showcases?.alpha) || !Array.isArray(pack.showcases?.openSource) ||
+    !Array.isArray(pack.showcases?.alphaStudies)) {
   throw new Error('Invalid private asset pack.');
 }
 const files = new Set();
@@ -25,7 +27,7 @@ for (const item of pack.files) {
 }
 function checkReferences(value) {
   if (!value || typeof value !== 'object') return;
-  for (const key of ['src', 'staticSrc', 'logoSrc']) {
+  for (const key of ['src', 'staticSrc', 'logoSrc', 'iconSrc']) {
     if (key in value && !files.has(value[key])) throw new Error('Artwork reference is missing from the asset pack.');
   }
   for (const child of Object.values(value)) checkReferences(child);

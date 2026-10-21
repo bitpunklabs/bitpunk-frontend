@@ -1,0 +1,28 @@
+/* Shared editorial roles for the homepage, public rooms and documentation. */
+:root {
+  --font-editorial: Georgia, "Times New Roman", serif;
+  --font-body: var(--font-sans), Arial, sans-serif;
+  --type-title-size: clamp(2.625rem, 4.4vw, 4.5rem);
+  --type-heading-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  --type-subheading-size: clamp(1.5rem, 2vw, 1.875rem);
+  --type-body-size: .9375rem;
+  --type-action-size: .8125rem;
+  --type-title: 400 var(--type-title-size)/1.06 var(--font-editorial);
+  --type-heading: 400 var(--type-heading-size)/1.15 var(--font-editorial);
+  --type-subheading: 400 var(--type-subheading-size)/1.2 var(--font-editorial);
+  --type-body: 400 var(--type-body-size)/1.75 var(--font-body);
+  --type-action: 400 var(--type-action-size)/1.5 var(--font-body);
+  --type-kicker: 400 .625rem/1.5 var(--font-mono);
+  --type-meta: 400 .6875rem/1.5 var(--font-body);
+  --type-title-emphasis: italic 500 1.1em/1.06 var(--font-emphasis), Georgia, "Times New Roman", serif;
+  --type-copy-emphasis: italic 600 1.15em/1.4 var(--font-emphasis), Georgia, "Times New Roman", serif;
+  --tracking-title: -.045em;
+  --tracking-emphasis: -.035em;
+  --paragraph-gap: .75em;
+  --copy-heading-gap: .75rem;
+  --measure-summary: 42ch;
+  --measure-reading: 65ch;
+  --action-height: 2.75rem;
+}
+
+body { font-family: var(--font-body); }

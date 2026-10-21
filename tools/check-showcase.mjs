@@ -8,7 +8,7 @@ const paths = [
   "/open-source",
   "/open-source/tradingview",
   "/open-source/github",
-  "/blog",
+  "/research",
   "/about",
   "/privacy",
   "/disclaimer",
@@ -29,6 +29,13 @@ for (const path of paths) {
   );
   const html = await response.text();
   pages.set(path, html);
+  if (path === "/") {
+    const ticker = html.match(/<section\b[^>]*\bdata-market-ticker[^>]*>/)?.[0];
+    assert.ok(ticker, "Homepage ticker is missing");
+    assert.match(ticker, /data-state="loading"/, "Ticker must start hidden before provider readiness");
+    assert.match(ticker, /aria-hidden="true"/, "Pending ticker must not be exposed to readers");
+    assert.ok(!ticker.includes("data-ready"), "SSR cannot assume live quotes are ready");
+  }
   assert.equal(
     (html.match(/<h1(?:\s|>)/g) || []).length,
     1,
@@ -46,14 +53,21 @@ for (const path of paths) {
     if (url.hash)
       fragments.push([url.pathname, decodeURIComponent(url.hash.slice(1))]);
   }
-  for (const [, src] of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)) {
+  for (const [tag, src] of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"[^>]*>/g)) {
     const url = new URL(src.replaceAll("&amp;", "&"), origin);
+    if (url.origin !== origin.origin && tag.includes("data-post-thumbnail=")) {
+      assert.equal(url.protocol, "https:", "RSS thumbnails must use HTTPS");
+      continue;
+    }
     assert.equal(url.origin, origin.origin, "Artwork must be served locally");
     assets.add(url.href);
   }
 }
 for (const path of linkedPages)
-  assert.ok(pages.has(path), `Unreviewed internal destination: ${path}`);
+  assert.ok(
+    pages.has(path) || assets.has(new URL(path, origin).href),
+    `Unreviewed internal destination: ${path}`,
+  );
 for (const [path, id] of fragments)
   assert.ok(
     pages.get(path).includes(`id="${id}"`),

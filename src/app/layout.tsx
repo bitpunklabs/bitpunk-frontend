@@ -4,7 +4,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { MarketTicker } from "@/components/market-ticker";
 import { getSiteUrl } from "@/lib/seo";
+import { getHomeArtwork } from "@/lib/scene-assets";
 import "./globals.css";
+import "./typography.css";
 import "./marble-chrome.css";
 const display = localFont({
   src: "../fonts/barlow-condensed-bold.ttf",
@@ -20,6 +22,15 @@ const sans = localFont({
   variable: "--font-sans",
   display: "swap",
 });
+const emphasis = localFont({
+  src: "../fonts/cormorant-garamond-latin-italic.woff2",
+  variable: "--font-emphasis",
+  weight: "500 600",
+  style: "italic",
+  display: "swap",
+  adjustFontFallback: "Times New Roman",
+  preload: false,
+});
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
@@ -27,13 +38,13 @@ export const metadata: Metadata = {
     template: "%s — Bitpunk",
   },
   description:
-    "Research, indicators and open-source tools for those who read the market.",
+    "Research, indicators and open-source tools for a clearer view of the market.",
   openGraph: {
     type: "website",
     siteName: "Bitpunk",
     title: "Bitpunk — Independent market research.",
     description:
-      "Research, indicators and open-source tools for those who read the market.",
+      "Research, indicators and open-source tools for a clearer view of the market.",
   },
   twitter: { card: "summary_large_image" },
   icons: {
@@ -63,7 +74,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${display.variable} ${sans.variable}`}
+      className={`${display.variable} ${sans.variable} ${emphasis.variable}`}
     >
       <body id="top">
         <a className="skip-link" href="#main-content">
@@ -71,7 +82,7 @@ export default function RootLayout({
         </a>
         <div className="frame">
           <div className="site-chrome" data-site-chrome>
-            <SiteHeader />
+            <SiteHeader wordmark={getHomeArtwork().wordmark} />
             <MarketTicker />
           </div>
           <main id="main-content">{children}</main>

@@ -8,9 +8,11 @@ export type ImageShowcaseSlide = {
   width: number;
   height: number;
   label: string;
+  /** Left side of the frame: ticker and market name. */
   title?: string;
   subtitle?: string;
   iconSrc?: string;
+  /** Right side of the frame: timeframe and displayed script name. */
   meta?: string;
   badge?: string;
 };

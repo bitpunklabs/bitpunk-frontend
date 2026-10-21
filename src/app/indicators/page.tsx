@@ -4,7 +4,7 @@ import { alphaShowcaseVariant } from "@/lib/alpha-showcase";
 
 export const metadata: Metadata = {
   title: "Indicators",
-  description: "TradingView indicators for exploring the mechanics of market behaviour.",
+  description: "TradingView indicators for a clearer view of momentum, trends and key price areas.",
   alternates: { canonical: "/indicators" },
 };
 

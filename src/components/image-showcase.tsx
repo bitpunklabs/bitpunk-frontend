@@ -4,6 +4,10 @@ import Image from "next/image";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { KeyboardEvent, PointerEvent, RefObject } from "react";
 import type { ImageShowcaseSlide, ImageShowcaseVariant } from "@/lib/image-showcase";
+import { ActionLabel, actionStyles } from "./action-label";
+import { ImageViewer } from "./image-viewer";
+import type { ImageViewerHandle } from "./image-viewer";
+import { ImageFrame } from "./image-frame";
 import styles from "./image-showcase.module.css";
 
 const modulo = (value: number, count: number) => ((value % count) + count) % count;
@@ -105,17 +109,16 @@ function useAutoAdvance(root: RefObject<HTMLDivElement | null>, progress: RefObj
   }, [root, progress, advance, interval, enabled]);
 }
 
-export type ImageShowcaseProps = {
+export type ImageCarouselProps = {
   slides: readonly ImageShowcaseSlide[];
   label: string;
   variant?: ImageShowcaseVariant;
   selectionLabel?: string;
-  fullViewLabel?: string;
   /** Milliseconds between automatic advances; use 0 to disable. */
   autoPlayInterval?: number;
 };
 
-export function ImageShowcase(props: ImageShowcaseProps) {
+export function ImageCarousel(props: ImageCarouselProps) {
   if (!props.slides.length) return null;
   // Reset selection and image readiness when a caller replaces the collection.
   const collection = props.slides.map(slide => `${slide.id}:${slide.src}`).join("|");
@@ -123,7 +126,7 @@ export function ImageShowcase(props: ImageShowcaseProps) {
 }
 
 function ImageShowcaseGallery({ slides, label, variant = "stack",
-  selectionLabel = "Choose an image", fullViewLabel = "View full image", autoPlayInterval = 6000 }: ImageShowcaseProps) {
+  selectionLabel = "Choose an image", autoPlayInterval = 6000 }: ImageCarouselProps) {
   const galleryId = useId();
   const root = useRef<HTMLDivElement>(null);
   const progress = useRef<HTMLSpanElement>(null);
@@ -138,7 +141,7 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
   const frame = useRef<number | null>(null);
   const gesture = useRef<Gesture | null>(null);
   const reducedMotion = useRef(false);
-  const dialog = useRef<HTMLDialogElement>(null);
+  const viewer = useRef<ImageViewerHandle>(null);
   const current = slides[selected];
   // Accommodate portrait or mixed collections as well as landscape screenshots.
   const narrowestRatio = Math.min(...slides.map(slide => slide.width / slide.height));
@@ -286,16 +289,7 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
             <figure key={slide.id} className={styles.window} aria-hidden={index !== selected}
               ref={node => { windows.current[index] = node; }}
               style={windowPose(index, 0, slides.length, variant)}>
-              <div className={styles.windowBar}>
-                {slide.iconSrc && <Image src={slide.iconSrc} alt="" width={24} height={24} unoptimized draggable={false} />}
-                <span className={styles.title}>{slide.title ?? slide.label}</span>
-                {slide.subtitle && <span className={styles.subtitle}>{slide.subtitle}</span>}
-                {(slide.meta || slide.badge) && <span className={styles.windowMeta}>{slide.meta}{slide.badge && <i>{slide.badge}</i>}</span>}
-              </div>
-              <Image className={styles.image} src={slide.src}
-                ref={node => { images.current[index] = node; }}
-                alt={slide.alt}
-                width={slide.width} height={slide.height} unoptimized loading="eager" draggable={false} />
+              <ImageFrame slide={slide} imageRef={node => { images.current[index] = node; }} eager />
             </figure>
           ))}
         </div>
@@ -324,21 +318,14 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
           ))}
           </div>
         </div>}
-        <button className={styles.fullView} type="button" onClick={() => {
-          dialog.current?.showModal(); setDialogOpen(true);
-        }}>{fullViewLabel}</button>
+        <button className={`${styles.fullView} ${actionStyles.interactive}`} type="button"
+          aria-label={`View full: ${label}`} aria-haspopup="dialog" onClick={() => viewer.current?.open()}>
+          <ActionLabel icon="expand">View full</ActionLabel>
+        </button>
       </div>
-      <dialog className={styles.dialog} ref={dialog} aria-label={current.alt} onClose={() => setDialogOpen(false)}>
-        <div className={styles.dialogBar}>
-          <span>{current.title ?? current.label} <i>{[current.meta, current.badge].filter(Boolean).join(" / ")}</i></span>
-          <button type="button" onClick={() => dialog.current?.close()}>Close</button>
-        </div>
-        <div className={styles.dialogImage}>
-          <Image src={current.src} alt={current.alt}
-            width={current.width} height={current.height} unoptimized />
-        </div>
-        <a className={styles.original} href={current.src} target="_blank" rel="noopener noreferrer">Open original size</a>
-      </dialog>
+      <ImageViewer ref={viewer} slide={current} getSource={() => windows.current[selected] ?? null} onOpenChange={setDialogOpen}
+        onPrevious={slides.length > 1 ? () => settle(target.current - 1) : undefined}
+        onNext={slides.length > 1 ? () => settle(target.current + 1) : undefined} />
     </div>
   );
 }

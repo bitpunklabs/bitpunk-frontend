@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { navigation } from "@/lib/showcase";
+import { destinations, navigation } from "@/lib/showcase";
+import type { WordmarkArtwork } from "@/lib/scene-assets";
+import { ScrollBrand } from "./scroll-brand";
 import styles from "./site-header.module.css";
 
 // Substack / TradingView / GitHub paths: Simple Icons (CC0).
@@ -16,9 +17,16 @@ const socialPlatforms = [
 ];
 
 function SocialPlaceholders() {
+  const links: Record<string, string | null> = { X: destinations.x, TradingView: destinations.tradingview, Substack: destinations.substack };
   return (
     <div className={styles.socials} aria-label="Social media">
-      {socialPlatforms.map(({ name, path }) => (
+      {socialPlatforms.map(({ name, path }) => links[name] ? (
+        <a key={name} className={styles.social} href={links[name]!}
+          target="_blank" rel="noopener noreferrer" aria-label={`Bitpunk on ${name}`}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d={path} /></svg>
+          <span className={styles.tooltip} aria-hidden="true">{name}</span>
+        </a>
+      ) : (
         <button key={name} type="button" className={styles.social}
           aria-disabled="true" aria-label={`${name} — coming soon`}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -31,13 +39,17 @@ function SocialPlaceholders() {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ wordmark }: { wordmark: WordmarkArtwork }) {
   const pathname = usePathname();
   // An open menu belongs to this route. Back/forward navigation also closes it.
   const [menuRoute, setMenuRoute] = useState<string | null>(null);
   const open = menuRoute === pathname;
   const toggle = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
+  function goHome() {
+    setMenuRoute(null);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
   useEffect(() => {
     function escape(event: KeyboardEvent) {
       if (event.key === "Escape" && open) {
@@ -50,7 +62,7 @@ export function SiteHeader() {
         setMenuRoute(null);
       }
     }
-    const desktop = window.matchMedia("(min-width: 701px)");
+    const desktop = window.matchMedia("(min-width: 961px)");
     function closeOnDesktop() {
       if (desktop.matches) setMenuRoute(null);
     }
@@ -68,14 +80,7 @@ export function SiteHeader() {
   }, [open]);
   return (
     <header ref={header} className={styles.header} data-site-header>
-      <Link
-        className={styles.mark}
-        href="/"
-        aria-label="Bitpunk home"
-        onClick={() => setMenuRoute(null)}
-      >
-        <Image src="/brand/nav-favicon.svg" width={36} height={36} alt="" unoptimized />
-      </Link>
+      <ScrollBrand artwork={wordmark} onNavigate={goHome} />
       <button
         ref={toggle}
         className={styles.toggle}
@@ -101,7 +106,7 @@ export function SiteHeader() {
                 ? "page"
                 : undefined
             }
-            onClick={() => setMenuRoute(null)}
+            onClick={href === "/" ? goHome : () => setMenuRoute(null)}
           >
             {label}
           </Link>

@@ -9,23 +9,13 @@
   border-bottom: 1px solid var(--stone-line);
   background: var(--stone);
 }
-.mark {
-  display: inline-grid;
-  place-items: center;
-  flex: 0 0 44px;
-  width: 44px;
-  height: 44px;
-  transition: opacity 200ms;
-}
-.mark:hover { opacity: .78; }
-.mark img { display: block; width: 36px; height: 36px; }
 .toggle { display: none; }
 .nav {
   display: flex;
   align-items: center;
   gap: clamp(15px, 2.2vw, 28px);
   margin-left: auto;
-  font: 400 13px/1.6 var(--font-sans), Arial, sans-serif;
+  font: var(--type-action);
 }
 .nav > a { position: relative; white-space: nowrap; }
 .nav > a::after {
@@ -56,6 +46,8 @@
   cursor: default;
 }
 .social > svg { width: 18px; height: 18px; }
+a.social { cursor: pointer; }
+a.social:hover { color: var(--accent); }
 .tooltip {
   display: none;
   position: absolute;
@@ -71,9 +63,8 @@
 }
 .social:hover .tooltip, .social:focus-visible .tooltip { display: block; }
 @media (max-width: 800px) { .socials { padding-left: 10px; } }
-@media (max-width: 700px) {
+@media (max-width: 960px) {
   .header { justify-content: space-between; gap: 15px; padding-inline: 20px; }
-  .mark img { width: 32px; height: 32px; }
   .toggle {
     display: block;
     min-width: 64px;
@@ -81,7 +72,7 @@
     padding: 11px 13px;
     border: 1px solid #a8a295;
     background: transparent;
-    font: 10px var(--font-mono);
+    font: var(--type-action);
     text-transform: uppercase;
   }
   .nav {
@@ -104,4 +95,4 @@
   .social { width: 44px; }
   .tooltip { top: auto; bottom: 100%; left: 0; right: auto; }
 }
-@media (prefers-reduced-motion: reduce) { .mark, .nav > a::after { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .nav > a::after { transition: none; } }

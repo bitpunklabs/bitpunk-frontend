@@ -13,20 +13,20 @@ export default function GitHubPage() {
     <MarblePage>
       <MarbleHero scene="opensource" section="GitHub" parent={{href:"/open-source",label:"Open source"}}
         title={<>The work,{" "}<br /><em>shared openly.</em></>}
-        copy="Tools and code from Bitpunk.">
+        copy="Open tools to support your own research.">
         <PageAction href={destinations.github} external>Visit GitHub</PageAction>
       </MarbleHero>
       <MarbleContent>
         <section className={s.chapter} aria-label="GitHub projects">
           <div className={s.collectionGrid}>
             <article className={s.channel}>
-              <h2>Ticker Universe Builder</h2>
-              <p>Ticker universes with clear criteria and traceable research.</p>
+              <h2>Ticker{" "}<br />Universe{" "}<br />Builder</h2>
+              <p>Build market watchlists with clear criteria and traceable sources.</p>
               <div className={s.channelAction}><PageAction href={destinations.universe} external quiet>View repository</PageAction></div>
             </article>
             <article className={s.channel}>
-              <h2>This website</h2>
-              <p>The code behind Bitpunk, built with Next.js.</p>
+              <h2>This{" "}<br />website</h2>
+              <p>Explore the code that powers this website.</p>
               <div className={s.channelAction}><PageAction href={destinations.website} external quiet>View repository</PageAction></div>
             </article>
           </div>

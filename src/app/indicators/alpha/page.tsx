@@ -1,35 +1,62 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageAction } from "@/components/marble-page";
 import { alphaIndicator } from "@/lib/indicators";
 import styles from "./alpha.module.css";
 
 export const metadata: Metadata = {
   title: "bitpunk.alpha documentation",
-  description: "A guide to reading bitpunk.alpha on TradingView.",
+  description: "Read momentum, follow the trend and understand key price areas with bitpunk.alpha.",
   alternates: { canonical: "/indicators/alpha" },
 };
 
-// A concise starting structure; detailed instructions and examples will follow.
+// Reader-facing concepts and visible behaviour; implementation details stay private.
 const sections = [
   {
     id: "overview", title: "Overview",
-    paragraphs: ["bitpunk.alpha brings trend, momentum and market structure into one TradingView study. Read the chart as a whole, with each observation in context."],
+    paragraphs: [
+      "bitpunk.alpha brings momentum, trend and key price areas into one view. Use it to understand a move and decide what deserves a closer look.",
+    ],
+  },
+  {
+    id: "composite-momentum", title: "Momentum",
+    paragraphs: [
+      "Momentum is the strength behind a price move. Use Alpha's visual cues to see whether a move is gaining strength or losing steam.",
+    ],
+  },
+  {
+    id: "trend", title: "Trend",
+    paragraphs: [
+      "Trend keeps the broader direction in view. Use it to judge whether a move is going with the trend or against it. A pullback is a temporary move in the opposite direction; it can happen within an ongoing trend.",
+    ],
+  },
+  {
+    id: "market-structure", title: "Market Structure",
+    paragraphs: [
+      "Market Structure highlights areas of potential support and resistance: places where price may find buyers or encounter selling pressure. Read them as areas to watch when considering a signal.",
+    ],
   },
   {
     id: "reading-the-chart", title: "Reading the chart",
-    paragraphs: ["Read market context alongside trend, momentum, and structures. Nearby structure and volume context help place individual signals within the chart."],
+    paragraphs: [
+      "Begin with the trend. Note nearby support and resistance, then use Momentum to explore the strength of the current move. Consider each signal alongside the whole chart and your own trading plan.",
+    ],
   },
   {
     id: "alerts", title: "Alerts",
-    paragraphs: ["Bar-close alerts carry direction and context. Developing previews are marked separately."],
+    paragraphs: [
+      "Set TradingView alerts to follow signals. Hollow markers show developing previews and may change before a candle closes. Recreate alerts after changing the indicator's settings.",
+    ],
   },
   {
     id: "limitations", title: "Notes & limitations",
-    paragraphs: ["For discretionary analysis. Live readings and previews can change before close. See the trading risks and limitations before using the indicator."],
+    paragraphs: [
+      "Alpha is a tool for reading the market. Signals can be wrong and live readings can change. Make trading decisions with your own judgement and risk plan.",
+    ],
   },
 ];
-const updatedAt = "2026-10-20";
-const introduction = "A guide to reading the chart. Detailed instructions and examples are being updated.";
+const updatedAt = "2026-10-21";
+const introduction = "Understand the move, follow the trend and see the bigger picture.";
 const wordCount = [introduction, ...sections.flatMap(section => [section.title, ...section.paragraphs])]
   .join(" ").match(/\S+/g)?.length ?? 0;
 const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
@@ -47,7 +74,7 @@ export default function AlphaDocumentationPage() {
           <p className={styles.eyebrow}>Documentation</p>
           <h1 id="doc-title"><em>bitpunk.alpha</em></h1>
           <div className={styles.meta}>
-            <span>Updated <time dateTime={updatedAt}>Oct 20, 2026</time></span>
+            <span>Updated <time dateTime={updatedAt}>Oct 21, 2026</time></span>
             <span aria-hidden="true">·</span><span>{readingMinutes} min read</span>
           </div>
           <p className={styles.introduction}>{introduction}</p>
@@ -68,8 +95,8 @@ export default function AlphaDocumentationPage() {
             </section>
           ))}
           <footer className={styles.resources}>
-            <a href={alphaIndicator.tradingViewUrl} target="_blank" rel="noopener noreferrer">View on TradingView</a>
-            <Link href="/disclaimer">Trading risks & limitations</Link>
+            <PageAction href={alphaIndicator.tradingViewUrl} external quiet>View on TradingView</PageAction>
+            <PageAction href="/disclaimer" quiet>Trading risks & limitations</PageAction>
           </footer>
         </div>
       </div>

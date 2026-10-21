@@ -1,0 +1,42 @@
+.interactive { transition: color 200ms ease; }
+.label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .65em;
+  max-width: 100%;
+  font: var(--type-action);
+  letter-spacing: 0;
+  padding-block: .5rem;
+}
+.label::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 .2rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+  pointer-events: none;
+}
+.icon {
+  flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
+  transition: transform 200ms ease;
+}
+.icon[data-icon="arrow"] { --arrow-y: -2px; }
+.icon[data-icon="expand"], .icon[data-icon="close"] { --arrow-x: 0px; }
+.interactive:focus-visible { color: var(--accent); }
+.interactive:focus-visible .label::after { transform: scaleX(1); }
+.interactive:focus-visible .icon { transform: translate(var(--arrow-x, 2px), var(--arrow-y, 0px)); }
+@media (hover: hover) {
+  .interactive:hover { color: var(--accent); }
+  .interactive:hover .label::after { transform: scaleX(1); }
+  .interactive:hover .icon { transform: translate(var(--arrow-x, 2px), var(--arrow-y, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .interactive, .label::after, .icon { transition: none; }
+  .interactive:focus-visible .icon, .interactive:hover .icon { transform: none; }
+}

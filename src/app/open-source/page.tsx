@@ -12,14 +12,14 @@ export default function OpenSourcePage() {
     <MarblePage>
       <MarbleHero scene="opensource" section="Open source"
         title={<>Ideas,{" "}<br /><em>made open.</em></>}
-        copy="Open scripts and research tools." />
+        copy="Chart studies and research tools, shared openly." />
       <MarbleContent>
         <section className={s.chapter} aria-label="Open-source collections">
           <div className={s.collectionGrid}>
             <CollectionLink href="/open-source/tradingview" title="TradingView"
-              copy="Open chart studies in Pine Script." action="View scripts" />
+              copy="Chart studies you can use, inspect and adapt." action="View scripts" />
             <CollectionLink href="/open-source/github" title="GitHub"
-              copy="Research tools and reusable code." action="View projects" />
+              copy="Tools to organise your research and explore ideas." action="View projects" />
           </div>
         </section>
       </MarbleContent>

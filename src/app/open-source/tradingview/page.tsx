@@ -13,7 +13,7 @@ export default function TradingViewPage() {
     <MarblePage>
       <MarbleHero scene="indicators" section="TradingView" parent={{href:"/open-source", label:"Open source"}}
         title={<>Studies to{" "}<br /><em>build on.</em></>}
-        copy="Open Pine Script studies to read and explore.">
+        copy="Chart studies you can use, inspect and make your own.">
         {destinations.tradingview
           ? <PageAction href={destinations.tradingview} external>Visit TradingView</PageAction>
           : <Availability>TradingView coming soon</Availability>}

@@ -1,0 +1,16 @@
+.dock { display: block; flex: 0 0 clamp(104px, 9vw, 140px); width: clamp(104px, 9vw, 140px); height: 44px; }
+.logo {
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 120px;
+  visibility: hidden;
+  transform-origin: 0 0;
+}
+.logo :global(.wordmark-text) { width: 100%; margin: 0; }
+.logo::after { content: ""; position: absolute; inset: -10px 0; }
+.logo[data-position="docked"]::after { min-height: 44px; top: calc(50% - 22px); bottom: auto; }
+.logo:focus-visible { outline: 1px solid var(--brand-orange); outline-offset: 6px; }
+@media (max-width: 960px) { .dock { flex-basis: 112px; width: 112px; } }

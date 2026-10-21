@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <section className="article">
-      <p className="eyebrow"><time dateTime="2026-10-17">Updated 17 October 2026</time></p>
+      <p className="eyebrow"><time dateTime="2026-10-20">Updated 20 October 2026</time></p>
       <h1>Privacy</h1>
       <p className="lead">
         Basic connection data is used to deliver this website and its market quotes.
@@ -28,6 +28,17 @@ export default function PrivacyPage() {
           <a href="https://www.tradingview.com/widget-docs/faq/general/" target="_blank" rel="noopener noreferrer">widget FAQ</a>{" "}
           and{" "}
           <a href="https://www.tradingview.com/privacy-policy/" target="_blank" rel="noopener noreferrer">privacy policy</a>.
+        </p>
+        <h2>Embedded posts</h2>
+        <p>
+          When enabled, embedded posts load directly from X, Substack or
+          TradingView. Article thumbnails may also load from the publication&apos;s
+          image services. These providers receive connection data and may use
+          cookies under their own policies. See{" "}
+          <a href="https://help.x.com/en/x-for-websites-ads-info-and-privacy" target="_blank" rel="noopener noreferrer">X&apos;s embed privacy information</a>,{" "}
+          <a href="https://substack.com/privacy" target="_blank" rel="noopener noreferrer">Substack&apos;s privacy policy</a>{" "}
+          and{" "}
+          <a href="https://www.tradingview.com/privacy-policy/" target="_blank" rel="noopener noreferrer">TradingView&apos;s privacy policy</a>.
         </p>
         <h2>External links</h2>
         <p>
