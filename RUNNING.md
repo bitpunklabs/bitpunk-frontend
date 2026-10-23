@@ -81,7 +81,7 @@ The privacy policy blocks artwork/design paths, private configuration, credentia
 
 ### About: persona and Bitpunk Run
 
-About opens with Bitpunk Run and the large heading “A true punk never stops running.” Behind the mask follows the game, with a short first-person introduction covering development, crypto / US equities and the reason for building Bitpunk, alongside the existing Thinking / Building persona artwork. This introduction has no project links.
+About opens with the runner and the large heading “A true punk never stops running.” Behind the mask follows the game, with Jake's short first-person story about moving from software into trading, a fascination with crypto / US equities and feeling at home in the work, alongside the existing Thinking / Building persona artwork. This introduction has no project links.
 
 Bitpunk Run is an About-only, dynamically imported Canvas controller; the rest of the site does not import its engine. It reuses the branding prototype's movement, generation, enemies and rendering helpers. Runtime images and technical persona exports live in the authorised private delivery pack under `public/art/about/`. Refresh shared rules and delivery art with `node tools/sync-about-game.mjs /path/to/bitpunk-branding`, then run the asset check. Original persona masters and game review material remain in the branding workspace.
 
@@ -93,4 +93,4 @@ The game is controlled directly on the canvas: clicking/tapping starts and jumps
 
 The current game update received type/lint checks, deterministic encounter / ground-placement checks and Computer Use desktop/mobile layout inspection. Browser gameplay and device performance benchmarks were not run. Historical prototype results apply to their recorded source hashes.
 
-Personal copy is editable in `src/lib/about.ts`. `aboutProfile.name`, `background`, `marketExperience`, `motivation` and `personalDetail` allow owner-supplied detail. Empty fields use three short paragraphs covering the stated development background, a natural affinity for reading markets, crypto / US equities and sharing research through useful tools; they never display placeholder text. Specific employment, years, education and trading results have not been invented. Keep added detail brief and in the first person.
+Personal copy is editable in `src/lib/about.ts`. The public name is Jake. `aboutProfile.background`, `marketExperience`, `motivation` and `personalDetail` allow owner-supplied detail. Empty fields use three short paragraphs about the personal leap into trading, the pull of reading markets and giving that energy a home in Bitpunk; they never display placeholder text. Keep the voice personal rather than resume-like. Specific employment, years, education and trading results have not been invented.
