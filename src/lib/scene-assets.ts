@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { MarketScreenshot } from "./alpha-showcase";
 import type { ImageShowcaseSlide } from "./image-showcase";
+import type { GameArtwork } from "./bitpunk-run/types";
 
 export type SceneCrop = {
   src: string;
@@ -61,4 +62,19 @@ export function getOpenSourceScreenshots(): ImageShowcaseSlide[] {
     throw new Error("Open-source screenshots are missing. Restore the current authorised asset pack.");
   }
   return slides as ImageShowcaseSlide[];
+}
+
+export type ChannelImage = { src: string; width: number; height: number };
+export type AboutArtwork = {
+  persona: Record<"thinking" | "building", ChannelImage>;
+  game: GameArtwork;
+};
+
+export function getAboutArtwork(): AboutArtwork {
+  const file = join(process.cwd(), "public/art/site-assets.json");
+  const about = JSON.parse(readFileSync(file, "utf8")).about;
+  if (!about?.persona?.thinking?.src || !about?.persona?.building?.src || !about?.game?.images?.player) {
+    throw new Error("About artwork is missing. Restore the current authorised asset pack.");
+  }
+  return about as AboutArtwork;
 }

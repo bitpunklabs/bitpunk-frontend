@@ -34,5 +34,12 @@ function checkReferences(value) {
 }
 checkReferences(pack.home);
 checkReferences(pack.showcases);
+checkReferences(pack.about);
+if (!pack.about?.persona?.thinking || !pack.about?.persona?.building || !pack.about?.game?.images) {
+  throw new Error('About artwork is missing from the current delivery pack.');
+}
+for (const path of Object.values(pack.about.game.images)) {
+  if (!files.has(path)) throw new Error('A game image is missing from the delivery pack.');
+}
 await stat(join(publicRoot, 'art/site-assets.json'));
 console.log(`PASS: ${files.size} authorised delivery assets match their hashes.`);

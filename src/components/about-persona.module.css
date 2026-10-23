@@ -1,0 +1,17 @@
+.persona { margin: 0; justify-self: center; min-width: 0; }
+.artwork { position: relative; height: clamp(6.75rem, 14svh, 9rem); aspect-ratio: 1; }
+.image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: darken; opacity: 0; transition: opacity 220ms ease; }
+.image[data-visible="true"] { opacity: 1; }
+.states { display: flex; justify-content: center; gap: 1.25rem; }
+.states button { position: relative; min-height: 2.75rem; border: 0; background: none; padding: .375rem 0; color: var(--muted); font: var(--type-meta); }
+.states button::after { content: ""; position: absolute; inset: auto 0 .5rem; height: 1px; background: var(--brand-orange); transform: scaleX(0); transform-origin: left; transition: transform 180ms ease; }
+.states button[aria-pressed="true"] { color: var(--ink); }
+.states button[aria-pressed="true"]::after, .states button:hover::after, .states button:focus-visible::after { transform: scaleX(1); }
+.states button:focus-visible { outline: 2px solid var(--brand-orange); outline-offset: 4px; }
+@media (max-width: 650px) {
+  .artwork { height: 7.5rem; }
+  .states { gap: .875rem; }
+  .states button { font-size: .625rem; }
+}
+@media (prefers-reduced-motion: reduce) { .image, .states button::after { transition: none; } }
+@media (max-width: 360px) { .artwork { height: 6.25rem; } }
