@@ -9,5 +9,10 @@
     "src/components/marble-glow-assets.json", "src/components/marble-motion-assets.json",
     "src/components/marble-edge-contours.json"
   ],
-  "privateExtensions": ["png", "jpg", "jpeg", "webp", "avif", "gif", "ico", "svg", "psd", "psb", "fig", "sketch", "blend", "ai", "pine", "pem", "key", "p12", "pfx", "bundle"]
+  "privateExtensions": [
+    "png", "jpg", "jpeg", "webp", "avif", "gif", "ico", "svg", "bmp", "tif", "tiff", "heic", "heif", "apng",
+    "psd", "psb", "fig", "sketch", "blend", "ai", "eps", "pdf", "exr", "hdr",
+    "glb", "gltf", "fbx", "obj", "spline", "mp4", "mov", "webm", "mp3", "wav", "m4a",
+    "pine", "pem", "key", "p12", "pfx", "bundle"
+  ]
 }

@@ -4,7 +4,7 @@ A compact market research website with Indicators, Research, Open source and Abo
 
 This repository contains the website's frontend application code. Proprietary artwork, brand assets, design records, review exports, private configuration and paid indicator implementation are excluded. Open-source indicator projects are separate repositories with their own licences.
 
-The frontend runs without the private artwork. Missing images show neutral placeholders and a clear notice; the game explains when its artwork is unavailable. No private art, screenshots or paid indicator logic is substituted into the public source.
+The frontend runs without the private artwork. Missing images show neutral placeholders; the game explains when its artwork is unavailable. No private art, screenshots or paid indicator logic is substituted into the public source.
 
 ## Local development
 
@@ -44,6 +44,6 @@ For a build without private assets, serve it on port 3002 and run `node tools/ch
 
 Installation configures the tracked Git hooks. Commit checks inspect staged paths, secrets and the configured Git identity; push checks inspect reachable history, commit metadata and messages as well. Use a GitHub noreply email for both author and committer identities. Gitleaks must be installed for these checks to pass. Do not bypass the hooks or force-add ignored artwork/configuration.
 
-Original image files, the root `assets/` directory and Pine source files are blocked by the repository checks. Freely shared indicator projects belong in their separate repositories; this frontend repository excludes paid indicator implementation.
+Original images, design documents, audio/video and 3D artwork, the root `assets/` directory and Pine source files are blocked by the repository checks. The openly licensed fonts in `src/fonts` retain their licence notices. Freely shared indicator projects belong in their separate repositories; this frontend repository excludes paid indicator implementation.
 
 See [RUNNING.md](RUNNING.md) for private assets, deployment and production checks.
