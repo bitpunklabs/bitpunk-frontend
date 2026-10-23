@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { riskNotice } from "@/lib/disclaimer";
+import { ContactButton } from "./contact-button";
 import styles from "./site-footer.module.css";
 export function SiteFooter() {
   return (
@@ -9,6 +10,7 @@ export function SiteFooter() {
           <span>© {new Date().getFullYear()} BITPUNK LABS</span>
           <p className={styles.notice}>{riskNotice}</p>
           <div>
+            <ContactButton />
             <Link href="/privacy">Privacy</Link>
             <Link href="/disclaimer">Disclaimer</Link>
           </div>
