@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <section className="article">
-      <p className="eyebrow"><time dateTime="2026-10-20">Updated 20 October 2026</time></p>
+      <p className="eyebrow"><time dateTime="2026-10-24">Updated 24 October 2026</time></p>
       <h1>Privacy</h1>
       <p className="lead">
         Basic connection data is used to deliver this website and its market quotes.
@@ -44,6 +44,15 @@ export default function PrivacyPage() {
         <p>
           Opening an external link takes you to another service. Information
           you share there is handled under that service&apos;s privacy policy.
+        </p>
+        <h2>Email contact</h2>
+        <p>
+          Opening Contact loads Cloudflare Turnstile to help prevent automated
+          email harvesting. Cloudflare processes connection and browser signals
+          for this check under its{" "}
+          <a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener noreferrer">Turnstile privacy policy</a>.
+          {" "}If you email us, your address and message are processed by our email
+          provider and used to handle your enquiry.
         </p>
         <h2>Retention and location</h2>
         <p>

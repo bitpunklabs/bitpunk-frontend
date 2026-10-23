@@ -58,6 +58,14 @@ The private pack's `channels.avatar` is the shared delivery image for homepage p
 
 `/open-source` contains stacked TradingView and GitHub sections. `OpenIndicatorSection` shares the same charts, copy and controls with `/indicators`. The GitHub banner uses the approved profile's original animated SVG, with a matching single-frame SVG selected for reduced motion; it links to the profile. Development directions link to the public projects. Channel artwork is delivered locally through `site-assets.json`, alongside the existing private asset pack.
 
+## Email contact
+
+The shared footer's Contact button and About's Email button open a small dialog. Cloudflare Turnstile loads only after opening it. The browser receives the sitekey from `GET /api/contact`; the mailbox address and secret remain in server-only environment variables. `POST /api/contact` reveals the address only after Siteverify confirms a fresh token for the current hostname and the `reveal-email` action. Responses are not cached. The visitor can then copy the address or open their own email application; the website does not send email.
+
+Configure `CONTACT_EMAIL`, `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in ignored `.env.local` for development and in Vercel's environment settings for the full Next.js deployment. Use a managed Turnstile widget restricted to the site's hostnames. Preview and local hosts need an appropriate separate widget configuration. Missing configuration and verification failures never reveal an address; public test keys are rejected in production. Do not commit real configuration, hard-code an address or use a `NEXT_PUBLIC_` variable for the address/secret. The offline check is `node tools/check-contact.mjs`.
+
+This prevents straightforward source/HTML harvesting and raises the cost of automated disclosure; it cannot stop a verified recipient from sharing an address. Keep mailbox spam filtering enabled. The independent static Coming Soon export has no contact API and does not include these contact buttons; enabling contact there requires a server-backed deployment.
+
 ## Private delivery assets
 
 The pack supplies `public/art/`, `public/brand/` and `public/favicon.ico`. It includes `public/art/site-assets.json`, which holds the approved homepage crop geometry, Alpha and open-source gallery metadata, the three Alpha case studies, and the delivery-file hash inventory. The server reads this metadata from disk; it is not embedded in tracked source files. Alpha case studies keep the original chart pixels; the paper mount, perspective and shadows are rendered by the page.
