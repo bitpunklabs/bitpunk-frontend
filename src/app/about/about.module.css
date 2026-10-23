@@ -10,7 +10,7 @@
 .prose p + p { margin-top: .5rem; }
 .identity { font-weight: 600; color: var(--ink); }
 .signoff { color: var(--ink); }
-.signoff em { font: var(--type-copy-emphasis); }
+.signoff strong { font-weight: 600; }
 .follow { margin-top: .875rem; color: var(--ink); }
 .follow > p { font: var(--type-action); }
 .channels { display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.25rem; }
@@ -21,10 +21,8 @@
   .introduction { grid-template-columns: minmax(0, 1fr) 8.25rem; grid-template-areas: "heading persona" "prose prose"; align-items: center; gap: .5rem .75rem; padding-top: 1rem; padding-bottom: 1.75rem; }
   .heading { align-self: center; }
   .heading h2 { font-size: clamp(1.625rem, 7.5vw, 2rem); margin-bottom: 0; }
-  .prose { font-size: .875rem; line-height: 1.65; }
   .channels { display: grid; grid-template-columns: repeat(2, max-content); }
 }
 @media (max-height: 760px) and (min-width: 651px) {
   .introduction { padding-block: 1.25rem 2rem; }
-  .prose { font-size: .875rem; }
 }

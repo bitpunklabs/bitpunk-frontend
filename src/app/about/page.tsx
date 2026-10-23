@@ -32,7 +32,7 @@ export default function AboutPage() {
           <div className={styles.prose}>
             <p className={styles.identity}>{aboutContent.introduction}</p>
             {aboutContent.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
-            <p className={styles.signoff}><em>{aboutContent.signoff}</em></p>
+            <p className={styles.signoff}><strong>{aboutContent.signoff}</strong></p>
             <div className={styles.follow}>
               <p>{aboutContent.invitation}</p>
               <nav className={styles.channels} aria-label="Follow Jake">
