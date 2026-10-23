@@ -1,10 +1,10 @@
-import { alphaIndicator, openIndicatorCollection } from "@/lib/indicators";
+import { alphaIndicator } from "@/lib/indicators";
 import { PageAction, marbleStyles } from "./marble-page";
 import styles from "./indicator-catalog.module.css";
 import { AlphaShowcase } from "./alpha-showcase";
 import { AlphaStudies } from "./alpha-studies";
-import { ImageCarousel } from "./image-showcase";
-import { getAlphaScreenshots, getAlphaCaseStudies, getOpenSourceScreenshots } from "@/lib/scene-assets";
+import { OpenIndicatorSection } from "./open-indicator-section";
+import { getAlphaScreenshots, getAlphaCaseStudies } from "@/lib/scene-assets";
 import type { AlphaShowcaseVariant } from "@/lib/alpha-showcase";
 
 export function IndicatorResource({ href, label, product }: {
@@ -23,26 +23,9 @@ export function IndicatorResource({ href, label, product }: {
   );
 }
 
-function IndicatorTopics({ label, topics }: {
-  label: string;
-  topics: { title: string; copy: string }[];
-}) {
-  return (
-    <div className={styles.topics} role="group" aria-label={label}>
-      {topics.map(topic => (
-        <section className={styles.topic} key={topic.title}>
-          <h3>{topic.title}</h3>
-          <p>{topic.copy}</p>
-        </section>
-      ))}
-    </div>
-  );
-}
-
 export function IndicatorCatalog({ variant = "stack" }: { variant?: AlphaShowcaseVariant }) {
   const screenshots = getAlphaScreenshots();
   const alphaStudies = getAlphaCaseStudies();
-  const openSourceScreenshots = getOpenSourceScreenshots();
   return (
     <section className={marbleStyles.chapter} aria-label="Indicators">
       <div className={styles.grid}>
@@ -71,26 +54,7 @@ export function IndicatorCatalog({ variant = "stack" }: { variant?: AlphaShowcas
           </div>
           <AlphaStudies slides={alphaStudies} topics={alphaIndicator.topics} />
         </article>
-        <article id="open-indicators" className={styles.product} aria-labelledby="open-indicators-title">
-          <div className={`${styles.overview} ${styles.withGallery}`}>
-            <div className={styles.introduction}>
-              <h2 className={styles.name} id="open-indicators-title">
-                {openIndicatorCollection.name.split(" ").map(word => <span key={word}>{word}{" "}</span>)}
-              </h2>
-              <div className={styles.description}>
-                <p>{openIndicatorCollection.description}</p>
-                <p>{openIndicatorCollection.researchPurpose}</p>
-              </div>
-              <div className={styles.resources}>
-                <IndicatorResource href={openIndicatorCollection.tradingViewUrl} label="Explore Open-source on TradingView"
-                  product={openIndicatorCollection.name} />
-              </div>
-            </div>
-            <ImageCarousel key={variant} slides={openSourceScreenshots} variant={variant}
-              label="Open-source script demos" selectionLabel="Choose a study" />
-          </div>
-          <IndicatorTopics label="Open-source research directions" topics={openIndicatorCollection.topics} />
-        </article>
+        <OpenIndicatorSection key={variant} variant={variant} />
       </div>
     </section>
   );
