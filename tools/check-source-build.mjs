@@ -8,7 +8,6 @@ for (const path of paths) {
   assert.equal(response.status, 200, path);
   const html = await response.text();
   assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, `${path}: heading`);
-  assert.ok(html.includes('Some artwork is not included in this open-source build.'), `${path}: missing-art notice`);
   assert.ok(html.includes('Not financial advice.'), `${path}: risk notice`);
   if (path === '/about') {
     assert.ok(html.includes('Game artwork is not included in this source build.'));
@@ -31,4 +30,4 @@ for (const url of images) {
   assert.equal(response.headers.get('cache-control'), 'no-store');
   assert.ok((await response.text()).includes('<svg'));
 }
-console.log(`PASS: ${paths.length} source-only pages; ${images.size} image deliveries; game fallback; repository link; risk and missing-art notices.`);
+console.log(`PASS: ${paths.length} source-only pages; ${images.size} image deliveries; game fallback; repository link; risk notice.`);

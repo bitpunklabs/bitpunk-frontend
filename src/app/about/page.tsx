@@ -11,7 +11,7 @@ import styles from "./about.module.css";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Hi, this is Jake. Crypto, US equities, and market ideas taking shape at Bitpunk.",
+  description: "Hi, I’m Jake, the person behind Bitpunk. Research, indicators and open-source tools for exploring how markets behave.",
   alternates: { canonical: "/about" },
 };
 

@@ -7,9 +7,10 @@ export const aboutProfile = {
 };
 
 export const aboutContent = {
-  introduction: aboutProfile.name ? `Hi, this is ${aboutProfile.name}.` : "Hi, meet the person behind Bitpunk.",
+  introduction: aboutProfile.name ? `Hi, I’m ${aboutProfile.name}, the person behind Bitpunk.` : "Hi, meet the person behind Bitpunk.",
   paragraphs: [
-    aboutProfile.marketExperience || "I spend most of my time in crypto and US equities—studying price action and putting ideas to the test.",
+    aboutProfile.marketExperience || "I study crypto and US equities, following questions from the chart into research and code.",
+    "Bitpunk brings that work together: market notes, indicators and open-source tools for exploring how markets behave. It’s a place to develop an idea, put it to the test, and make something useful from what I learn.",
   ],
-  signoff: `${aboutProfile.motivation || "Stay close and be patient—let’s cook something big."}${aboutProfile.personalDetail ? ` ${aboutProfile.personalDetail}` : ""}`,
+  signoff: `${aboutProfile.motivation || "Sniff around and be patient, there is something cooking."}${aboutProfile.personalDetail ? ` ${aboutProfile.personalDetail}` : ""}`,
 };
