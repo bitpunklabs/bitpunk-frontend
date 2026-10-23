@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AboutPersona } from "@/components/about-persona";
-import { ContactButton } from "@/components/contact-button";
+import { ContactLink } from "@/components/contact-link";
 import { BitpunkRun } from "@/components/bitpunk-run";
 import { MarblePage, PageAction, marbleStyles } from "@/components/marble-page";
 import { PlatformIcon } from "@/components/platform-icon";
@@ -40,7 +40,7 @@ export default function AboutPage() {
                 <PageAction href={destinations.substack ?? "https://substack.com/@bitpunklabs"} external quiet><span className={styles.platform}><PlatformIcon name="Substack" />Substack</span></PageAction>
                 <PageAction href={destinations.tradingview} external quiet><span className={styles.platform}><PlatformIcon name="TradingView" />TradingView</span></PageAction>
                 <PageAction href={destinations.github} external quiet><span className={styles.platform}><PlatformIcon name="GitHub" />GitHub</span></PageAction>
-                <ContactButton label="Email" icon />
+                <ContactLink label="Email" icon showAddress />
               </nav>
             </div>
           </div>

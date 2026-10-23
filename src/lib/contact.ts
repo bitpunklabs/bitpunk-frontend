@@ -1,75 +1,23 @@
-export const contactAction = "reveal-email";
+const mailbox = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}$/i;
 
-export type ContactConfiguration = {
-  email?: string;
-  siteKey?: string;
-  secretKey?: string;
-  production: boolean;
-};
-
-const headers = {
-  "Cache-Control": "private, no-store, max-age=0",
-  "X-Robots-Tag": "noindex, nofollow",
-  "X-Content-Type-Options": "nosniff",
-};
-const reply = (body: object, status = 200) => Response.json(body, { status, headers });
-const unavailable = () => reply({ error: "Email is temporarily unavailable. Please try again later." }, 503);
-
-function configured(config: ContactConfiguration) {
-  if (!config.siteKey || !config.secretKey || !config.email ||
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}$/i.test(config.email)) return false;
-  // Cloudflare's public dummy keys must never protect a real production address.
-  return !config.production || ![config.siteKey, config.secretKey].some(key => /^[123]x0{10}/.test(key));
+/** Reversible source obfuscation, not encryption or a human-verification boundary. */
+export function encodeEmail(value?: string): string | null {
+  const email = value?.trim();
+  if (!email || !mailbox.test(email)) return null;
+  const mask = 0x5d;
+  return [mask, ...Array.from(email, char => char.charCodeAt(0) ^ mask)]
+    .map(byte => byte.toString(16).padStart(2, "0")).join("");
 }
 
-async function readToken(request: Request): Promise<string | null> {
-  if (!request.body) return null;
-  const reader = request.body.getReader();
-  const decoder = new TextDecoder();
-  let size = 0, text = "";
-  try {
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      size += value.byteLength;
-      if (size > 4096) { await reader.cancel(); return null; }
-      text += decoder.decode(value, { stream: true });
-    }
-    const body: unknown = JSON.parse(text + decoder.decode());
-    if (!body || typeof body !== "object" || !("token" in body)) return null;
-    const token = body.token;
-    return typeof token === "string" && token.trim().length > 0 && token.length <= 2048 ? token : null;
-  } catch { return null; }
-  finally { reader.releaseLock(); }
+export function decodeEmail(encoded: string): string | null {
+  if (!/^(?:[a-f0-9]{2}){2,320}$/i.test(encoded)) return null;
+  const mask = parseInt(encoded.slice(0, 2), 16);
+  const email = encoded.slice(2).match(/../g)!
+    .map(byte => String.fromCharCode(parseInt(byte, 16) ^ mask)).join("");
+  return mailbox.test(email) ? email : null;
 }
 
-/** No address in HTML/config responses. Reveal only after a fresh, server-verified token. */
-export async function contactResponse(request: Request, config: ContactConfiguration, send: typeof fetch = fetch) {
-  if (!configured(config)) return unavailable();
-  if (request.method === "GET") return reply({ siteKey: config.siteKey });
-  if (request.method !== "POST") return reply({ error: "Method not allowed." }, 405);
-
-  const url = new URL(request.url);
-  if (request.headers.get("origin") !== url.origin) return reply({ error: "Open contact from this website." }, 403);
-  if (request.headers.get("content-type")?.split(";")[0].trim() !== "application/json") {
-    return reply({ error: "Invalid request." }, 415);
-  }
-  const token = await readToken(request);
-  if (!token) return reply({ error: "Please complete the verification." }, 400);
-
-  try {
-    const response = await send("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-      method: "POST", cache: "no-store", signal: AbortSignal.timeout(6000),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ secret: config.secretKey!, response: token }),
-    });
-    if (!response.ok) return unavailable();
-    const result: unknown = await response.json();
-    if (!result || typeof result !== "object" || !("success" in result) || result.success !== true ||
-        !("action" in result) || result.action !== contactAction ||
-        !("hostname" in result) || result.hostname !== url.hostname) {
-      return reply({ error: "Verification expired or failed. Please try again." }, 403);
-    }
-    return reply({ email: config.email });
-  } catch { return unavailable(); }
+export function emailHref(email: string): string {
+  const [name, domain] = email.split("@");
+  return `mailto:${encodeURIComponent(name)}@${domain}`;
 }
