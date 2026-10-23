@@ -9,12 +9,12 @@
 .prose p { margin: 0; }
 .prose p + p { margin-top: var(--paragraph-gap); }
 .follow { margin-top: var(--paragraph-gap); }
-.channels { display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.25rem; color: var(--ink); }
+.channels { display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.25rem; margin-top: 1rem; color: var(--ink); }
 .platform { display: inline-flex; align-items: center; gap: .375rem; }
 .platform svg { width: .875rem; height: .875rem; flex: 0 0 auto; }
 @media (max-width: 650px) {
   .content { padding-top: .75rem; }
-  .introduction { grid-template-columns: minmax(0, 1fr) 8.25rem; grid-template-areas: "heading persona" "prose prose"; align-items: center; gap: .5rem .75rem; padding-top: 1rem; padding-bottom: 1.75rem; }
+  .introduction { grid-template-columns: minmax(0, 1fr); grid-template-areas: "heading" "persona" "prose"; gap: 1rem; padding-top: 1rem; padding-bottom: 1.75rem; }
   .heading { align-self: center; }
   .heading h2 { font-size: clamp(1.625rem, 7.5vw, 2rem); margin-bottom: 0; }
   .channels { display: grid; grid-template-columns: repeat(2, max-content); }

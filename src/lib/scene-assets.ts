@@ -66,14 +66,14 @@ export function getOpenSourceScreenshots(): ImageShowcaseSlide[] {
 
 export type ChannelImage = { src: string; width: number; height: number };
 export type AboutArtwork = {
-  persona: Record<"thinking" | "building", ChannelImage>;
+  persona: Record<"thinking" | "building" | "stonks", ChannelImage>;
   game: GameArtwork;
 };
 
 export function getAboutArtwork(): AboutArtwork {
   const file = join(process.cwd(), "public/art/site-assets.json");
   const about = JSON.parse(readFileSync(file, "utf8")).about;
-  if (!about?.persona?.thinking?.src || !about?.persona?.building?.src || !about?.game?.images?.player) {
+  if (!about?.persona?.thinking?.src || !about?.persona?.building?.src || !about?.persona?.stonks?.src || !about?.game?.images?.player) {
     throw new Error("About artwork is missing. Restore the current authorised asset pack.");
   }
   return about as AboutArtwork;

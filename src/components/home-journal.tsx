@@ -1,15 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
 import { AlphaShowcase } from "./alpha-showcase";
 import { HomeUpdates } from "./home-waterfall";
 import { PlatformIcon } from "./platform-icon";
 import { ActionLabel, actionStyles } from "./action-label";
-import { getAlphaScreenshots } from "@/lib/scene-assets";
+import { getAboutArtwork, getAlphaScreenshots } from "@/lib/scene-assets";
 import { getHomeUpdates } from "@/lib/home-updates.server";
 import styles from "./home-journal.module.css";
 
 export async function HomeJournal({ feedTheme = "dark" }: { feedTheme?: "light" | "dark" }) {
   const homeUpdates = await getHomeUpdates();
   const screenshots = getAlphaScreenshots();
+  const thinking = getAboutArtwork().persona.thinking;
   return <div className={styles.journal} data-home-journal>
     <div className={styles.inner}>
       <section className={`${styles.section} ${styles.updatesSection}`} aria-labelledby="home-updates-title">
@@ -63,6 +65,8 @@ export async function HomeJournal({ feedTheme = "dark" }: { feedTheme?: "light" 
             </span>)}
         </div>
         <Link className={`${styles.aboutLink} ${actionStyles.interactive}`} href="/about"><ActionLabel>About Bitpunk</ActionLabel></Link>
+        <Image {...thinking} className={styles.followPersona} unoptimized loading="lazy"
+          alt="The Bitpunk persona, seated in thought." />
       </section>
     </div>
   </div>;

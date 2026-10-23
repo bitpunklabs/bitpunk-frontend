@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { riskNotice } from "@/lib/disclaimer";
 
 export const metadata: Metadata = {
   title: "Disclaimer",
@@ -8,10 +9,10 @@ export const metadata: Metadata = {
 export default function DisclaimerPage() {
   return (
     <section className="article">
-      <p className="eyebrow"><time dateTime="2026-10-17">Updated 17 October 2026</time></p>
+      <p className="eyebrow"><time dateTime="2026-10-24">Updated 24 October 2026</time></p>
       <h1>Disclaimer</h1>
       <p className="lead">
-        Trading involves risk. You can lose all the money you invest, and
+        {riskNotice} You can lose all the money you invest, and
         leveraged positions can create losses beyond your initial deposit.
       </p>
       <div className="article-body">

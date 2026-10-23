@@ -47,18 +47,19 @@
 .resource h3 { margin-top: .6rem; font: var(--type-heading); letter-spacing: var(--tracking-title); }
 .resource p { margin-top: var(--copy-heading-gap); max-width: var(--measure-summary); font: var(--type-body); color: var(--muted); text-wrap: pretty; }
 .resourceAction { display: inline-flex; align-items: center; min-height: var(--action-height); margin-top: .25rem; font: var(--type-action); }
-.follow { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; justify-content: space-between; gap: 1rem 2rem; padding-block: clamp(1.25rem, 2vw, 2rem); }
-.follow h2 { grid-row: 1 / span 2; align-self: center; font: var(--type-heading); letter-spacing: var(--tracking-title); }
-.followLinks { display: flex; align-items: center; flex-wrap: wrap; gap: clamp(1.25rem, 3vw, 3rem); }
+.follow { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto clamp(8rem, 12vw, 11rem); grid-template-areas: "title links persona" "title about persona"; align-items: center; gap: .5rem clamp(1.25rem, 2.5vw, 2.5rem); padding-block: clamp(1.25rem, 2vw, 2rem); }
+.follow h2 { grid-area: title; align-self: center; font: var(--type-heading); letter-spacing: var(--tracking-title); }
+.followLinks { grid-area: links; display: flex; align-items: center; flex-wrap: wrap; gap: clamp(1.25rem, 2.5vw, 2.5rem); }
 .followLink { display: inline-flex; align-items: center; gap: .65rem; min-height: var(--action-height); font: var(--type-action); }
 .followLink > svg { width: 1.0625rem; height: 1.0625rem; }
 .followPending { color: #77766d; }
 .followPending small { display: block; margin-top: .15rem; font-size: .5625rem; color: #8b8579; }
-.aboutLink { grid-column: 2; justify-self: end; display: inline-flex; align-items: center; min-height: var(--action-height); font: var(--type-action); color: var(--muted); }
+.aboutLink { grid-area: about; justify-self: start; display: inline-flex; align-items: center; min-height: var(--action-height); font: var(--type-action); color: var(--muted); }
+.followPersona { grid-area: persona; justify-self: end; width: 100%; height: auto; mix-blend-mode: darken; }
 
 @media (max-width: 1000px) {
   .inner { width: 88%; }
-  .follow { align-items: flex-start; }
+  .follow { grid-template-columns: minmax(0, 1fr) minmax(15rem, 1fr) 8rem; gap: .5rem 1rem; }
   .followLinks { gap: 1rem 1.5rem; max-width: 21rem; }
 }
 @media (max-width: 700px) {
@@ -75,11 +76,11 @@
   .resources { display: block; }
   .resourceIntroduction h2 { margin-block: .625rem .75rem; }
   .resourceList { margin-top: 1rem; }
-  .follow { display: block; padding-block: 1.5rem; }
-  .followLinks { max-width: none; margin-top: 1rem; gap: 1.25rem; justify-content: space-between; }
+  .follow { grid-template-columns: minmax(0, 1fr) 7.5rem; grid-template-areas: "title title" "links links" "about persona"; gap: .75rem 1rem; padding-block: 1.5rem; }
+  .followLinks { max-width: none; gap: 1.25rem; justify-content: space-between; }
   .followLink { gap: .45rem; }
   .followLink > svg { width: .9375rem; height: .9375rem; }
-  .aboutLink { margin-top: .625rem; }
+  .aboutLink { margin-top: 0; }
 }
 @media (min-width: 701px) and (orientation: portrait) {
   .updatesSection .sectionHeading { max-width: 42rem; margin-inline: auto; }
