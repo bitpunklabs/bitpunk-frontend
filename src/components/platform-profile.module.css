@@ -1,0 +1,78 @@
+.profile { min-width: 0; width: 100%; align-self: start; border: 1px solid var(--native-line); border-radius: 12px; background: var(--native-paper); color: var(--native-ink); overflow: hidden; box-shadow: 0 12px 28px -22px #24251e55; font: 400 .875rem/1.55 var(--font-body); color-scheme: dark; }
+.profile a { color: inherit; text-decoration: none; }
+.profile a:focus-visible { outline: 2px solid var(--brand-orange); outline-offset: 3px; }
+.x { --native-paper: #000; --native-ink: #e7e9ea; --native-muted: #8b9196; --native-line: #2f3336; }
+.substack { --native-paper: #181c1d; --native-ink: #eeefef; --native-muted: #a1a6a5; --native-line: #303536; }
+.profile[data-theme="light"] { --native-paper: #fff; --native-ink: #171b1c; --native-muted: #62696f; --native-line: #e1e5e8; color-scheme: light; }
+.nativeBar { display: flex; align-items: center; gap: .875rem; min-height: 3.5rem; padding: .625rem 1rem; border-bottom: 1px solid var(--native-line); }
+.nativeIdentity { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.nativeIdentity strong { font-size: 1rem; font-weight: 600; }
+.nativeIdentity small { color: var(--native-muted); font-size: .6875rem; }
+.nativeBack { display: grid; place-items: center; width: 1.5rem; }
+.platformMark { display: inline-flex; flex: 0 0 auto; padding: .25rem; }
+.platformMark svg { width: 1.25rem; height: 1.25rem; }
+.coverLink { display: block; }
+.cover { display: block; width: 100%; height: auto; aspect-ratio: 3; object-fit: cover; }
+.xBody { padding: 0 1rem 1rem; }
+.xIdentity { position: relative; display: flex; align-items: end; justify-content: space-between; gap: .75rem; margin: -2.5rem 0 .875rem; }
+.avatarLink { display: block; width: 23%; max-width: 7rem; flex: 0 0 auto; border: 4px solid var(--native-paper); border-radius: 50%; overflow: hidden; }
+.avatar { display: block; width: 100%; height: auto; border-radius: 50%; }
+.xIdentity .action { margin-bottom: .125rem; }
+.profile h3.profileName { margin: 0; font: 600 1.25rem/1.25 var(--font-body); letter-spacing: -.025em; }
+.profileName a:hover { text-decoration: underline; }
+.handle { color: var(--native-muted) !important; font-size: .8125rem; }
+.bio { margin-top: .75rem; white-space: pre-line; }
+.profileUrl { display: inline-block; margin-top: .625rem; color: #1d9bf0 !important; font-size: .8125rem; }
+.profileUrl:hover { text-decoration: underline !important; }
+.action { display: inline-flex; justify-content: center; align-items: center; min-height: 2.5rem; max-width: 100%; padding: 0 1rem; border: 1px solid transparent; border-radius: 999px; background: #eff3f4; color: #0f1419 !important; text-decoration: none; white-space: nowrap; cursor: pointer; }
+.action:disabled { cursor: default; opacity: .65; }
+.substack .action { background: #ff6719; color: #fff !important; border-radius: 6px; padding-inline: .75rem; }
+.substack .nativeBar { justify-content: space-between; gap: .625rem; }
+.substack .nativeBar .action { min-height: 2.25rem; }
+.substack .nativeBar .action span { font-size: .75rem; }
+.substack .platformMark { color: #ff6719; }
+.nativeWordmark { width: 5.5rem; margin-right: auto; line-height: 0; }
+.nativeWordmark img { display: block; width: 100%; height: auto; }
+.profile[data-theme="light"] .nativeWordmark img { filter: brightness(.2); }
+.publication { padding: 1.25rem; }
+.substackIdentity { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.substackIdentity img { display: block; width: 4.5rem; height: 4.5rem; border-radius: 50%; }
+.publicationBio { max-width: 48ch; margin-top: 1rem; color: var(--native-ink); font-size: .875rem; }
+.tabs { display: flex; align-items: center; justify-content: space-around; border-bottom: 1px solid var(--native-line); }
+.tabs > * { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; color: var(--native-muted); font-size: .8125rem; padding: .5rem .75rem; }
+.tabs .selectedTab { color: var(--native-ink); font-weight: 600; }
+.selectedTab::after { content: ""; position: absolute; inset: auto .75rem 0; height: 3px; border-radius: 3px; background: #1d9bf0; }
+.substack .selectedTab::after { height: 2px; background: var(--native-ink); }
+.emptyProfile { display: grid; justify-items: center; gap: .75rem; padding: 2rem 1rem; color: var(--native-muted); text-align: center; }
+.emptyProfile svg { width: 1.25rem; height: 1.25rem; }
+.emptyProfile p { font-size: .8125rem; }
+.profileFooter { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: 1rem; border-top: 1px solid var(--native-line); }
+.profileFooter > span { font-size: .75rem; color: var(--native-muted); }
+.publicationFooter { padding: 1rem 1.25rem; border-top: 1px solid var(--native-line); text-align: center; }
+
+/* One native window at homepage column widths, with no duplicated footer CTA. */
+.profile[data-size="compact"] { font-size: .8125rem; }
+.profile[data-size="compact"] .nativeBar { min-height: 3.25rem; padding: .5rem .875rem; gap: .625rem; }
+.profile[data-size="compact"] .nativeIdentity strong { font-size: .875rem; }
+.profile[data-size="compact"] .nativeWordmark { width: 4.75rem; }
+.profile[data-size="compact"] .action { min-height: 2.25rem; padding-inline: .875rem; font: var(--type-action); }
+.profile[data-size="compact"] .xBody { padding-inline: 1rem; }
+.profile[data-size="compact"] .xIdentity { margin-top: -2rem; margin-bottom: .625rem; }
+.profile[data-size="compact"] .avatarLink { width: 23%; max-width: 5rem; border-width: 3px; }
+.profile[data-size="compact"] h3.profileName { font-size: 1.0625rem; }
+.profile[data-size="compact"] .handle { font-size: .75rem; }
+.profile[data-size="compact"] .bio { margin-top: .625rem; }
+.profile[data-size="compact"] .publication { padding: 1rem; }
+.profile[data-size="compact"] .substackIdentity img { width: 3.5rem; height: 3.5rem; }
+.profile[data-size="compact"] .publicationBio { margin-top: .875rem; font-size: .8125rem; }
+.profile[data-size="compact"] .tabs > * { min-height: 2.75rem; font-size: .75rem; }
+.profile[data-size="compact"] .emptyProfile { padding: 1.5rem 1rem; gap: .5rem; }
+.profile[data-size="compact"] .emptyProfile p { font-size: .75rem; }
+
+@media (max-width: 760px) { .xIdentity { margin-top: -2rem; } }
+@media (max-width: 360px) {
+  .nativeWordmark { width: 4.5rem; }
+  .nativeBar { padding-inline: .75rem; gap: .5rem; }
+  .substack .nativeBar .action { padding-inline: .5rem; }
+  .substack .nativeBar .action span { font-size: .6875rem; }
+}

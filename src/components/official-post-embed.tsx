@@ -49,7 +49,7 @@ function loadXWidgets() {
 }
 
 /** Official vendor UI. One responsive instance per post; load only near the viewport. */
-export function OfficialPostEmbed({ embed, platform, theme = "light" }: { embed: PostEmbed; platform: PlatformName; theme?: "light" | "dark" }) {
+export function OfficialPostEmbed({ embed, platform, theme = "light", compact = false }: { embed: PostEmbed; platform: PlatformName; theme?: "light" | "dark"; compact?: boolean }) {
   const root = useRef<HTMLDivElement>(null);
   const host = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLIFrameElement>(null);
@@ -114,11 +114,13 @@ export function OfficialPostEmbed({ embed, platform, theme = "light" }: { embed:
     return () => window.removeEventListener("message", resize);
   }, [active, embed]);
 
-  return <div className={styles.embed} ref={root} data-official-embed={embed.provider} data-status={status} data-theme={theme}>
+  const timeline = embed.provider === "x-timeline";
+  return <div className={styles.embed} ref={root} hidden={compact && status === "failed"}
+    data-official-embed={embed.provider} data-status={status} data-theme={theme} data-compact={compact || undefined}>
     <div className={styles.mount}>
       {status !== "ready" && <div className={styles.placeholder} role="status">
         <PlatformIcon name={platform} />
-        <span>{status === "failed" ? "This post couldn’t be loaded." : `${platform} post`}</span>
+        <span>{status === "failed" ? (timeline ? "See the latest updates on X." : "This post couldn’t be loaded.") : `${platform} ${timeline ? "updates" : "post"}`}</span>
       </div>}
       {active && (embed.provider === "x" || embed.provider === "x-timeline") && <div ref={host} className={styles.xHost} />}
       {active && frameUrl && <iframe ref={frame} src={frameUrl} title={`${platform} post`}
@@ -127,6 +129,6 @@ export function OfficialPostEmbed({ embed, platform, theme = "light" }: { embed:
         sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
         onLoad={() => setStatus("ready")} onError={() => setStatus("failed")} />}
     </div>
-    <a className={styles.source} href={embed.url} target="_blank" rel="noopener noreferrer">View post on {platform}</a>
+    <a className={styles.source} href={embed.url} target="_blank" rel="noopener noreferrer">View {timeline ? "profile" : "post"} on {platform}</a>
   </div>;
 }

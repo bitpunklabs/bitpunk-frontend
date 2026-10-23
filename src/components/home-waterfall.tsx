@@ -1,24 +1,33 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { ActionLabel, actionStyles } from "./action-label";
 import { PlatformIcon } from "./platform-icon";
 import { OfficialPostEmbed } from "./official-post-embed";
-import type { HomePost, HomeUpdate } from "@/lib/home-updates";
+import { PlatformProfile } from "./platform-profile";
+import { destinations } from "@/lib/showcase";
+import type { HomeChartImage, HomePost, HomeUpdate } from "@/lib/home-updates";
 import type { MarketScreenshot } from "@/lib/alpha-showcase";
+import type { ChannelArtwork, ChannelImage } from "@/lib/scene-assets";
 import styles from "./home-waterfall.module.css";
 
 type FeedItem = { channel: HomeUpdate; post: HomePost; rank: number };
 
+function ChartPreview({ chart, onError }: { chart: HomeChartImage; onError?: () => void }) {
+  return <div className={styles.chartImage}>
+    <Image src={chart.src} alt={chart.alt} width={chart.width} height={chart.height}
+      unoptimized loading="lazy" onError={onError} />
+    <span>{chart.ticker} / {chart.timeframe}</span>
+  </div>;
+}
+
 /** Concept illustrations have no prices or dates and do not represent market data. */
 function PostArtwork({ kind, chart }: { kind: HomePost["artwork"]; chart: MarketScreenshot }) {
   if (!kind) return null;
-  if (kind === "alpha") return <div className={styles.chartImage}>
-    <Image src={chart.src} alt={`${chart.name} chart showing bitpunk.alpha`}
-      width={chart.width} height={chart.height} unoptimized loading="lazy" />
-    <span>{chart.label} / {chart.timeframe}</span>
-  </div>;
+  if (kind === "alpha") return <ChartPreview chart={{ ...chart,
+    ticker: chart.label, alt: `${chart.name} chart showing bitpunk.alpha`,
+  }} />;
   if (kind === "essay") return <div className={`${styles.artwork} ${styles.essayArtwork}`} aria-hidden="true">
     <span className={styles.artLabel}>BITPUNK / RESEARCH</span>
     <span className={styles.essayTitle}>Context<br />before<br /><i>conviction.</i></span>
@@ -42,16 +51,26 @@ function PostArtwork({ kind, chart }: { kind: HomePost["artwork"]; chart: Market
   </div>;
 }
 
-function PostCard({ item, chart, onRead, theme }: { item: FeedItem; chart: MarketScreenshot; onRead: (item: FeedItem) => void; theme: "light" | "dark" }) {
+function ProfilePreview({ channel, artwork, theme, children }: {
+  channel: HomeUpdate; artwork: ChannelArtwork; theme: "light" | "dark"; children: ReactNode;
+}) {
+  return <PlatformProfile platform={channel.id === "x" ? "X" : "Substack"} profile={channel.profile}
+    href={channel.href} publicationUrl={destinations.substackPublication} action={channel.action} artwork={artwork}
+    compact theme={theme} emptyMessage={channel.id === "substack" && !channel.posts.length ? channel.emptyMessage : undefined}>
+    <div className={styles.profileFeed}>{children}</div>
+  </PlatformProfile>;
+}
+
+function PostCard({ item, chart, avatar, onRead, theme }: { item: FeedItem; chart: MarketScreenshot; avatar: ChannelImage; onRead: (item: FeedItem) => void; theme: "light" | "dark" }) {
   const { channel, post } = item;
   const titleId = useId();
   if (post.embed) return <OfficialPostEmbed embed={post.embed} platform={channel.platform} theme={theme} />;
-  const artwork = post.imageUrl && post.href ? <PostThumbnail post={post} /> : post.artwork && <button className={styles.artButton} type="button" onClick={() => onRead(item)} aria-label={`View: ${post.title}`}>
+  const artwork = (post.chart || post.imageUrl) && post.href ? <PostThumbnail post={post} /> : post.artwork && <button className={styles.artButton} type="button" onClick={() => onRead(item)} aria-label={`View: ${post.title}`}>
     <PostArtwork kind={post.artwork} chart={chart} />
   </button>;
   const byline = <div className={styles.cardByline}>
-    <span className={styles.avatar}><Image src="/brand/nav-favicon.svg" width={30} height={30} alt="" unoptimized /></span>
-    <span className={styles.author}><strong>{post.author || "Bitpunk"}</strong><span>{channel.id === "tradingview" ? "bitpunk_labs" : channel.platform}</span></span>
+    <span className={styles.avatar}><Image {...avatar} alt="" unoptimized /></span>
+    <span className={styles.author}><strong>{post.author || channel.profile.name}</strong><span>{channel.profile.handle}</span></span>
     <span className={styles.cardSource}><PlatformIcon name={channel.platform} /></span>
   </div>;
   const copy = <div className={styles.cardCopy}>
@@ -80,10 +99,11 @@ function PostCard({ item, chart, onRead, theme }: { item: FeedItem; chart: Marke
 
 function PostThumbnail({ post }: { post: HomePost }) {
   const [failed, setFailed] = useState(false);
-  if (failed || !post.imageUrl || !post.href) return null;
+  if (failed || (!post.chart && !post.imageUrl) || !post.href) return null;
   return <a className={styles.artButton} href={post.href} target="_blank" rel="noopener noreferrer" aria-label={`Read: ${post.title}`}>
-    <Image className={styles.postThumbnail} src={post.imageUrl} alt="" width={1200} height={750}
-      data-post-thumbnail unoptimized loading="lazy" onError={() => setFailed(true)} />
+    {post.chart ? <ChartPreview chart={post.chart} onError={() => setFailed(true)} />
+      : <Image className={styles.postThumbnail} src={post.imageUrl!} alt={post.imageAlt || ""} width={1200} height={750}
+        data-post-thumbnail unoptimized loading="lazy" onError={() => setFailed(true)} />}
   </a>;
 }
 
@@ -95,7 +115,7 @@ function ChannelAction({ channel }: { channel: HomeUpdate }) {
   </span>;
 }
 
-export function HomeUpdates({ entries, chartPreview, theme = "dark" }: { entries: readonly HomeUpdate[]; chartPreview: MarketScreenshot; theme?: "light" | "dark" }) {
+export function HomeUpdates({ entries, chartPreview, artwork, theme = "dark" }: { entries: readonly HomeUpdate[]; chartPreview: MarketScreenshot; artwork: ChannelArtwork; theme?: "light" | "dark" }) {
   const [filter, setFilter] = useState("all");
   const [expanded, setExpanded] = useState(false);
   const [reading, setReading] = useState<FeedItem | null>(null);
@@ -105,6 +125,19 @@ export function HomeUpdates({ entries, chartPreview, theme = "dark" }: { entries
   const allPosts = entries.flatMap(channel => channel.posts.map((post, rank) => ({ channel, post, rank })))
     .sort((a, b) => a.rank - b.rank);
   const selectedChannel = entries.find(channel => channel.id === filter);
+  const destinationChannels = (selectedChannel ? [selectedChannel] : entries).filter(channel => channel.id === "tradingview");
+
+  function channelPosts(channel: HomeUpdate) {
+    return <>
+      {channel.timeline && <div className={styles.profileTimeline}>
+        <OfficialPostEmbed embed={channel.timeline} platform={channel.platform} theme={theme} compact />
+      </div>}
+      {channel.posts.map((post, rank) => <div key={post.id} className={styles.postSlot}
+        data-mobile-hidden={rank > 0 && !expanded && filter === "all" || undefined}>
+        <PostCard item={{ channel, post, rank }} chart={chartPreview} avatar={artwork.avatar} onRead={setReading} theme={theme} />
+      </div>)}
+    </>;
+  }
 
   useEffect(() => {
     if (reading && !reader.current?.open) reader.current?.showModal();
@@ -124,16 +157,15 @@ export function HomeUpdates({ entries, chartPreview, theme = "dark" }: { entries
           <span className={styles.channelCategory}>{channel.category}</span>
         </header>
         <div className={styles.channelPosts}>
-          {channel.timeline && <OfficialPostEmbed embed={channel.timeline} platform={channel.platform} theme={theme} />}
-          {!channel.timeline && !channel.posts.length && <div className={styles.emptyChannel}>
+          {channel.id !== "tradingview" && <ProfilePreview channel={channel} artwork={artwork} theme={theme}>
+            {channelPosts(channel)}
+          </ProfilePreview>}
+          {channel.id === "tradingview" && !channel.timeline && !channel.posts.length && <div className={styles.emptyChannel}>
             <PlatformIcon name={channel.platform} /><p>{channel.emptyMessage || "New posts will appear here."}</p>
           </div>}
-          {channel.posts.map((post, rank) => <div key={post.id} className={styles.postSlot}
-            data-mobile-hidden={rank > 0 && !expanded && filter === "all" || undefined}>
-            <PostCard item={{ channel, post, rank }} chart={chartPreview} onRead={setReading} theme={theme} />
-          </div>)}
+          {channel.id === "tradingview" && channelPosts(channel)}
         </div>
-        <div className={styles.channelFooter}><ChannelAction channel={channel} /></div>
+        {channel.id === "tradingview" && <div className={styles.channelFooter}><ChannelAction channel={channel} /></div>}
       </section>)}
     </div>
 
@@ -141,9 +173,9 @@ export function HomeUpdates({ entries, chartPreview, theme = "dark" }: { entries
         aria-expanded={expanded} aria-controls={feedId} onClick={() => setExpanded(value => !value)}>
         {expanded ? "Fewer updates" : "More updates"}<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" data-expanded={expanded || undefined}><path d="m4 6 4 4 4-4" /></svg>
       </button>}
-      <div className={styles.mobileDestinations} aria-label="Platform profiles">
-        {(selectedChannel ? [selectedChannel] : entries).map(channel => <div key={channel.id}><ChannelAction channel={channel} /></div>)}
-      </div>
+      {destinationChannels.length > 0 && <div className={styles.mobileDestinations} aria-label="Platform profiles">
+        {destinationChannels.map(channel => <div key={channel.id}><ChannelAction channel={channel} /></div>)}
+      </div>}
     <dialog className={styles.reader} ref={reader} data-update-reader aria-labelledby={readerTitleId}
       data-platform={reading?.channel.id}
       onClose={() => setReading(null)} onClick={event => { if (event.target === event.currentTarget) reader.current?.close(); }}>

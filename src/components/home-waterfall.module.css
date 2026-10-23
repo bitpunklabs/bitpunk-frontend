@@ -11,8 +11,8 @@
 .card button, .card a { -webkit-tap-highlight-color: transparent; }
 .card button:focus-visible, .card a:focus-visible { outline: 2px solid var(--platform-accent); outline-offset: 3px; }
 .cardByline { display: flex; align-items: center; gap: 10px; padding: 10px 12px 0; }
-.avatar { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 32px; border: 1px solid #eff0f2; border-radius: 50%; background: #fff; }
-.avatar img { display: block; width: 26px; height: 26px; }
+.avatar { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 32px; overflow: hidden; border-radius: 50%; background: #fff; }
+.avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .author { display: flex; flex-direction: column; gap: 1px; line-height: 1.3; }
 .author strong { font-size: 14px; font-weight: 600; }
 .author > span { font-size: 12px; color: #6a6d78; }
@@ -68,7 +68,7 @@
 .card[data-platform="substack"] .summary { color: #757575; font-size: 14px; line-height: 1.5; }
 .card[data-platform="substack"] .cardByline { padding: 10px 12px 0; }
 .card[data-platform="substack"] .avatar { width: 30px; height: 30px; border-radius: 5px; }
-.card[data-platform="substack"] .avatar img { width: 25px; height: 25px; }
+.card[data-platform="substack"] .avatar img { width: 100%; height: 100%; }
 .card[data-platform="substack"] .author strong { font-size: 12px; }
 .card[data-platform="substack"] .author > span { font-size: 11px; }
 .card[data-platform="substack"] .cardSource { color: #ff6719; align-self: center; }
@@ -81,8 +81,6 @@
 .card .artwork { aspect-ratio: 2.5; }
 .card .essayArtwork { aspect-ratio: 2.35; }
 .card .essayTitle { top: 17%; font-size: clamp(1.5rem, 1.9vw, 2rem); }
-.card .chartImage { aspect-ratio: 2.35; overflow: hidden; }
-.card .chartImage img { height: 100%; object-fit: cover; object-position: 50% 20%; }
 .postSlot + .postSlot .card .artwork { aspect-ratio: 3; }
 .channelFooter { padding-top: .25rem; }
 .channelAction { display: inline-flex; align-items: center; min-height: var(--action-height); font: var(--type-action); }
@@ -147,6 +145,19 @@
 .waterfall[data-theme="dark"] .reader[data-platform="substack"] .readerContent > p:not(.cardCategory) { color: #d1ccc6; }
 .waterfall[data-theme="dark"] .reader .pendingAction { color: var(--window-ink); }
 .waterfall[data-theme="dark"] .reader .pendingAction small { color: var(--window-muted); }
+
+/* Posts and official timelines sit inside the same native profile window. */
+.profileTimeline { padding: .75rem 1rem; }
+.profileTimeline:has(> [hidden]) { display: none; }
+.waterfall[data-theme] .profileTimeline [role="status"] { border: 0; border-radius: 0; background: transparent; padding-inline: 0; }
+.profileTimeline > [data-status="loading"] > a { display: none; }
+.waterfall[data-theme] .profileFeed .card { border: 0; border-radius: 0; background: transparent; font-family: var(--font-body); }
+.profileFeed .postSlot + .postSlot { border-top: 1px solid var(--native-line); }
+.profileFeed .cardCopy, .profileFeed .cardByline { padding-inline: 1rem; }
+.profileFeed .postFooter { margin-inline: 1rem; }
+.profileFeed .card[data-platform="substack"] .cardCopy { padding: 1rem 1rem 0; }
+.profileFeed .card[data-platform="substack"] h3 { font: 600 1.25rem/1.25 var(--font-editorial); }
+.profileFeed .card[data-platform="substack"] .avatar { border-radius: 50%; }
 
 @media (max-width: 1000px) {
   .channelHeading { flex-direction: column; gap: .375rem; }

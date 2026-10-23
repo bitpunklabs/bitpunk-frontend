@@ -17,7 +17,7 @@ const socialPlatforms = [
 ];
 
 function SocialPlaceholders() {
-  const links: Record<string, string | null> = { X: destinations.x, TradingView: destinations.tradingview, Substack: destinations.substack };
+  const links: Record<string, string | null> = { X: destinations.x, TradingView: destinations.tradingview, Substack: destinations.substack, GitHub: destinations.github };
   return (
     <div className={styles.socials} aria-label="Social media">
       {socialPlatforms.map(({ name, path }) => links[name] ? (

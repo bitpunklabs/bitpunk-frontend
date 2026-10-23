@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { MarblePage, MarbleHero, MarbleContent } from "@/components/marble-page";
 import { ResearchChannels } from "@/components/research-channels";
 
+export const revalidate = 1800;
+
 export const metadata: Metadata = {
   title: "Research",
   description: "Independent market research, essays and field notes.",

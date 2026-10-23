@@ -9,6 +9,9 @@
 .xHost :global(.twitter-timeline) { width: 100% !important; margin: 0 !important; }
 .embed[data-official-embed="x-timeline"] .mount { min-height: 440px; }
 .embed[data-official-embed="x-timeline"][data-status="failed"] .mount { min-height: 180px; }
+.embed[data-compact="true"]:not([data-status="ready"]) .mount,
+.embed[data-compact="true"] .placeholder { min-height: 5rem; }
+.embed[data-compact="true"] .placeholder { padding: 1rem; border-radius: 8px; }
 .embed[data-official-embed="x-timeline"][data-status="ready"] .source { display: none; }
 .source { display: inline-flex; align-items: center; min-height: 36px; padding-block: 8px; color: #536471; font-size: 12px; }
 .embed[data-status="loading"] .frame { visibility: hidden; }

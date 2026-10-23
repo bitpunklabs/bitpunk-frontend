@@ -4,13 +4,14 @@ import { AlphaShowcase } from "./alpha-showcase";
 import { HomeUpdates } from "./home-waterfall";
 import { PlatformIcon } from "./platform-icon";
 import { ActionLabel, actionStyles } from "./action-label";
-import { getAboutArtwork, getAlphaScreenshots } from "@/lib/scene-assets";
+import { getAboutArtwork, getAlphaScreenshots, getChannelArtwork } from "@/lib/scene-assets";
 import { getHomeUpdates } from "@/lib/home-updates.server";
 import styles from "./home-journal.module.css";
 
 export async function HomeJournal({ feedTheme = "dark" }: { feedTheme?: "light" | "dark" }) {
   const homeUpdates = await getHomeUpdates();
   const screenshots = getAlphaScreenshots();
+  const artwork = getChannelArtwork();
   const thinking = getAboutArtwork().persona.thinking;
   return <div className={styles.journal} data-home-journal>
     <div className={styles.inner}>
@@ -19,7 +20,7 @@ export async function HomeJournal({ feedTheme = "dark" }: { feedTheme?: "light" 
           <h2 id="home-updates-title">Stay in the loop.</h2>
           <p>Market notes, deeper reads and tools to explore.</p>
         </div>
-        <HomeUpdates entries={homeUpdates} chartPreview={screenshots[0]} theme={feedTheme} />
+        <HomeUpdates entries={homeUpdates} chartPreview={screenshots[0]} artwork={artwork} theme={feedTheme} />
       </section>
 
       <section className={`${styles.section} ${styles.product}`} aria-labelledby="home-indicators-title">
