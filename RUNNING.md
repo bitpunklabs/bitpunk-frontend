@@ -11,7 +11,7 @@ pnpm dev --port 3001
 
 The sibling-directory path is an example for an authorised local asset pack; use its actual location when different. Port 3001 avoids another app on port 3000. Do not terminate unrelated servers.
 
-Only optional public URLs are configured in `.env.local`; start from `.env.example`. No Supabase, payment or private service credential is required.
+Optional public URLs and the contact address are configured in `.env.local`; start from `.env.example`. No Supabase, payment or private service credential is required.
 
 The shared market ticker starts collapsed, including its header-height allocation. It appears only after TradingView reports content readiness, local configuration finishes and the widget has rendered. Script/provider failures, partial required-data errors or a 15-second initial timeout leave it hidden without a placeholder; refresh to retry. A ready ticker also collapses if its required data subsequently fails.
 
@@ -60,11 +60,11 @@ The private pack's `channels.avatar` is the shared delivery image for homepage p
 
 ## Email contact
 
-The shared footer's Contact button and About's Email button open a small dialog. Cloudflare Turnstile loads only after opening it. The browser receives the sitekey from `GET /api/contact`; the mailbox address and secret remain in server-only environment variables. `POST /api/contact` reveals the address only after Siteverify confirms a fresh token for the current hostname and the `reveal-email` action. Responses are not cached. The visitor can then copy the address or open their own email application; the website does not send email.
+The footer's Contact link and About's email address use a normal `mailto:` link. There is no dialog, CAPTCHA, contact API, external script or email-sending service. The address is encoded on the server and restored locally by the browser after hydration, following the same lightweight obfuscation pattern as Cloudflare's Email Address Obfuscation. This is a local implementation, not a claim that Cloudflare's proxy feature is enabled. Initial HTML and React payloads receive only the encoded address; browser users can click or copy the restored address normally.
 
-Configure `CONTACT_EMAIL`, `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in ignored `.env.local` for development and in Vercel's environment settings for the full Next.js deployment. Use a managed Turnstile widget restricted to the site's hostnames. Preview and local hosts need an appropriate separate widget configuration. Missing configuration and verification failures never reveal an address; public test keys are rejected in production. Do not commit real configuration, hard-code an address or use a `NEXT_PUBLIC_` variable for the address/secret. The offline check is `node tools/check-contact.mjs`.
+Set `CONTACT_EMAIL` in ignored `.env.local` or Vercel's build environment, then rebuild/redeploy. The local configuration is already populated; no Turnstile configuration is needed. The raw address stays out of Git and browser bundles. A source checkout without an address simply omits the link. This works with static prerendering; the standalone Coming Soon export currently has no contact entry. With JavaScript disabled, visitors can still use the site's social profile links. The small offline check is `node tools/check-contact.mjs`.
 
-This prevents straightforward source/HTML harvesting and raises the cost of automated disclosure; it cannot stop a verified recipient from sharing an address. Keep mailbox spam filtering enabled. The independent static Coming Soon export has no contact API and does not include these contact buttons; enabling contact there requires a server-backed deployment.
+Obfuscation reduces straightforward HTML harvesting; it is reversible and does not identify humans or stop JavaScript-capable crawlers. Keep mailbox spam filtering enabled. Never add real mailbox passwords or service credentials to source or public environment variables.
 
 ## Private delivery assets
 

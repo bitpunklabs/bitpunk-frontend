@@ -47,11 +47,8 @@ export default function PrivacyPage() {
         </p>
         <h2>Email contact</h2>
         <p>
-          Opening Contact loads Cloudflare Turnstile to help prevent automated
-          email harvesting. Cloudflare processes connection and browser signals
-          for this check under its{" "}
-          <a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener noreferrer">Turnstile privacy policy</a>.
-          {" "}If you email us, your address and message are processed by our email
+          Email links open your email application. If you email us, your address
+          and message are processed by our email
           provider and used to handle your enquiry.
         </p>
         <h2>Retention and location</h2>
