@@ -11,7 +11,7 @@ import styles from "./about.module.css";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Meet Jake, the person behind Bitpunk. A leap from software development into trading, market analysis, and work that feels like home.",
+  description: "Hi, this is Jake. Crypto, US equities, and market ideas taking shape at Bitpunk.",
   alternates: { canonical: "/about" },
 };
 
@@ -32,9 +32,8 @@ export default function AboutPage() {
           <div className={styles.prose}>
             <p className={styles.identity}>{aboutContent.introduction}</p>
             {aboutContent.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
-            <p className={styles.signoff}><strong>{aboutContent.signoff}</strong></p>
             <div className={styles.follow}>
-              <p>{aboutContent.invitation}</p>
+              <p>{aboutContent.signoff}<br />{aboutContent.invitation}</p>
               <nav className={styles.channels} aria-label="Follow Jake">
                 <PageAction href={destinations.x ?? "https://x.com/bitpunklabs"} external quiet><span className={styles.platform}><PlatformIcon name="X" />X</span></PageAction>
                 <PageAction href={destinations.substack ?? "https://substack.com/@bitpunklabs"} external quiet><span className={styles.platform}><PlatformIcon name="Substack" />Substack</span></PageAction>
