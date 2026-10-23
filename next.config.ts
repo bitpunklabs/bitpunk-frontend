@@ -16,6 +16,10 @@ const retiredContentPaths = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // ISR reads the delivery pack and checks asset availability inside the function.
+  outputFileTracingIncludes: {
+    "/*": ["./public/art/**/*", "./public/brand/**/*", "./public/favicon.ico"],
+  },
   async rewrites() {
     return { fallback: [
       { source: "/art/:asset*", destination: "/asset-placeholder?asset=:asset*" },

@@ -72,6 +72,10 @@ The pack supplies `public/art/`, `public/brand/` and `public/favicon.ico`. It in
 
 `pnpm assets:check` checks delivery hashes and homepage/gallery references. The normal production build runs this check first, accepts an absent pack and rejects altered registered files. Use `node tools/check-private-assets.mjs --required` to require the complete pack for a branded release. Original artwork, prompts, design documents and review captures do not belong in the delivery pack.
 
+`next.config.ts` includes delivery files in the Vercel function trace so cached pages can still read the pack and check image availability when they regenerate. A prebuilt release needs both the public image deliveries and these runtime files.
+
+For a full-site prebuilt release, use `vercel build --prod --standalone` so function dependencies are contained in `.vercel/output/`. Deploy with `--prebuilt --prod --skip-domain`, verify the protected deployment, then promote it. Upload only this clean delivery output; keep environment files and review material outside it.
+
 Chart presentation has two formats: `ImageCarousel` for switchable collections and `ImageSingle` for an independent image. Both use `ImageFrame` for the ticker icon/name and timeframe/script header, and `ImageViewer` for the thumbnail-to-full transition. Only the carousel supplies viewer navigation. All expand actions read “View full”; reduced-motion preferences skip the expansion animation.
 
 A deployment must receive these delivery files from authorised private storage before building. They must not be committed to make a Git-based deployment work. The website's displayed images are necessarily available to its visitors; keeping them out of Git protects the source repository, not against saving a displayed image.
