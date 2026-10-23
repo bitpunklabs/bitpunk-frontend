@@ -30,10 +30,10 @@ export default function AboutPage() {
           <header className={styles.heading}><h2 id="about-title">Behind <em>the mask.</em></h2></header>
           <div className={styles.persona}><AboutPersona artwork={artwork.persona} /></div>
           <div className={styles.prose}>
-            <p className={styles.identity}>{aboutContent.introduction}</p>
+            <p>{aboutContent.introduction}</p>
             {aboutContent.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
             <div className={styles.follow}>
-              <p>{aboutContent.signoff}<br />{aboutContent.invitation}</p>
+              <p>{aboutContent.signoff}</p>
               <nav className={styles.channels} aria-label="Follow Jake">
                 <PageAction href={destinations.x ?? "https://x.com/bitpunklabs"} external quiet><span className={styles.platform}><PlatformIcon name="X" />X</span></PageAction>
                 <PageAction href={destinations.substack ?? "https://substack.com/@bitpunklabs"} external quiet><span className={styles.platform}><PlatformIcon name="Substack" />Substack</span></PageAction>

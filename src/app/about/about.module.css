@@ -7,10 +7,9 @@
 .persona { grid-area: persona; min-width: 0; }
 .prose { grid-area: prose; align-self: start; max-width: 58ch; color: var(--muted); font: var(--type-body); text-wrap: pretty; }
 .prose p { margin: 0; }
-.prose p + p { margin-top: .5rem; }
-.identity { color: var(--ink); }
-.follow { margin-top: .875rem; color: var(--ink); }
-.channels { display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.25rem; }
+.prose p + p { margin-top: var(--paragraph-gap); }
+.follow { margin-top: var(--paragraph-gap); }
+.channels { display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.25rem; color: var(--ink); }
 .platform { display: inline-flex; align-items: center; gap: .375rem; }
 .platform svg { width: .875rem; height: .875rem; flex: 0 0 auto; }
 @media (max-width: 650px) {
