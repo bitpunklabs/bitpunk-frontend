@@ -3,6 +3,7 @@
 .heading h1 { margin: 0; font: 400 clamp(3rem, 5.25vw, 4.75rem)/1.04 var(--font-editorial); letter-spacing: var(--tracking-title); }
 .hint { margin: 0; flex: 0 0 auto; color: var(--muted); font: var(--type-meta); text-align: right; white-space: nowrap; }
 .shell { border: 1px solid #171b1c35; background: #ece6d9; overflow: hidden; }
+.unavailable { display: grid; place-items: center; min-height: 12rem; padding: 2rem; border: 1px solid var(--stone-line); text-align: center; color: var(--muted); font: var(--type-body); }
 .hud { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3rem; padding: .5rem 1rem; color: var(--paper); background: var(--ink); }
 .score { display: flex; align-items: center; gap: .75rem; }
 .score span, .best span { font: 9px/1.4 var(--font-mono); text-transform: uppercase; color: #bbbfb5; letter-spacing: .06em; }

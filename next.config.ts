@@ -16,6 +16,13 @@ const retiredContentPaths = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  async rewrites() {
+    return { fallback: [
+      { source: "/art/:asset*", destination: "/asset-placeholder?asset=:asset*" },
+      { source: "/brand/:asset*", destination: "/asset-placeholder?asset=:asset*" },
+      { source: "/favicon.ico", destination: "/asset-placeholder?asset=favicon" },
+    ] };
+  },
   async redirects() {
     return [
       {

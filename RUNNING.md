@@ -100,3 +100,9 @@ Personal copy is editable in `src/lib/about.ts`. The public name is Jake. `about
 ### Shared risk notice
 
 The global footer displays “For information only. Not financial advice. Trading involves risk.” from `src/lib/disclaimer.ts`. The same wording introduces `/disclaimer`, which retains the detailed risks and limitations. Product documentation already links to this page; the shared footer also covers Research, Indicators, Open source and About without repeating notices inside each section.
+
+### Source-only frontend
+
+The GitHub section links to the frontend repository and states that artwork, brand assets and paid indicator implementation are excluded. An ordinary source checkout can run `pnpm dev --port 3001` and `pnpm build` without a private asset pack. Asset readers return typed metadata with neutral placeholders; missing game art disables game loading and shows an explicit explanation. The shared footer announces missing artwork. Fallback rewrites handle absent art and brand files while leaving installed static files intact. Placeholders never invent market data or include original brand illustrations.
+
+`pnpm assets:check` permits absent files but verifies any available registered asset's hash. `node tools/check-private-assets.mjs --required` requires every delivery file for a complete branded release. Use `BITPUNK_ASSET_MODE=placeholder` to preview the source-only view while keeping authorised local originals in place.

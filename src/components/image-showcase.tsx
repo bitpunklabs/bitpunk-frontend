@@ -114,6 +114,8 @@ export type ImageCarouselProps = {
   label: string;
   variant?: ImageShowcaseVariant;
   selectionLabel?: string;
+  /** Show market icons beside the slide-selection labels. */
+  showSelectorIcons?: boolean;
   /** Milliseconds between automatic advances; use 0 to disable. */
   autoPlayInterval?: number;
 };
@@ -126,7 +128,7 @@ export function ImageCarousel(props: ImageCarouselProps) {
 }
 
 function ImageShowcaseGallery({ slides, label, variant = "stack",
-  selectionLabel = "Choose an image", autoPlayInterval = 6000 }: ImageCarouselProps) {
+  selectionLabel = "Choose an image", showSelectorIcons = true, autoPlayInterval = 6000 }: ImageCarouselProps) {
   const galleryId = useId();
   const root = useRef<HTMLDivElement>(null);
   const progress = useRef<HTMLSpanElement>(null);
@@ -312,7 +314,7 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
             <button key={slide.id} className={styles.selector} type="button"
               aria-label={`Show ${slide.label}`} aria-pressed={selected === index} aria-controls={galleryId}
               onClick={() => choose(index)}>
-              {slide.iconSrc && <Image src={slide.iconSrc} alt="" width={20} height={20} unoptimized />}
+              {showSelectorIcons && slide.iconSrc && <Image src={slide.iconSrc} alt="" width={20} height={20} unoptimized />}
               {slide.label}
             </button>
           ))}

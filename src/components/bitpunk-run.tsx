@@ -7,13 +7,14 @@ import styles from "./bitpunk-run.module.css";
 
 const initial: GameSnapshot = { mode: "loading", score: 0, best: 0, counts: { btc: 0, eth: 0, sol: 0 }, title: "", copy: "" };
 
-export function BitpunkRun({ artwork }: { artwork: GameArtwork }) {
+export function BitpunkRun({ artwork }: { artwork: GameArtwork | null }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const controller = useRef<RunController | null>(null);
   const [snapshot, setSnapshot] = useState(initial);
   const [mountError, setMountError] = useState(false);
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
+    if (!artwork) return;
     let active = true, idle: number | undefined;
     let timer: ReturnType<typeof setTimeout> | undefined;
     const initialize = async () => {
@@ -57,7 +58,7 @@ export function BitpunkRun({ artwork }: { artwork: GameArtwork }) {
       <h1 id="run-title">A true punk<br /><em>never stops running.</em></h1>
       <p className={styles.hint}>Click to jump, again to double jump.</p>
     </header>
-    <div className={styles.shell} onKeyDown={keyDown}>
+    {!artwork ? <div className={styles.unavailable}><p>Game artwork is not included in this source build.<br />Add the authorised asset pack to play.</p></div> : <div className={styles.shell} onKeyDown={keyDown}>
       <div className={styles.hud}>
         <div className={styles.score}><span>Score</span><output aria-live="off">{String(snapshot.score).padStart(5, "0")}</output></div>
         <div className={styles.best}><span>Best</span> {String(snapshot.best).padStart(5, "0")}</div>
@@ -80,6 +81,6 @@ export function BitpunkRun({ artwork }: { artwork: GameArtwork }) {
           </div>}
         </div>}
       </div>
-    </div>
+    </div>}
   </section>;
 }

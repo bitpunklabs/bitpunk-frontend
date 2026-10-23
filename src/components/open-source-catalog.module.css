@@ -1,0 +1,28 @@
+.githubPreview { min-width: 0; width: 100%; align-self: center; padding: 1.25rem .75rem; perspective: 75rem; }
+.githubFrame { display: block; min-width: 0; border: 1px solid #c9c4b9; border-radius: 8px; background: #f6f5f0; color: var(--ink); overflow: hidden; text-decoration: none; box-shadow: 0 5px 8px -5px #28271f22, 0 20px 35px -24px #28271f66; transform: rotateX(3deg) rotateY(-3deg) rotateZ(-.5deg); transition: transform 300ms ease; }
+.githubFrame:focus-visible { outline: 2px solid var(--brand-orange); outline-offset: 5px; }
+.frameBar { display: flex; align-items: center; gap: .625rem; min-height: 3rem; padding: .625rem 1rem; border-bottom: 1px solid #d8d4cc; font: var(--type-action); }
+.frameBar > svg { width: 1.125rem; height: 1.125rem; flex: 0 0 auto; }
+.fileName { color: var(--muted); }
+.externalMark { margin-left: auto; font-size: 1rem; }
+.banner { display: block; background: #171b1c; }
+.banner img { display: block; width: 100%; height: auto; }
+.profileFooter { display: flex; align-items: center; gap: .75rem; padding: 1rem; border-top: 1px solid #d8d4cc; }
+.profileFooter > img { width: 2.5rem; height: 2.5rem; border-radius: 50%; }
+.profileFooter strong { display: block; font: 600 .8125rem/1.4 var(--font-body); }
+.profileFooter small { display: block; margin-top: .125rem; color: var(--muted); font: var(--type-meta); }
+.frameAction { margin-left: auto; }
+@media (hover: hover) {
+  .githubFrame:hover { transform: translateY(-3px) rotateX(0) rotateY(0) rotateZ(0); }
+  .githubFrame:hover .frameAction { color: var(--accent); }
+}
+@media (max-width: 700px) {
+  .githubPreview { padding-inline: .25rem; }
+  .frameBar, .profileFooter { padding-inline: .75rem; }
+  .profileFooter { flex-wrap: wrap; gap: .625rem; }
+  .frameAction { flex-basis: 100%; display: flex; justify-content: flex-end; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .githubFrame { transform: none; transition: none; }
+  .githubFrame:hover { transform: none; }
+}

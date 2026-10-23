@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { MarblePage, MarbleHero, MarbleContent, CollectionLink, marbleStyles as s } from "@/components/marble-page";
+import { MarblePage, MarbleHero, MarbleContent } from "@/components/marble-page";
+import { OpenSourceCatalog } from "@/components/open-source-catalog";
 
 export const metadata: Metadata = {
   title: "Open source",
@@ -14,14 +15,7 @@ export default function OpenSourcePage() {
         title={<>Ideas,{" "}<br /><em>made open.</em></>}
         copy="Chart studies and research tools, shared openly." />
       <MarbleContent>
-        <section className={s.chapter} aria-label="Open-source collections">
-          <div className={s.collectionGrid}>
-            <CollectionLink href="/open-source/tradingview" title="TradingView"
-              copy="Chart studies you can use, inspect and adapt." action="View scripts" />
-            <CollectionLink href="/open-source/github" title="GitHub"
-              copy="Tools to organise your research and explore ideas." action="View projects" />
-          </div>
-        </section>
+        <OpenSourceCatalog />
       </MarbleContent>
     </MarblePage>
   );

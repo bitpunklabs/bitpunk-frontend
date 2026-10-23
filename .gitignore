@@ -23,6 +23,8 @@ node_modules/
 
 # Proprietary originals, delivery images, design records and working material.
 /asset
+/assets
+*.pine
 /branding
 /design
 /docs

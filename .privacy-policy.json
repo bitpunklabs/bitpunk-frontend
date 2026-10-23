@@ -1,6 +1,6 @@
 {
   "privateRoots": [
-    "asset", "branding", "design", "docs", "temp", "tmp", "output", ".private",
+    "asset", "assets", "branding", "design", "docs", "temp", "tmp", "output", ".private",
     ".codex", ".vercel", ".playwright-mcp", ".pnpm-store", "node_modules", ".next",
     "public/art", "public/brand", "src/legacy", "src/app/review", "supabase", "tools/art"
   ],
@@ -9,5 +9,5 @@
     "src/components/marble-glow-assets.json", "src/components/marble-motion-assets.json",
     "src/components/marble-edge-contours.json"
   ],
-  "privateExtensions": ["png", "jpg", "jpeg", "webp", "avif", "gif", "ico", "svg", "psd", "psb", "fig", "sketch", "blend", "ai", "pem", "key", "p12", "pfx", "bundle"]
+  "privateExtensions": ["png", "jpg", "jpeg", "webp", "avif", "gif", "ico", "svg", "psd", "psb", "fig", "sketch", "blend", "ai", "pine", "pem", "key", "p12", "pfx", "bundle"]
 }
