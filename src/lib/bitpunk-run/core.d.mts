@@ -1,0 +1,10 @@
+import type { Chunk, Coin, Counts, DeathReason, Enemy, Player, Surface, WickPose } from "./types";
+export declare const RUN: Readonly<{ width: number; height: number; chunk: number; floor: number; speed: number; gravity: number; jump: number; doubleJump: number; dt: number; playerW: number; playerH: number; coyote: number }>;
+export declare function newPlayer(x?: number): Player;
+export declare function jumpPlayer(player: Player): boolean;
+export declare function stepPlayer(player: Player, surfaces: Surface[], dt?: number): boolean;
+export declare function deathReason(player: Player, enemies: Enemy[], time: number, margin?: number): DeathReason | null;
+export declare function takeCoin(player: Player, coin: Coin, counts: Counts): number;
+export declare function makeChunkSteps(seed: string, index: number, forceKind?: string): Generator<void, Chunk, unknown>;
+export declare function enemyPosition(enemy: Enemy, time: number): { x: number; y: number };
+export declare function wickState(enemy: Enemy, time: number): WickPose;

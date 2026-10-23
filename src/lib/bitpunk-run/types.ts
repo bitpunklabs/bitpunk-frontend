@@ -1,0 +1,24 @@
+export type CoinId = "btc" | "eth" | "sol";
+export type SceneId = "greek" | "wallstreet" | "cyberpunk" | "punkstreet" | "exchange" | "reserve" | "harbor" | "moon";
+export type EnemyId = "bear" | "swan" | "redwick" | "greenwick";
+export type DeathReason = EnemyId | "pit" | "wall";
+export type GameImageId = SceneId | "player" | "world" | "memes-market" | "memes-world";
+export type SpriteRect = { x: number; y: number; w: number; h: number };
+export type DecorRect = SpriteRect & { sheet: "memes-market" | "memes-world" };
+export type GameArtwork = {
+  images: Record<GameImageId, string>;
+  sprites: Record<CoinId | "bear" | "swan", SpriteRect>;
+  decor: Record<string, DecorRect>;
+};
+export type Player = { x: number; y: number; vy: number; w: number; h: number; jumps: number; grounded: boolean; coyote: number; blocked: boolean };
+export type Surface = { x: number; y: number; w: number; ground: boolean; solid: boolean; depth: number };
+export type Enemy = { type: EnemyId; x: number; y: number; w: number; h: number; ampX: number; ampY: number; frequency: number; phase: number; origin: number; motion: string; actionPhase?: number; defeated?: boolean };
+export type StompHit = { type: "bear" | "swan"; x: number; y: number; foot: number; points: number; multiplier: number };
+export type Coin = { id: string; x: number; y: number; type: CoinId; taken: boolean; route: string };
+export type Counts = Record<CoinId, number>;
+export type Chunk = { index: number; start: number; end: number; surfaces: Surface[]; enemies: Enemy[]; coins: Coin[]; routePreviews: unknown[] };
+export type WickPose = { type: EnemyId; x: number; foot: number; ground: number; width: number; height: number; body: number; upper: number; lower: number; warning: boolean; progress: number; impactAge: number };
+export type Egg = { id: string; x: number; foot: number; width: number; height: number };
+export type GameMode = "loading" | "preparing" | "ready" | "running" | "paused" | "over" | "error";
+export type GameSnapshot = { mode: GameMode; score: number; best: number; counts: Counts; title: string; copy: string };
+export type RunController = { jump(): void; togglePause(): void; pause(): void; restart(): void; destroy(): void };
