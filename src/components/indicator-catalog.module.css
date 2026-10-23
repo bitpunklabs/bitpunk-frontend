@@ -41,8 +41,6 @@
   cursor: default;
 }
 .resourceLabel { display: inline-flex; align-items: center; min-height: var(--action-height); padding-block: .5rem; font: var(--type-action); }
-.resourceStatus { font: .625rem/1.5 var(--font-mono); }
-.pendingResource:focus-visible { outline: 1px solid var(--brand-orange); outline-offset: 5px; }
 @media (max-width: 900px) {
   .withGallery { grid-template-columns: minmax(0, 1fr); gap: .5rem; }
   .withGallery .introduction { align-self: start; }

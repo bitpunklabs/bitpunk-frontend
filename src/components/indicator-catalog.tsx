@@ -15,10 +15,9 @@ export function IndicatorResource({ href, label, product }: {
   return href ? (
     <PageAction href={href} external={!href.startsWith("/")} quiet>{label}</PageAction>
   ) : (
-    <button type="button" className={styles.pendingResource} aria-disabled="true"
+    <button type="button" className={styles.pendingResource} disabled
       aria-label={`${product} ${label} — coming soon`}>
-      <span className={styles.resourceLabel}>{label}</span>
-      <span className={styles.resourceStatus}>Coming soon</span>
+      <span className={styles.resourceLabel}>{label} (Coming soon)</span>
     </button>
   );
 }
@@ -46,7 +45,7 @@ export function IndicatorCatalog({ variant = "stack" }: { variant?: AlphaShowcas
                 </p>
               </div>
               <div className={styles.resources}>
-                <PageAction href={alphaIndicator.documentationUrl} quiet>Read the Doc (Coming soon)</PageAction>
+                <IndicatorResource href={alphaIndicator.documentationUrl} label="Read the Doc" product="bitpunk.alpha" />
                 <PageAction href={alphaIndicator.tradingViewUrl} external quiet>Explore Alpha on TradingView</PageAction>
               </div>
             </div>

@@ -2,7 +2,7 @@
 // Screener is not published and has no public catalog entry.
 export const alphaIndicator = {
   name: 'The "bitpunk.alpha" indicator',
-  documentationUrl: "/indicators/alpha",
+  documentationUrl: null,
   tradingViewUrl: "https://www.tradingview.com/script/SGxnp5Zk/",
   topics: [
     {
