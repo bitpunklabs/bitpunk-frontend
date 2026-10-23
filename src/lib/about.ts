@@ -8,9 +8,11 @@ export const aboutProfile = {
 };
 
 export const aboutContent = {
-  introduction: `${aboutProfile.name ? `I’m ${aboutProfile.name}.` : "I’m the person behind Bitpunk."} ${aboutProfile.background || "I made the leap from software development into trading and market analysis. A bold move—but I’ve never felt more like myself."}`,
+  introduction: aboutProfile.name ? `This is ${aboutProfile.name}.` : "The person behind Bitpunk.",
   paragraphs: [
-    aboutProfile.marketExperience || "I’m drawn to crypto and US equities—the conviction, the fear, the moment a market changes its mind. I can lose hours in a chart, following the clues and testing my read.",
-    `${aboutProfile.motivation || "Bitpunk is where I put that energy—into research, tools, and ideas I can’t leave alone. This is the work I keep coming back to."}${aboutProfile.personalDetail ? ` ${aboutProfile.personalDetail}` : ""}`,
+    aboutProfile.background || "Software developer turned trader and market analyst. A bold move—but I’ve never felt more like myself.",
+    aboutProfile.marketExperience || "Crypto. US equities. I live for figuring out what moves them.",
   ],
+  signoff: `${aboutProfile.motivation || "I’m always cooking something big."}${aboutProfile.personalDetail ? ` ${aboutProfile.personalDetail}` : ""}`,
+  invitation: "Stay close.",
 };

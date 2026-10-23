@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AboutPersona } from "@/components/about-persona";
 import { BitpunkRun } from "@/components/bitpunk-run";
-import { MarblePage, marbleStyles } from "@/components/marble-page";
+import { MarblePage, PageAction, marbleStyles } from "@/components/marble-page";
+import { PlatformIcon } from "@/components/platform-icon";
 import { aboutContent } from "@/lib/about";
 import { getAboutArtwork } from "@/lib/scene-assets";
+import { destinations } from "@/lib/showcase";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
@@ -28,8 +30,18 @@ export default function AboutPage() {
           <header className={styles.heading}><h2 id="about-title">Behind <em>the mask.</em></h2></header>
           <div className={styles.persona}><AboutPersona artwork={artwork.persona} /></div>
           <div className={styles.prose}>
-            <p>{aboutContent.introduction}</p>
+            <p className={styles.identity}>{aboutContent.introduction}</p>
             {aboutContent.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+            <p className={styles.signoff}><em>{aboutContent.signoff}</em></p>
+            <div className={styles.follow}>
+              <p>{aboutContent.invitation}</p>
+              <nav className={styles.channels} aria-label="Follow Jake">
+                <PageAction href={destinations.x ?? "https://x.com/bitpunklabs"} external quiet><span className={styles.platform}><PlatformIcon name="X" />X</span></PageAction>
+                <PageAction href={destinations.substack ?? "https://substack.com/@bitpunklabs"} external quiet><span className={styles.platform}><PlatformIcon name="Substack" />Substack</span></PageAction>
+                <PageAction href={destinations.tradingview} external quiet><span className={styles.platform}><PlatformIcon name="TradingView" />TradingView</span></PageAction>
+                <PageAction href={destinations.github} external quiet><span className={styles.platform}><PlatformIcon name="GitHub" />GitHub</span></PageAction>
+              </nav>
+            </div>
           </div>
         </section>
       </div>
