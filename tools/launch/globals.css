@@ -1,0 +1,14 @@
+:root { --stone: #f1ece2; --brand-orange: #d97757; --ink: #171b1c; --muted: #61635e; --accent: #ad4e32; --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace; color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: var(--font-sans), Arial, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--ink); color: var(--stone); }
+a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+img { max-width: 100%; height: auto; }
+h1, h2, h3, p, figure { margin: 0; }
+p { max-width: 65ch; }
+.wordmark-text { display: block; position: relative; width: 3.2em; max-width: 100%; margin-inline: auto; line-height: 0; }
+.wordmark-lettering, .wordmark-star { position: absolute; display: block; max-width: none; pointer-events: none; }
+.wordmark-star img { display: block; width: 100%; height: 100%; max-width: none; }
+.skip-link { position: fixed; top: 1rem; left: 1rem; z-index: 100; padding: .6rem 1rem; background: var(--ink); color: var(--stone); transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }

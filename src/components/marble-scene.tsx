@@ -122,8 +122,8 @@ export function MarbleScene() {
           </span>
         </div>
         <h1 id="home-title" className={styles.description}>
-          <span>Research, indicators and open-source tools</span>{" "}
-          <span>for those who read the market.</span>
+          <span>Research, indicators and open source.</span>{" "}
+          <span>Where market ideas take shape.</span>
         </h1>
       </div>
       <div className={styles.scene}>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFrame } from "@/components/site-frame";
 import { MarketTicker } from "@/components/market-ticker";
 import { getSiteUrl } from "@/lib/seo";
 import { getHomeArtwork } from "@/lib/scene-assets";
@@ -50,19 +51,19 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       ...[16, 32, 64].map((size) => ({
-        url: `/brand/favicon-dark${size === 64 ? "" : `-${size}`}.png?v=black-3`,
+        url: `/brand/favicon-light${size === 64 ? "" : `-${size}`}.png?v=white-1`,
         type: "image/png",
         sizes: `${size}x${size}`,
       })),
       {
-        url: "/brand/favicon.svg?v=black-3",
+        url: "/brand/favicon-light.svg?v=white-1",
         type: "image/svg+xml",
         sizes: "any",
       },
     ],
-    shortcut: "/favicon.ico?v=black-3",
+    shortcut: "/favicon.ico?v=white-1",
     apple: {
-      url: "/brand/apple-touch-icon.png?v=black-3",
+      url: "/brand/apple-touch-icon-light.png?v=white-1",
       sizes: "180x180",
     },
   },
@@ -80,14 +81,12 @@ export default function RootLayout({
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
-        <div className="frame">
-          <div className="site-chrome" data-site-chrome>
+        <SiteFrame chrome={<>
             <SiteHeader wordmark={getHomeArtwork().wordmark} />
             <MarketTicker />
-          </div>
-          <main id="main-content">{children}</main>
-          <SiteFooter />
-        </div>
+          </>} footer={<SiteFooter />}>
+          {children}
+        </SiteFrame>
       </body>
     </html>
   );

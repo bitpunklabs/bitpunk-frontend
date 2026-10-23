@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node tools/check-private-assets.mjs && next build",
+    "build:coming-soon": "node tools/check-private-assets.mjs && node tools/build-coming-soon.mjs",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
