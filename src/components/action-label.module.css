@@ -9,6 +9,7 @@
   letter-spacing: 0;
   padding-block: .5rem;
 }
+.label em { font: var(--type-copy-emphasis); letter-spacing: 0; }
 .label::after {
   content: "";
   position: absolute;

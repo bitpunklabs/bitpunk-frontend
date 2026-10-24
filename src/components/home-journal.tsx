@@ -31,7 +31,7 @@ export async function HomeJournal({ feedTheme = "dark" }: { feedTheme?: "light" 
           <p className={styles.description}>Momentum, Trend and Market Structure, in one view.<br />Meet <em>bitpunk.alpha</em>.</p>
           <div className={styles.productActions}>
             <Link className={`${styles.link} ${actionStyles.interactive}`} href="/indicators"><ActionLabel>Explore Indicators</ActionLabel></Link>
-            <a className={`${styles.link} ${actionStyles.interactive}`} href={alphaIndicator.tradingViewUrl} target="_blank" rel="noopener noreferrer"><ActionLabel>Explore Alpha on TradingView</ActionLabel></a>
+            <a className={`${styles.link} ${actionStyles.interactive}`} href={alphaIndicator.tradingViewUrl} target="_blank" rel="noopener noreferrer"><ActionLabel>Explore the &quot;<em>bitpunk.alpha</em>&quot; on TradingView</ActionLabel></a>
           </div>
         </div>
         <div className={styles.gallery}><AlphaShowcase slides={screenshots} /></div>
