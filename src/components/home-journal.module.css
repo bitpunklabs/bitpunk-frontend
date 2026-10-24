@@ -37,7 +37,7 @@
 .product { align-items: start; }
 .productCopy, .resourceIntroduction { align-self: center; }
 .productCopy h2 { margin-block: .625rem .75rem; }
-.productCopy .link { margin-top: .625rem; }
+.productActions { display: flex; flex-direction: column; align-items: flex-start; margin-top: .625rem; }
 .gallery { min-width: 0; width: 100%; }
 .resources { align-items: start; }
 .resourceIntroduction h2 { margin-block: .625rem .75rem; }
@@ -71,7 +71,6 @@
   .product { display: flex; flex-direction: column; align-items: stretch; gap: .75rem; }
   .productCopy, .resourceIntroduction { align-self: auto; }
   .productCopy h2 { margin-block: .625rem .75rem; }
-  .productCopy .link { margin-top: .625rem; }
   .gallery { width: calc(100% + 1rem); max-width: none; margin-inline: -.5rem; }
   .resources { display: block; }
   .resourceIntroduction h2 { margin-block: .625rem .75rem; }

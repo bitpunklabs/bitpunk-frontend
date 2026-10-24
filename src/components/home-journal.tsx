@@ -6,6 +6,7 @@ import { PlatformIcon } from "./platform-icon";
 import { ActionLabel, actionStyles } from "./action-label";
 import { getAboutArtwork, getAlphaScreenshots, getChannelArtwork } from "@/lib/scene-assets";
 import { getHomeUpdates } from "@/lib/home-updates.server";
+import { alphaIndicator } from "@/lib/indicators";
 import styles from "./home-journal.module.css";
 
 export async function HomeJournal({ feedTheme = "dark" }: { feedTheme?: "light" | "dark" }) {
@@ -28,7 +29,10 @@ export async function HomeJournal({ feedTheme = "dark" }: { feedTheme?: "light" 
           <p className={styles.eyebrow}>Indicators</p>
           <h2 id="home-indicators-title">Beyond<br /><em>the candles.</em></h2>
           <p className={styles.description}>Momentum, Trend and Market Structure, in one view.<br />Meet <em>bitpunk.alpha</em>.</p>
-          <Link className={`${styles.link} ${actionStyles.interactive}`} href="/indicators"><ActionLabel>Explore Indicators</ActionLabel></Link>
+          <div className={styles.productActions}>
+            <Link className={`${styles.link} ${actionStyles.interactive}`} href="/indicators"><ActionLabel>Explore Indicators</ActionLabel></Link>
+            <a className={`${styles.link} ${actionStyles.interactive}`} href={alphaIndicator.tradingViewUrl} target="_blank" rel="noopener noreferrer"><ActionLabel>Explore Alpha on TradingView</ActionLabel></a>
+          </div>
         </div>
         <div className={styles.gallery}><AlphaShowcase slides={screenshots} /></div>
       </section>
