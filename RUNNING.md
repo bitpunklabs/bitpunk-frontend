@@ -56,7 +56,7 @@ For the prelaunch domain setup, `www.bitpunk.io` redirects to the apex domain, `
 
 The private pack's `channels.avatar` is the shared delivery image for homepage post/profile bylines, Research profiles and the GitHub card. It is a 512px WebP export of the supplied portrait; the source remains private. Platform icons and the website favicon keep their separate roles. X cover art and the Substack wordmark are locally delivered copies reviewed against the live profiles.
 
-`/open-source` contains stacked TradingView and GitHub sections. `OpenIndicatorSection` shares the same charts, copy and controls with `/indicators`. The GitHub banner uses the approved profile's original animated SVG, with a matching single-frame SVG selected for reduced motion; it links to the profile. Development directions link to the public projects. Channel artwork is delivered locally through `site-assets.json`, alongside the existing private asset pack.
+`/open-source` contains stacked TradingView and GitHub sections. `OpenIndicatorSection` shares the same charts, copy and controls with `/indicators`. The GitHub banner uses the approved profile's original animated SVG, with a matching single-frame SVG selected for reduced motion; it links to the profile. Refresh it from `channels/github/profile/assets/header.svg` with `python3 tools/sync-github-profile.py /path/to/bitpunk-branding`. Content-hashed delivery URLs avoid stale banners; the SVGs remain private delivery assets. Development directions link to the public projects. Channel artwork is delivered locally through `site-assets.json`, alongside the existing private asset pack.
 
 ## Email contact
 
