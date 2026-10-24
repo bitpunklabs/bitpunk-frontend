@@ -1,2 +1,11 @@
-.persona { margin: 0; width: 100%; max-width: 23rem; min-width: 0; }
-.image { display: block; width: 100%; height: auto; border: 1px solid var(--stone-line); }
+.persona { margin: 0; width: 100%; max-width: 28rem; min-width: 0; }
+.reveal { --reveal: 0%; position: relative; overflow: hidden; border: 1px solid var(--stone-line); touch-action: pan-y pinch-zoom; user-select: none; -webkit-user-select: none; cursor: ew-resize; }
+.reveal:focus-visible { outline: 2px solid var(--brand-orange); outline-offset: 4px; }
+.reveal:not([role]) { cursor: default; }
+.image { display: block; width: 100%; height: auto; pointer-events: none; }
+.unmasked { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--reveal)) 0 0); pointer-events: none; }
+.rail { position: absolute; inset-block: 0; left: var(--reveal); width: 1px; background: rgb(238 237 231 / 65%); box-shadow: 1px 0 5px rgb(23 27 28 / 20%); opacity: 0; pointer-events: none; }
+.hint { position: absolute; left: 50%; bottom: .625rem; display: grid; place-items: center; width: 2.5rem; height: 1.5rem; border: 1px solid rgb(238 237 231 / 40%); border-radius: 2rem; background: rgb(23 27 28 / 32%); color: #eeede7; opacity: .65; transform: translateX(-50%); pointer-events: none; }
+.reveal:hover .hint, .reveal:focus-visible .hint { opacity: 1; }
+.reveal[data-interacted] .rail { opacity: 1; }
+.reveal[data-interacted] .hint { left: clamp(1.5rem, var(--reveal), calc(100% - 1.5rem)); }

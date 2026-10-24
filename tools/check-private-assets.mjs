@@ -49,7 +49,7 @@ checkReferences(pack.home);
 checkReferences(pack.showcases);
 checkReferences(pack.channels);
 checkReferences(pack.about);
-if (required && (!pack.about?.persona?.thinking || !pack.about?.persona?.building || !pack.about?.persona?.stonks || !pack.about?.game?.images)) {
+if (required && (!pack.about?.persona?.thinking || !pack.about?.persona?.building || !pack.about?.persona?.stonks || !pack.about?.persona?.stonksUnmasked || !pack.about?.game?.images)) {
   throw new Error('About artwork is missing from the current delivery pack.');
 }
 for (const path of Object.values(pack.about?.game?.images || {})) {

@@ -26,7 +26,7 @@ export const channelPlaceholder: ChannelArtwork = {
   github: { ...image(1520, 600), staticSrc: missingArtwork },
 };
 export const aboutPlaceholder: AboutArtwork = {
-  persona: { thinking: image(512, 512), building: image(512, 512), stonks: image() },
+  persona: { thinking: image(512, 512), building: image(512, 512), stonks: image(), stonksUnmasked: image() },
   game: null,
 };
 

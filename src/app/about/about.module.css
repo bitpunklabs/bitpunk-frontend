@@ -1,5 +1,5 @@
-.introduction { display: grid; grid-template-columns: minmax(13rem, .65fr) minmax(0, 1fr); grid-template-areas: "persona prose"; column-gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding: clamp(.875rem, 2cqw, 1.5rem) 0 clamp(1.5rem, 3cqw, 2.5rem); border-bottom: 1px solid var(--stone-line); }
-.persona { grid-area: persona; min-width: 0; justify-self: center; }
+.introduction { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(13rem, 1fr); grid-template-areas: "prose persona"; column-gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding: clamp(.875rem, 2cqw, 1.5rem) 0 clamp(1.5rem, 3cqw, 2.5rem); border-bottom: 1px solid var(--stone-line); }
+.persona { grid-area: persona; width: 100%; min-width: 0; justify-self: end; }
 .prose { grid-area: prose; max-width: 58ch; color: var(--muted); font: var(--type-body); text-wrap: pretty; }
 .prose p { margin: 0; }
 .prose p + p { margin-top: var(--paragraph-gap); }
@@ -9,7 +9,7 @@
 .platform { display: inline-flex; align-items: center; gap: .375rem; }
 .platform svg { width: .875rem; height: .875rem; flex: 0 0 auto; }
 @media (max-width: 650px) {
-  .introduction { grid-template-columns: minmax(0, 1fr); grid-template-areas: "persona" "prose"; gap: 1.25rem; padding-bottom: 1.5rem; }
+  .introduction { grid-template-columns: minmax(0, 1fr); grid-template-areas: "prose" "persona"; gap: 1.25rem; padding-bottom: 1.5rem; }
   .channels { display: grid; grid-template-columns: repeat(2, max-content); }
-  .persona { width: min(100%, 21rem); }
+  .persona { width: min(100%, 23rem); justify-self: center; }
 }

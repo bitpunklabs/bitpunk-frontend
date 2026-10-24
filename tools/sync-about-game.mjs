@@ -36,16 +36,23 @@ for (const file of Object.keys(manifest.runtime)) {
 const personaRoot = join(root, 'assets/persona/2026-10-22');
 const thinking = '/art/about/persona-thinking.webp', building = '/art/about/persona-building.webp';
 const stonks = '/art/about/persona-stonks.webp';
+const stonksUnmasked = '/art/about/persona-stonks-unmasked.webp';
 await sharp(join(personaRoot, '09-action-studies-v2.png'))
   .extract({ left: 0, top: 0, width: 512, height: 512 }).webp({ quality: 85 }).toFile(join(publicRoot, thinking));
 await sharp(join(personaRoot, '11-coding-v2.png')).resize(512, 512, { fit: 'inside' })
   .webp({ quality: 85 }).toFile(join(publicRoot, building));
 const stonksInfo = await sharp(join(root, 'assets/persona/2026-10-24-behind-the-mask/originals/06-i-buy-stonks-mask-on-v2.png'))
   .resize({ width: 960, withoutEnlargement: true }).webp({ quality: 85 }).toFile(join(publicRoot, stonks));
-for (const path of [thinking, building, stonks]) await register(path);
+const unmaskedInfo = await sharp(join(root, 'assets/persona/2026-10-24-behind-the-mask/originals/06-i-buy-stonks-mask-off-v3.png'))
+  .resize({ width: 960, withoutEnlargement: true }).webp({ quality: 85 }).toFile(join(publicRoot, stonksUnmasked));
+for (const path of [thinking, building, stonks, stonksUnmasked]) await register(path);
 const rect = ({ x, y, w, h }) => ({ x, y, w, h });
 pack.about = {
-  persona: { thinking: { src: thinking, width: 512, height: 512 }, building: { src: building, width: 512, height: 512 }, stonks: { src: stonks, width: stonksInfo.width, height: stonksInfo.height } },
+  persona: {
+    thinking: { src: thinking, width: 512, height: 512 }, building: { src: building, width: 512, height: 512 },
+    stonks: { src: stonks, width: stonksInfo.width, height: stonksInfo.height },
+    stonksUnmasked: { src: stonksUnmasked, width: unmaskedInfo.width, height: unmaskedInfo.height },
+  },
   game: {
     images,
     sprites: Object.fromEntries(Object.entries(manifest.sprites).map(([id, value]) => [id, rect(value)])),
@@ -58,4 +65,4 @@ pack.files.push(...files);
 await writeFile(packPath, JSON.stringify(pack, null, 2) + '\n');
 await mkdir('.private', { recursive: true });
 await writeFile('.private/about-game-delivery.json', JSON.stringify({ sourceHashes, files, originalMastersPreserved: true }, null, 2));
-console.log(`Synced ${Object.keys(images).length} runtime images, ${Object.keys(pack.about.game.decor).length} props and three persona exports.`);
+console.log(`Synced ${Object.keys(images).length} runtime images, ${Object.keys(pack.about.game.decor).length} props and four persona exports.`);

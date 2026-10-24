@@ -24,7 +24,6 @@ export default function AboutPage() {
         copy="Meet the bitpunk." />
       <MarbleContent>
         <section className={styles.introduction} aria-label="About Jake and Bitpunk">
-          <div className={styles.persona}><AboutPersona artwork={artwork.persona} /></div>
           <div className={styles.prose}>
             <p>{aboutContent.introduction}</p>
             {aboutContent.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
@@ -39,6 +38,7 @@ export default function AboutPage() {
               </nav>
             </div>
           </div>
+          <div className={styles.persona}><AboutPersona artwork={artwork.persona} /></div>
         </section>
         <BitpunkRun artwork={artwork.game} />
       </MarbleContent>

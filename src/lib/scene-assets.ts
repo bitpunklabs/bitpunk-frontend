@@ -91,7 +91,7 @@ export function getOpenSourceScreenshots(): ImageShowcaseSlide[] {
 
 export type ChannelImage = { src: string; width: number; height: number };
 export type AboutArtwork = {
-  persona: Record<"thinking" | "building" | "stonks", ChannelImage>;
+  persona: Record<"thinking" | "building" | "stonks" | "stonksUnmasked", ChannelImage>;
   game: GameArtwork | null;
 };
 
