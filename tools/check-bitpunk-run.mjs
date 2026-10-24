@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
-import { RUN, KINDS, makeChunk, newPlayer, jumpPlayer, enemyRect, enemyBoxes } from '../src/lib/bitpunk-run/core.mjs';
+import { RUN, FLOW, KINDS, makeChunk, newPlayer, jumpPlayer, enemyRect, enemyBoxes, touchesCoin, traceRoute, routeCoinsReachable } from '../src/lib/bitpunk-run/core.mjs';
 import { resolveEncounters } from '../src/lib/bitpunk-run/encounters.mjs';
 import { placeGroundedEgg } from '../src/lib/bitpunk-run/grounded-decor.mjs';
+import { jumpRewards } from '../src/lib/bitpunk-run/jump-rewards.mjs';
 
 let checks = 0;
 function check(name, test) { test(); checks++; console.log(`✓ ${name}`); }
@@ -105,6 +106,22 @@ check('procedural map props are supported and deterministic without mutating map
     const chunk = makeChunk(seed, i + 8, kind), before = JSON.stringify(chunk);
     const egg = placeGroundedEgg(seed, chunk, 'stonks'); supported(egg, chunk.surfaces); unobstructed(egg, chunk.surfaces);
     assert.deepEqual(egg, placeGroundedEgg(seed, chunk, 'stonks')); assert.equal(JSON.stringify(chunk), before);
+  }
+});
+check('walking below platforms earns no coins while elevated routes still have reachable rewards', () => {
+  for (const seed of ['JUMP-REWARD-A', 'JUMP-REWARD-B']) for (const [index, kind] of KINDS.entries()) {
+    const original = makeChunk(seed, index + 8, kind), chunk = jumpRewards(original);
+    assert.equal(chunk.surfaces, original.surfaces); assert.equal(chunk.enemies, original.enemies);
+    for (const coin of chunk.coins) {
+      assert.ok(!touchesCoin(newPlayer(coin.x), coin), 'running along the floor must not collect a coin');
+      assert.ok(coin.y + 7.5 < RUN.floor - 48, 'coins must visibly clear the standing sprite');
+    }
+    if (FLOW.includes(kind)) {
+      assert.ok(chunk.coins.length > 0, `${kind} lost every elevated reward`);
+      const walk = traceRoute(chunk, []); assert.ok(walk.ok);
+      assert.ok(walk.samples.every(p => chunk.coins.every(coin => !touchesCoin({x:p.x,y:p.y-RUN.playerH/2,w:RUN.playerW,h:RUN.playerH},coin))));
+    }
+    assert.ok(routeCoinsReachable(chunk), 'rewards must remain on validated playable routes');
   }
 });
 console.log(`${checks} deterministic checks passed. No browser gameplay or performance benchmark.`);

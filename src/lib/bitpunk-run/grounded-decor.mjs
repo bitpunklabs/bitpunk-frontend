@@ -1,4 +1,18 @@
 import { randomFor } from './core.mjs';
+import { paintEgg } from './visual-world.mjs';
+
+/** Paint after terrain, with a contact shadow and the visible base clipped to ground. */
+export function paintGroundedEgg(context, images, definitions, egg, camera, viewportWidth) {
+  const ground = egg.foot - 2, x = Math.round(egg.x - camera);
+  context.save();
+  context.fillStyle = '#171b1c33';
+  context.fillRect(Math.round(x - egg.width * .35), ground, Math.round(egg.width * .7), 2);
+  context.beginPath();
+  context.rect(0, 0, viewportWidth, ground);
+  context.clip();
+  paintEgg(context, images, definitions, egg.id, x, egg.foot, egg.width, egg.height);
+  context.restore();
+}
 
 /** Place a whole prop on clear, continuous ground, once per generated chunk. */
 export function placeGroundedEgg(seed, chunk, id) {

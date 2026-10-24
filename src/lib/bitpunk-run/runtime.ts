@@ -1,7 +1,8 @@
 import { RUN, newPlayer, jumpPlayer, stepPlayer, takeCoin, makeChunkSteps, enemyPosition, wickState } from "./core.mjs";
-import { WORLD_SCENES, SCENE_TEXT_PANELS, createVisualWorld, paintEgg } from "./visual-world.mjs";
+import { WORLD_SCENES, SCENE_TEXT_PANELS, createVisualWorld } from "./visual-world.mjs";
 import { paintWick } from "./wick-art.mjs";
-import { placeGroundedEgg } from "./grounded-decor.mjs";
+import { placeGroundedEgg, paintGroundedEgg } from "./grounded-decor.mjs";
+import { jumpRewards } from "./jump-rewards.mjs";
 import { resolveEncounters } from "./encounters.mjs";
 import { createWorkQueue } from "./work-queue.mjs";
 import type { JobHandle } from "./work-queue.mjs";
@@ -97,7 +98,8 @@ export function mountBitpunkRun(canvas: HTMLCanvasElement, artwork: GameArtwork,
     let resolve!: (chunk: Chunk | null) => void, reject!: (error: unknown) => void;
     const promise = new Promise<Chunk | null>((yes, no) => { resolve = yes; reject = no; });
     function* prepare(): Generator<void, { chunk: Chunk; layer: HTMLCanvasElement }, unknown> {
-      const chunk = yield* makeChunkSteps(seed, index);
+      const generated = yield* makeChunkSteps(seed, index);
+      const chunk = jumpRewards(generated);
       chunk.routePreviews = []; // The public game has no map-preview UI.
       const layer = yield* paintTerrain(chunk);
       return { chunk, layer };
@@ -239,13 +241,13 @@ export function mountBitpunkRun(canvas: HTMLCanvasElement, artwork: GameArtwork,
     ctx.imageSmoothingEnabled = false;
     if (!reduced.matches && chapter > 0 && chapterX < 200) { background(visual.scene((chapter - 1) * 4), camera); background(scene, camera, chapterX / 200); }
     else background(scene, camera);
-    for (const egg of eggs.values()) {
-      if (!egg || egg.x + egg.width / 2 < camera || egg.x - egg.width / 2 > camera + width) continue;
-      paintEgg(ctx, art, artwork.decor, egg.id, egg.x - camera, egg.foot, egg.width, egg.height);
-    }
     for (const chunk of chunks.values()) {
       const x = Math.round(chunk.start - camera); if (x > width || x + 640 < 0) continue;
       const layer = terrain.get(chunk.index); if (layer) ctx.drawImage(layer, x, 0);
+    }
+    for (const egg of eggs.values()) {
+      if (!egg || egg.x + egg.width / 2 < camera || egg.x - egg.width / 2 > camera + width) continue;
+      paintGroundedEgg(ctx, art, artwork.decor, egg, camera, width);
     }
     for (const chunk of chunks.values()) {
       for (const coin of chunk.coins) {
