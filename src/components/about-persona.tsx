@@ -6,6 +6,5 @@ export function AboutPersona({ artwork }: { artwork: AboutArtwork["persona"] }) 
   return <figure className={styles.persona}>
     <Image {...artwork.stonks} className={styles.image} unoptimized loading="lazy"
       alt="The masked Bitpunk persona in a suit, beside a rising orange arrow and the word stonks." />
-    <figcaption className={styles.caption}>Trust me bro, stonks is what I do.</figcaption>
   </figure>;
 }

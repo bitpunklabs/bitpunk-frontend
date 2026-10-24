@@ -1,11 +1,6 @@
-.content { width: min(100%, 68rem); margin-inline: auto; padding: .875rem var(--page-gutter) 0; }
-.breadcrumb { margin-bottom: .5rem; }
-.introduction { display: grid; grid-template-columns: minmax(0, 1fr) minmax(13rem, .65fr); grid-template-areas: "heading persona" "prose persona"; column-gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding: 1.5rem 0 2.5rem; border-top: 1px solid var(--stone-line); }
-.heading { grid-area: heading; align-self: end; }
-.heading h2 { margin: 0 0 .875rem; font: var(--type-heading); }
-.heading h2 em { white-space: nowrap; }
-.persona { grid-area: persona; min-width: 0; }
-.prose { grid-area: prose; align-self: start; max-width: 58ch; color: var(--muted); font: var(--type-body); text-wrap: pretty; }
+.introduction { display: grid; grid-template-columns: minmax(13rem, .65fr) minmax(0, 1fr); grid-template-areas: "persona prose"; column-gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding: clamp(.875rem, 2cqw, 1.5rem) 0 clamp(1.5rem, 3cqw, 2.5rem); border-bottom: 1px solid var(--stone-line); }
+.persona { grid-area: persona; min-width: 0; justify-self: center; }
+.prose { grid-area: prose; max-width: 58ch; color: var(--muted); font: var(--type-body); text-wrap: pretty; }
 .prose p { margin: 0; }
 .prose p + p { margin-top: var(--paragraph-gap); }
 .follow { margin-top: var(--paragraph-gap); }
@@ -13,12 +8,7 @@
 .platform { display: inline-flex; align-items: center; gap: .375rem; }
 .platform svg { width: .875rem; height: .875rem; flex: 0 0 auto; }
 @media (max-width: 650px) {
-  .content { padding-top: .75rem; }
-  .introduction { grid-template-columns: minmax(0, 1fr); grid-template-areas: "heading" "persona" "prose"; gap: 1rem; padding-top: 1rem; padding-bottom: 1.75rem; }
-  .heading { align-self: center; }
-  .heading h2 { font-size: clamp(1.625rem, 7.5vw, 2rem); margin-bottom: 0; }
+  .introduction { grid-template-columns: minmax(0, 1fr); grid-template-areas: "persona" "prose"; gap: 1.25rem; padding-bottom: 1.5rem; }
   .channels { display: grid; grid-template-columns: repeat(2, max-content); }
-}
-@media (max-height: 760px) and (min-width: 651px) {
-  .introduction { padding-block: 1.25rem 2rem; }
+  .persona { width: min(100%, 21rem); }
 }

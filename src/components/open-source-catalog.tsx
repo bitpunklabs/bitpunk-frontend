@@ -37,7 +37,7 @@ function GitHubSection() {
         <div className={catalog.description}>
           <p>Open-source projects and shared tools to explore and build on.</p>
           <p>Explore practical tools and small experiments. Read the code, test an idea and adapt it to your own workflow.</p>
-          <p>This website’s frontend code is open source on GitHub. Artwork, brand assets and paid indicator logic stay private.</p>
+          <p>This website’s frontend code is open source on GitHub.</p>
         </div>
         <div className={catalog.resources}><PageAction href={destinations.github} external quiet>Explore on GitHub</PageAction><PageAction href={destinations.website} external quiet>View website source</PageAction></div>
       </div>

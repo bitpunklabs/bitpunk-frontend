@@ -1,3 +1,2 @@
 .persona { margin: 0; width: 100%; max-width: 23rem; min-width: 0; }
 .image { display: block; width: 100%; height: auto; border: 1px solid var(--stone-line); }
-.caption { margin-top: .625rem; color: var(--muted); font: var(--type-action); font-style: italic; text-align: center; text-wrap: balance; }

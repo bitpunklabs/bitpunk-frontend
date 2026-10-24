@@ -55,7 +55,8 @@ export function BitpunkRun({ artwork }: { artwork: GameArtwork | null }) {
   const continuation = mountError || snapshot.mode === "error" ? "Click to try again." : snapshot.mode === "paused" ? "Click to keep going." : "Click for another run.";
   return <section id="bitpunk-run" className={styles.section} aria-labelledby="run-title">
     <header className={styles.heading}>
-      <h1 id="run-title">A true punk<br /><em>never stops running.</em></h1>
+      <div><h2 id="run-title">A true punk<br /><em>never stops running...</em></h2>
+        <p className={styles.subtitle}>... and never makes a boring &quot;About&quot; page.</p></div>
       <p className={styles.hint}>Click to jump, again to double jump.</p>
     </header>
     {!artwork ? <div className={styles.unavailable}><p>Game artwork is not included in this source build.<br />Add the authorised asset pack to play.</p></div> : <div className={styles.shell} onKeyDown={keyDown}>

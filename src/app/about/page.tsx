@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { AboutPersona } from "@/components/about-persona";
 import { ContactLink } from "@/components/contact-link";
 import { BitpunkRun } from "@/components/bitpunk-run";
-import { MarblePage, PageAction, marbleStyles } from "@/components/marble-page";
+import { MarblePage, MarbleHero, MarbleContent, PageAction } from "@/components/marble-page";
 import { PlatformIcon } from "@/components/platform-icon";
 import { aboutContent } from "@/lib/about";
 import { getAboutArtwork } from "@/lib/scene-assets";
@@ -20,15 +19,11 @@ export default function AboutPage() {
   const artwork = getAboutArtwork();
   return (
     <MarblePage>
-      <div className={styles.content}>
-        <nav className={`${marbleStyles.breadcrumb} ${styles.breadcrumb}`} aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">About</span>
-        </nav>
-        <BitpunkRun artwork={artwork.game} />
-        <section className={styles.introduction} aria-labelledby="about-title">
-          <header className={styles.heading}><h2 id="about-title">Behind <em>the mask.</em></h2></header>
+      <MarbleHero scene="about" section="About"
+        title={<>Behind<br /><em>the mask.</em></>}
+        copy="Meet the bitpunk." />
+      <MarbleContent>
+        <section className={styles.introduction} aria-label="About Jake and Bitpunk">
           <div className={styles.persona}><AboutPersona artwork={artwork.persona} /></div>
           <div className={styles.prose}>
             <p>{aboutContent.introduction}</p>
@@ -45,7 +40,8 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-      </div>
+        <BitpunkRun artwork={artwork.game} />
+      </MarbleContent>
     </MarblePage>
   );
 }

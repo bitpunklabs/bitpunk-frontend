@@ -57,9 +57,9 @@
 .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .75em 1.5em; margin-top: clamp(.75rem, 1cqw, 1.25rem); }
 .action {
   display: inline-flex; align-items: center; max-width: 100%;
-  min-height: var(--action-height); font: var(--type-action);
+  min-height: var(--action-height); font: var(--type-action); color: var(--ink);
 }
-.textLink { display: inline-flex; align-items: center; max-width: 100%; min-height: var(--action-height); font: var(--type-action); }
+.textLink { display: inline-flex; align-items: center; max-width: 100%; min-height: var(--action-height); font: var(--type-action); color: var(--ink); }
 .availability { display: inline-flex; align-items: center; gap: 9px; font: var(--type-meta); color: var(--muted); }
 .availability::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--brand-orange); flex: 0 0 auto; }
 .content { max-width: 84rem; margin: auto; padding: clamp(.375rem, .6cqw, .625rem) var(--page-gutter) clamp(1rem, 1.5cqw, 1.5rem); }

@@ -11,7 +11,7 @@
 .profileFooter > img { width: 2.5rem; height: 2.5rem; border-radius: 50%; }
 .profileFooter strong { display: block; font: 600 .8125rem/1.4 var(--font-body); }
 .profileFooter small { display: block; margin-top: .125rem; color: var(--muted); font: var(--type-meta); }
-.frameAction { margin-left: auto; }
+.frameAction { margin-left: auto; font: var(--type-action); color: var(--ink); }
 @media (hover: hover) {
   .githubFrame:hover { transform: translateY(-3px) rotateX(0) rotateY(0) rotateZ(0); }
   .githubFrame:hover .frameAction { color: var(--accent); }

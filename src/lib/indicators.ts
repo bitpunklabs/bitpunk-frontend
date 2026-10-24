@@ -26,7 +26,7 @@ export const alphaIndicator = {
 // One collection entry: individual open studies are maintained on TradingView.
 export const openIndicatorCollection = {
   name: "Open-source indicators",
-  description: "We explore technical analysis across price-action, momentum, volume and volatility.",
+  description: "I explore technical analysis across price-action, momentum, volume and volatility.",
   researchPurpose: "Our open-source studies make those ideas easier to examine, test and build on.",
   tradingViewUrl: "https://www.tradingview.com/u/bitpunk_labs/#published-scripts",
   topics: [

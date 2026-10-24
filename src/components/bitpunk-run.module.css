@@ -1,6 +1,7 @@
-.section { padding: .625rem 0 1.75rem; scroll-margin-top: calc(var(--site-chrome-height, 6rem) + 1rem); }
+.section { padding: clamp(1.25rem, 2.5cqw, 2rem) 0 1.75rem; scroll-margin-top: calc(var(--site-chrome-height, 6rem) + 1rem); }
 .heading { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: .75rem; }
-.heading h1 { margin: 0; font: 400 clamp(3rem, 5.25vw, 4.75rem)/1.04 var(--font-editorial); letter-spacing: var(--tracking-title); }
+.heading h2 { margin: 0; font: var(--type-heading); letter-spacing: var(--tracking-title); }
+.subtitle { margin: .625rem 0 0; color: var(--muted); font: var(--type-action); text-wrap: pretty; }
 .hint { margin: 0; flex: 0 0 auto; color: var(--muted); font: var(--type-meta); text-align: right; white-space: nowrap; }
 .shell { border: 1px solid #171b1c35; background: #ece6d9; overflow: hidden; }
 .unavailable { display: grid; place-items: center; min-height: 12rem; padding: 2rem; border: 1px solid var(--stone-line); text-align: center; color: var(--muted); font: var(--type-body); }
@@ -23,7 +24,6 @@
 .card .continuation { margin-top: 1.25rem; color: var(--ink); }
 @media (max-width: 650px) {
   .heading { display: block; margin-bottom: .75rem; }
-  .heading h1 { font-size: clamp(2.375rem, 10.5vw, 3rem); }
   .hint { max-width: none; margin-top: .5rem; font-size: .625rem; text-align: left; }
   .hud { padding: .5rem .75rem; }
   .score { gap: .5rem; }
@@ -36,6 +36,5 @@
   .card { padding: .75rem 1.25rem; }
   .card p { margin-top: .375rem; }
 }
-@media (max-width: 360px) { .heading h1 { font-size: 2.25rem; } }
 @keyframes turn { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .loader img { animation: none; } }
