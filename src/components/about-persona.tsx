@@ -1,13 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, type KeyboardEvent, type PointerEvent } from "react";
+import { useRef, type PointerEvent } from "react";
 import type { AboutArtwork } from "@/lib/scene-assets";
 import { missingArtwork } from "@/lib/asset-placeholders";
 import styles from "./about-persona.module.css";
 
 export function AboutPersona({ artwork }: { artwork: AboutArtwork["persona"] }) {
+  const figure = useRef<HTMLElement>(null);
   const surface = useRef<HTMLDivElement>(null);
+  const slider = useRef<HTMLInputElement>(null);
   const reveal = useRef(0);
   const lastX = useRef<number | null>(null);
   const touch = useRef<{ id: number; x: number; y: number; axis: "pending" | "horizontal" | "vertical" } | null>(null);
@@ -18,9 +20,11 @@ export function AboutPersona({ artwork }: { artwork: AboutArtwork["persona"] }) 
     if (!node) return;
     reveal.current = Math.max(0, Math.min(1, value));
     const percent = Math.round(reveal.current * 100);
-    node.style.setProperty("--reveal", `${reveal.current * 100}%`);
-    node.setAttribute("aria-valuenow", String(percent));
-    node.setAttribute("aria-valuetext", percent === 0 ? "Mask on" : percent === 100 ? "Mask off" : `Mask off revealed: ${percent}%`);
+    figure.current?.style.setProperty("--reveal", `${reveal.current * 100}%`);
+    if (slider.current) {
+      slider.current.value = String(percent);
+      slider.current.setAttribute("aria-valuetext", percent === 0 ? "Mask on" : percent === 100 ? "Mask off" : `Mask off revealed: ${percent}%`);
+    }
     node.dataset.interacted = "true";
   }
 
@@ -63,23 +67,12 @@ export function AboutPersona({ artwork }: { artwork: AboutArtwork["persona"] }) 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
   }
 
-  function keyboard(event: KeyboardEvent<HTMLDivElement>) {
-    const next = { ArrowLeft: reveal.current - .1, ArrowRight: reveal.current + .1, Home: 0, End: 1 }[event.key];
-    if (next === undefined || event.altKey || event.ctrlKey || event.metaKey) return;
-    event.preventDefault();
-    show(next);
-  }
-
-  return <figure className={styles.persona}>
-    <div ref={surface} className={styles.reveal} role={available ? "slider" : undefined}
-      tabIndex={available ? 0 : undefined} aria-label={available ? "Reveal the person behind the mask" : undefined}
-      aria-valuemin={available ? 0 : undefined} aria-valuemax={available ? 100 : undefined}
-      aria-valuenow={available ? 0 : undefined} aria-valuetext={available ? "Mask on" : undefined}
-      aria-orientation={available ? "horizontal" : undefined}
+  return <figure ref={figure} className={styles.persona}>
+    <div ref={surface} className={styles.reveal} data-interactive={available || undefined}
       onPointerEnter={event => { if (event.pointerType === "mouse") lastX.current = event.clientX; }}
       onPointerLeave={event => { if (event.pointerType === "mouse") lastX.current = null; }}
       onPointerDown={start} onPointerMove={move} onPointerUp={finish} onPointerCancel={finish}
-      onLostPointerCapture={finish} onKeyDown={available ? keyboard : undefined}>
+      onLostPointerCapture={finish}>
       <Image {...artwork.stonks} className={styles.image} unoptimized loading="lazy" draggable={false}
         alt="The masked Bitpunk persona in a suit, beside a rising orange arrow and the word stonks." />
       {available && <>
@@ -87,12 +80,13 @@ export function AboutPersona({ artwork }: { artwork: AboutArtwork["persona"] }) 
           <Image {...artwork.stonksUnmasked} className={styles.image} unoptimized loading="eager" draggable={false} alt="" />
         </div>
         <span className={styles.rail} aria-hidden="true" />
-        <span className={styles.hint} aria-hidden="true">
-          <svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m6 3-4 4 4 4m14-8 4 4-4 4M11 3v8m4-8v8" />
-          </svg>
-        </span>
       </>}
     </div>
+    <figcaption className={styles.caption}>
+      <span>I buy stonks</span>
+      {available && <input ref={slider} className={styles.slider} type="range" min="0" max="100" step="1" defaultValue="0"
+        aria-label="Reveal the person behind the mask" aria-valuetext="Mask on"
+        onChange={event => show(Number(event.currentTarget.value) / 100)} />}
+    </figcaption>
   </figure>;
 }
