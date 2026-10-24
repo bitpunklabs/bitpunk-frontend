@@ -74,7 +74,7 @@ export function AboutPersona({ artwork }: { artwork: AboutArtwork["persona"] }) 
       onPointerDown={start} onPointerMove={move} onPointerUp={finish} onPointerCancel={finish}
       onLostPointerCapture={finish}>
       <Image {...artwork.stonks} className={styles.image} unoptimized loading="lazy" draggable={false}
-        alt="The masked Bitpunk persona in a suit, beside a rising orange arrow and the word stonks." />
+        alt="A two-panel This is fine comic: the masked Bitpunk persona sits calmly in a room on fire." />
       {available && <>
         <div className={styles.unmasked} aria-hidden="true">
           <Image {...artwork.stonksUnmasked} className={styles.image} unoptimized loading="eager" draggable={false} alt="" />
@@ -82,11 +82,10 @@ export function AboutPersona({ artwork }: { artwork: AboutArtwork["persona"] }) 
         <span className={styles.rail} aria-hidden="true" />
       </>}
     </div>
-    <figcaption className={styles.caption}>
-      <span>I buy stonks</span>
-      {available && <input ref={slider} className={styles.slider} type="range" min="0" max="100" step="1" defaultValue="0"
+    {available && <div className={styles.controls}>
+      <input ref={slider} className={styles.slider} type="range" min="0" max="100" step="1" defaultValue="0"
         aria-label="Reveal the person behind the mask" aria-valuetext="Mask on"
-        onChange={event => show(Number(event.currentTarget.value) / 100)} />}
-    </figcaption>
+        onChange={event => show(Number(event.currentTarget.value) / 100)} />
+    </div>}
   </figure>;
 }
