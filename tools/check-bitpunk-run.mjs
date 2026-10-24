@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { RUN, FLOW, KINDS, makeChunk, newPlayer, jumpPlayer, enemyRect, enemyBoxes, touchesCoin, traceRoute, routeCoinsReachable } from '../src/lib/bitpunk-run/core.mjs';
+import { RUN, KINDS, makeChunk, newPlayer, jumpPlayer, enemyRect, enemyBoxes, touchesCoin, traceRoute, routeCoinsReachable } from '../src/lib/bitpunk-run/core.mjs';
 import { resolveEncounters } from '../src/lib/bitpunk-run/encounters.mjs';
 import { placeGroundedEgg } from '../src/lib/bitpunk-run/grounded-decor.mjs';
 import { jumpRewards } from '../src/lib/bitpunk-run/jump-rewards.mjs';
@@ -108,20 +108,44 @@ check('procedural map props are supported and deterministic without mutating map
     assert.deepEqual(egg, placeGroundedEgg(seed, chunk, 'stonks')); assert.equal(JSON.stringify(chunk), before);
   }
 });
-check('walking below platforms earns no coins while elevated routes still have reachable rewards', () => {
-  for (const seed of ['JUMP-REWARD-A', 'JUMP-REWARD-B']) for (const [index, kind] of KINDS.entries()) {
-    const original = makeChunk(seed, index + 8, kind), chunk = jumpRewards(original);
+const rewardCases = ['JUMP-REWARD-A', 'JUMP-REWARD-B'].flatMap(seed =>
+  [0, 12, 28].flatMap(index => KINDS.map(kind => makeChunk(seed, index, kind))),
+);
+check('only complete walking bypasses lose free coins; required-jump trails keep every reward', () => {
+  let restoredLowRewards = 0;
+  for (const original of rewardCases) {
+    const chunk = jumpRewards(original), walk = traceRoute(original, [], 2);
+    const canWalkToCoin = coin => walk.samples.some(p => touchesCoin({x:p.x,y:p.y-RUN.playerH/2,w:RUN.playerW,h:RUN.playerH},coin));
+    const kept = new Set(chunk.coins.map(coin => coin.id));
     assert.equal(chunk.surfaces, original.surfaces); assert.equal(chunk.enemies, original.enemies);
-    for (const coin of chunk.coins) {
-      assert.ok(!touchesCoin(newPlayer(coin.x), coin), 'running along the floor must not collect a coin');
-      assert.ok(coin.y + 7.5 < RUN.floor - 48, 'coins must visibly clear the standing sprite');
+    assert.equal(chunk.routes, original.routes);
+    if (walk.ok) {
+      assert.ok(chunk.coins.length > 0, 'optional jumps still need rewards');
+      assert.ok(chunk.coins.every(coin => !canWalkToCoin(coin)), 'a complete no-jump bypass must not collect rewards');
+      assert.ok(original.coins.filter(coin => !kept.has(coin.id)).every(canWalkToCoin), 'airborne rewards must not be removed');
+    } else {
+      assert.equal(chunk.coins.length, original.coins.length, 'required routes must retain their full trail');
+      restoredLowRewards += chunk.coins.filter(coin => coin.y >= RUN.floor - 48 - 7.5).length;
     }
-    if (FLOW.includes(kind)) {
-      assert.ok(chunk.coins.length > 0, `${kind} lost every elevated reward`);
-      const walk = traceRoute(chunk, []); assert.ok(walk.ok);
-      assert.ok(walk.samples.every(p => chunk.coins.every(coin => !touchesCoin({x:p.x,y:p.y-RUN.playerH/2,w:RUN.playerW,h:RUN.playerH},coin))));
-    }
-    assert.ok(routeCoinsReachable(chunk), 'rewards must remain on validated playable routes');
+    assert.ok(routeCoinsReachable(chunk), 'all rewards must remain on validated playable routes');
   }
+  assert.ok(restoredLowRewards > 0, 'takeoff and landing rewards need coverage');
+});
+check('SOL outnumbers ETH, ETH outnumbers BTC, and BTC stays on an original jump peak', () => {
+  let totalBtc = 0;
+  for (const original of rewardCases) {
+    const before = JSON.stringify(original), chunk = jumpRewards(original), counts = {btc:0,eth:0,sol:0};
+    for (const coin of chunk.coins) {
+      counts[coin.type]++;
+      const source = original.coins.find(item => item.id === coin.id);
+      assert.deepEqual([coin.x,coin.y,coin.route], [source.x,source.y,source.route]);
+      if (coin.type === 'btc') assert.equal(source.type, 'btc', 'BTC must retain a validated peak location');
+    }
+    if (chunk.coins.length >= 3) assert.ok(counts.sol > counts.eth && counts.eth > counts.btc);
+    assert.ok(counts.btc <= 1); totalBtc += counts.btc;
+    assert.equal(JSON.stringify(original), before, 'the source generator must not be mutated');
+    assert.deepEqual(jumpRewards(original), chunk, 'reward balancing must be deterministic');
+  }
+  assert.ok(totalBtc > 0, 'rare BTC rewards must still exist');
 });
 console.log(`${checks} deterministic checks passed. No browser gameplay or performance benchmark.`);
