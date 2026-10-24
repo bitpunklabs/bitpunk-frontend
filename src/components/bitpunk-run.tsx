@@ -77,8 +77,11 @@ export function BitpunkRun({ artwork }: { artwork: GameArtwork | null }) {
             <img src="/brand/asterisk-solid-static-v1.svg" width="30" height="30" alt="" />
             <p>{snapshot.mode === "preparing" ? "Planning your route." : "Setting the scene."}</p>
           </div> : <div className={styles.card}>
-            {(mountError || snapshot.title) && <div aria-live="polite"><h3>{mountError ? "The little world needs a moment." : snapshot.title}</h3><p>{mountError ? "Try loading it again." : snapshot.copy}</p></div>}
-            <p className={styles.continuation}>{continuation}</p>
+            {(mountError || snapshot.title) && <div aria-live="polite">
+              <h3>{mountError ? "The little world needs a moment." : snapshot.title}</h3>
+              {(mountError || (snapshot.mode !== "over" && snapshot.copy)) && <p>{mountError ? "Try loading it again." : snapshot.copy}</p>}
+            </div>}
+            {(mountError || snapshot.mode !== "over") && <p className={styles.continuation}>{continuation}</p>}
           </div>}
         </div>}
       </div>

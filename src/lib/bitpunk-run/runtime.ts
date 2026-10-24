@@ -8,13 +8,13 @@ import { createWorkQueue } from "./work-queue.mjs";
 import type { JobHandle } from "./work-queue.mjs";
 import type { Chunk, Counts, DeathReason, Egg, GameArtwork, GameImageId, GameMode, GameSnapshot, RunController, SceneId, StompHit } from "./types";
 
-const endings: Record<DeathReason, readonly [string, string][]> = {
-  pit: [["Liquidity dried up.", "No bids below."], ["Buy the dip?", "This one kept dipping."]],
-  wall: [["Resistance held.", "Even this chart has a ceiling."], ["Rejected at resistance.", "A little more height next time."]],
-  bear: [["Bear market confirmed.", "You were bullish. The bear wasn’t."], ["Bears took control.", "Your bull case met a very real bear."]],
-  swan: [["Not priced in.", "The swan had other plans."], ["A tail-risk event.", "Apparently, the tail had wings."]],
-  redwick: [["Liquidated.", "That red candle closed the position."], ["Catching falling knives.", "This one came with a wick."]],
-  greenwick: [["Bull trap.", "Small body. Expensive wick."], ["Exit liquidity.", "The breakout had other plans."]],
+const endings: Record<DeathReason, readonly string[]> = {
+  pit: ["Liquidity dried up.", "Buy the dip?"],
+  wall: ["Resistance held.", "Rejected at resistance."],
+  bear: ["Bear market confirmed.", "Bears took control."],
+  swan: ["Not priced in.", "A tail-risk event."],
+  redwick: ["Liquidated.", "Catching falling knives."],
+  greenwick: ["Bull trap.", "Exit liquidity."],
 };
 const themes: Record<SceneId, { fill: string; line: string; cap: string; edge: string }> = {
   greek: { fill: "#a88c67", line: "#7d735e", cap: "#eadbb6", edge: "#738958" },
@@ -153,7 +153,7 @@ export function mountBitpunkRun(canvas: HTMLCanvasElement, artwork: GameArtwork,
   }
   function finish(reason: DeathReason) {
     const count = endingCounts[reason] || 0; endingCounts[reason] = count + 1;
-    [title, copy] = endings[reason][count % endings[reason].length];
+    title = endings[reason][count % endings[reason].length]; copy = "";
     if (score > best) { best = score; try { localStorage.setItem("bitpunk-run-best-v2", String(best)); } catch { /* Optional. */ } }
     setMode("over");
   }
