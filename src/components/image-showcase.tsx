@@ -239,17 +239,17 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
             </figure>
           ))}
         </div>
-        {slides.length > 1 && <>
-          <button className={`${styles.arrow} ${styles.previous}`} type="button"
-            aria-label="Previous image" aria-controls={galleryId} onClick={() => settle(target.current - 1)}>
-            <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M15.5 3.5 4.5 12l11 8.5Z" /></svg>
-          </button>
-          <button className={`${styles.arrow} ${styles.next}`} type="button"
-            aria-label="Next image" aria-controls={galleryId} onClick={() => settle(target.current + 1)}>
-            <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M4.5 3.5 15.5 12l-11 8.5Z" /></svg>
-          </button>
-        </>}
       </div>
+      {slides.length > 1 && <>
+        <button className={`${styles.arrow} ${styles.previous}`} type="button"
+          aria-label="Previous image" aria-controls={galleryId} onClick={() => settle(target.current - 1)}>
+          <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M15.5 3.5 4.5 12l11 8.5Z" /></svg>
+        </button>
+        <button className={`${styles.arrow} ${styles.next}`} type="button"
+          aria-label="Next image" aria-controls={galleryId} onClick={() => settle(target.current + 1)}>
+          <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M4.5 3.5 15.5 12l-11 8.5Z" /></svg>
+        </button>
+      </>}
       <div className={styles.controls}>
         {slides.length > 1 && <div className={styles.selectorGroup}>
           {autoPlayInterval > 0 && <div className={styles.progress} aria-hidden="true"><span ref={progress} /></div>}

@@ -1,4 +1,5 @@
 .showcase {
+  position: relative;
   min-width: 0;
   width: 100%;
   container-type: inline-size;
@@ -32,7 +33,7 @@
   display: grid;
   place-items: center;
   width: clamp(3rem, 12cqw, 6rem);
-  padding: 0;
+  padding: 0 0 var(--action-height);
   border: 0;
   border-radius: 4px;
   background: transparent;
@@ -47,7 +48,7 @@
 .arrow:hover, .arrow:focus-visible { color: var(--brand-orange); }
 .arrow:focus-visible { outline: 1px solid var(--brand-orange); outline-offset: -3px; }
 .arrow:active { color: var(--accent); }
-.controls { display: flex; align-items: end; margin-top: .25rem; padding-inline: 4%; }
+.controls { display: flex; justify-content: center; align-items: end; margin-top: .25rem; padding-inline: clamp(3rem, 12cqw, 6rem); }
 .selectorGroup { position: relative; min-width: 0; max-width: 100%; padding-top: .5rem; }
 .progress { position: absolute; top: 0; left: 0; right: 0; height: 2px; overflow: hidden; background: var(--stone-line); }
 .progress span { display: block; width: 100%; height: 100%; background: var(--brand-orange); transform: scaleX(0); transform-origin: left; }
@@ -101,7 +102,7 @@
 @keyframes viewer-backdrop-out { from { opacity: 1; } to { opacity: 0; } }
 @media (max-width: 700px) {
   .viewport { padding: 1rem .5rem .25rem; }
-  .controls { padding-inline: 1%; gap: .75rem; }
+  .controls { gap: .75rem; }
   .selectors { column-gap: .75rem; }
   .selector { gap: .35rem; }
   .selector img { width: 1rem; height: 1rem; }
