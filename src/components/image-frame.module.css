@@ -6,7 +6,10 @@
   border: 1px solid #b8ad9a;
   border-radius: 10px;
   background: #ded6c8;
-  box-shadow: 0 2px 3px rgb(48 36 22 / 12%), 0 18px 36px -14px rgb(48 36 22 / 26%);
+  box-shadow: var(--frame-shadow, 0 2px 3px rgb(48 36 22 / 12%), 0 18px 36px -14px rgb(48 36 22 / 26%));
+  transform: var(--frame-transform, var(--frame-rest-transform, none));
+  transform-origin: 50% 55%;
+  transition: transform 320ms ease, box-shadow 320ms ease;
 }
 .bar { display: flex; align-items: center; gap: .75rem; min-height: clamp(2rem, 4.8cqw, 2.75rem); padding: .35rem clamp(.55rem, 1.25cqw, 1rem); border-bottom: 1px solid #aba18e; background: linear-gradient(135deg, #f5f0e6, #e8dfd0); color: var(--ink); }
 .identity { display: flex; align-items: center; gap: .5rem; min-width: 0; }
@@ -28,4 +31,7 @@
 @media (max-width: 700px) {
   .frame { border-radius: 6px; }
   .image { border-width: 2px; border-top-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .frame { transition: none; }
 }

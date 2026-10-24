@@ -1,0 +1,10 @@
+.trigger:focus-visible { --frame-transform: var(--frame-hover-transform, translateY(-4px)); --frame-shadow: 0 3px 5px rgb(48 36 22 / 14%), 0 24px 42px -14px rgb(48 36 22 / 34%); outline: 1px solid var(--brand-orange); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .trigger:hover { --frame-transform: var(--frame-hover-transform, translateY(-4px)); --frame-shadow: 0 3px 5px rgb(48 36 22 / 14%), 0 24px 42px -14px rgb(48 36 22 / 34%); }
+}
+@media (hover: none), (pointer: coarse) {
+  .trigger:active { --frame-transform: scale(.985); --frame-shadow: 0 1px 2px rgb(48 36 22 / 14%), 0 10px 20px -12px rgb(48 36 22 / 28%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trigger:is(:hover, :focus-visible, :active) { --frame-transform: var(--frame-rest-transform, none); }
+}

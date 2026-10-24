@@ -1,13 +1,4 @@
 .single { --turn: -4deg; --tilt: -.8deg; min-width: 0; margin: 1.25rem 0 0; container-type: inline-size; }
 .single[data-tilt="right"] { --turn: 3deg; --tilt: .7deg; }
-.preview { display: block; width: 100%; padding: .5rem .6rem 0; border: 0; background: transparent; color: var(--muted); text-align: left; cursor: zoom-in; }
+.preview { --frame-rest-transform: rotateX(3deg) rotateY(var(--turn)) rotateZ(var(--tilt)); --frame-hover-transform: translateY(-4px) rotateX(0) rotateY(0) rotateZ(0); display: block; width: 100%; padding: .5rem .6rem 0; border: 0; background: transparent; color: var(--muted); text-align: left; cursor: zoom-in; touch-action: manipulation; }
 .mount { display: block; perspective: 75rem; }
-.mount > span { transform: rotateX(3deg) rotateY(var(--turn)) rotateZ(var(--tilt)); transform-origin: 50% 55%; transition: transform 320ms ease; }
-.preview:focus-visible { outline: 1px solid var(--brand-orange); outline-offset: 3px; }
-@media (hover: hover) {
-  .preview:hover .mount > span { transform: translateY(-4px) rotateX(0) rotateY(0) rotateZ(0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .mount > span { transition: none; }
-  .preview:hover .mount > span { transform: rotateX(3deg) rotateY(var(--turn)) rotateZ(var(--tilt)); }
-}

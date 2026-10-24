@@ -78,6 +78,8 @@ For a full-site prebuilt release, use `vercel build --prod --standalone` so func
 
 Chart presentation has two formats: `ImageCarousel` for switchable collections and `ImageSingle` for an independent image. Both use `ImageFrame` for thumbnail metadata and a shared click-to-enlarge `ImageViewer`. The carousel switches through full-height left/right edge controls or its selection labels; it has no swipe/drag navigation. Its progress bar still drives automatic playback. Enlarged images have no header or navigation controls: click/tap the image again, click the backdrop or press Escape to close. Mobile images fit the largest available viewport dimension without cropping; desktop images keep a bounded size. Reduced-motion preferences skip the expansion animation.
 
+Carousel and single-image previews share the same interaction styling. Mouse hover or keyboard focus gently lifts and straightens the current image, with a slightly deeper shadow. Touch uses a small press response before opening the viewer. The carousel's outer switching animation stays independent; only the active image accepts preview interaction. Reduced motion keeps the static pose and removes transform transitions.
+
 A deployment must receive these delivery files from authorised private storage before building. They must not be committed to make a Git-based deployment work. The website's displayed images are necessarily available to its visitors; keeping them out of Git protects the source repository, not against saving a displayed image.
 
 ## Checks

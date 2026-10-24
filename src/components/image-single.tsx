@@ -6,6 +6,7 @@ import { ImageFrame } from "./image-frame";
 import { ImageViewer } from "./image-viewer";
 import type { ImageViewerHandle } from "./image-viewer";
 import styles from "./image-single.module.css";
+import feedback from "./image-feedback.module.css";
 
 /** One chart, one independent viewer. No carousel state or navigation is involved. */
 export function ImageSingle({ slide, tilt = "left" }: {
@@ -16,7 +17,7 @@ export function ImageSingle({ slide, tilt = "left" }: {
   const viewer = useRef<ImageViewerHandle>(null);
   return (
     <figure className={styles.single} data-tilt={tilt}>
-      <button className={styles.preview} type="button"
+      <button className={`${styles.preview} ${feedback.trigger}`} type="button"
         aria-label={`Enlarge ${slide.label}`} aria-haspopup="dialog" onClick={() => viewer.current?.open()}>
         <span className={styles.mount}><ImageFrame slide={slide} imageRef={image} /></span>
       </button>

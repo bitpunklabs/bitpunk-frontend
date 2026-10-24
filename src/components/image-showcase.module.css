@@ -1,4 +1,7 @@
 .showcase {
+  --focus-rx: 5deg;
+  --focus-ry: -7deg;
+  --focus-rz: -1.5deg;
   position: relative;
   min-width: 0;
   width: 100%;
@@ -15,8 +18,7 @@
   -webkit-user-select: none;
 }
 .stage[aria-busy="true"] .window[aria-hidden="true"] { visibility: hidden; }
-.imageTrigger { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; cursor: zoom-in; touch-action: manipulation; }
-.imageTrigger:focus-visible { outline: 2px solid var(--brand-orange); outline-offset: 4px; }
+.imageTrigger { --frame-hover-transform: rotateZ(calc(0deg - var(--focus-rz))) rotateY(calc(0deg - var(--focus-ry))) rotateX(calc(0deg - var(--focus-rx))) translateY(-4px); display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; cursor: zoom-in; touch-action: manipulation; }
 .window[aria-hidden="true"] { pointer-events: none; }
 .window {
   position: absolute;
@@ -72,6 +74,8 @@
 .selector:hover { color: var(--ink); }
 .showcase[data-variant="fan"] .window { width: 74%; }
 .showcase[data-variant="orbit"] .window { width: 82%; }
+.showcase[data-variant="fan"] { --focus-rx: 4deg; --focus-ry: -3deg; --focus-rz: -1deg; }
+.showcase[data-variant="orbit"] { --focus-rx: 2deg; --focus-ry: -4deg; --focus-rz: 0deg; }
 .dialog {
   --viewer-max-width: min(92vw, 90rem);
   --viewer-max-height: 88svh;

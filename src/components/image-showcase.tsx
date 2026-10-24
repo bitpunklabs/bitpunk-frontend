@@ -8,6 +8,7 @@ import { ImageViewer } from "./image-viewer";
 import type { ImageViewerHandle } from "./image-viewer";
 import { ImageFrame } from "./image-frame";
 import styles from "./image-showcase.module.css";
+import feedback from "./image-feedback.module.css";
 
 const modulo = (value: number, count: number) => ((value % count) + count) % count;
 
@@ -231,7 +232,7 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
             <figure key={slide.id} className={styles.window} aria-hidden={index !== selected}
               ref={node => { windows.current[index] = node; }}
               style={windowPose(index, 0, slides.length, variant)}>
-              <button className={styles.imageTrigger} type="button" disabled={index !== selected}
+              <button className={`${styles.imageTrigger} ${feedback.trigger}`} type="button" disabled={index !== selected}
                 tabIndex={index === selected ? 0 : -1} aria-label={`Enlarge ${slide.label}`} aria-haspopup="dialog"
                 onClick={() => viewer.current?.open()}>
                 <ImageFrame slide={slide} imageRef={node => { images.current[index] = node; }} eager />
