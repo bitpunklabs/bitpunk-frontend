@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import type { KeyboardEvent, PointerEvent, RefObject } from "react";
+import type { KeyboardEvent, RefObject } from "react";
 import type { ImageShowcaseSlide, ImageShowcaseVariant } from "@/lib/image-showcase";
-import { ActionLabel, actionStyles } from "./action-label";
 import { ImageViewer } from "./image-viewer";
 import type { ImageViewerHandle } from "./image-viewer";
 import { ImageFrame } from "./image-frame";
@@ -35,16 +34,6 @@ function windowPose(index: number, position: number, count: number, variant: Ima
   };
 }
 
-type Gesture = {
-  id: number;
-  startX: number;
-  startPosition: number;
-  lastX: number;
-  lastAt: number;
-  velocity: number;
-  travel: number;
-};
-
 /** The progress animation is the playback clock, so the fill and advance cannot drift. */
 function useAutoAdvance(root: RefObject<HTMLDivElement | null>, progress: RefObject<HTMLSpanElement | null>, advance: () => void,
   interval: number, enabled: boolean) {
@@ -56,11 +45,10 @@ function useAutoAdvance(root: RefObject<HTMLDivElement | null>, progress: RefObj
     let hovered = window.matchMedia("(hover: hover)").matches && node.matches(":hover");
     let keyboardFocus = !!document.activeElement && node.contains(document.activeElement) &&
       document.activeElement.matches(":focus-visible");
-    let held = false;
     let inView = false;
     let playback: Animation | undefined;
     const clear = () => { playback?.cancel(); playback = undefined; };
-    const canAdvance = () => inView && !document.hidden && !motion.matches && !hovered && !keyboardFocus && !held;
+    const canAdvance = () => inView && !document.hidden && !motion.matches && !hovered && !keyboardFocus;
     const restart = () => {
       clear();
       if (!canAdvance()) return;
@@ -76,10 +64,6 @@ function useAutoAdvance(root: RefObject<HTMLDivElement | null>, progress: RefObj
         if ("pointerType" in event && event.pointerType === "mouse") { hovered = true; restart(); }
       }],
       ["pointerleave", () => { hovered = false; restart(); }],
-      ["pointerdown", () => { held = true; keyboardFocus = false; restart(); }],
-      ["pointerup", () => { held = false; restart(); }],
-      ["pointercancel", () => { held = false; restart(); }],
-      ["lostpointercapture", () => { held = false; restart(); }],
       ["click", restart],
       ["focusin", event => {
         keyboardFocus = event.target instanceof Element && event.target.matches(":focus-visible");
@@ -133,7 +117,6 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
   const root = useRef<HTMLDivElement>(null);
   const progress = useRef<HTMLSpanElement>(null);
   const [selected, setSelected] = useState(0);
-  const [dragging, setDragging] = useState(false);
   const [imagesReady, setImagesReady] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const windows = useRef<(HTMLElement | null)[]>([]);
@@ -141,7 +124,6 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
   const position = useRef(0);
   const target = useRef(0);
   const frame = useRef<number | null>(null);
-  const gesture = useRef<Gesture | null>(null);
   const reducedMotion = useRef(false);
   const viewer = useRef<ImageViewerHandle>(null);
   const current = slides[selected];
@@ -219,45 +201,6 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
     return () => { mounted = false; };
   }, [slides]);
 
-  function startDrag(event: PointerEvent<HTMLDivElement>) {
-    if (slides.length < 2 || !event.isPrimary || event.button !== 0) return;
-    stopFrame();
-    gesture.current = {
-      id: event.pointerId, startX: event.clientX, startPosition: position.current,
-      lastX: event.clientX, lastAt: event.timeStamp, velocity: 0,
-      travel: Math.max(100, event.currentTarget.clientWidth * .28),
-    };
-    event.currentTarget.setPointerCapture(event.pointerId);
-    setDragging(true);
-  }
-
-  function moveDrag(event: PointerEvent<HTMLDivElement>) {
-    const drag = gesture.current;
-    if (!drag || drag.id !== event.pointerId) return;
-    drag.velocity = (event.clientX - drag.lastX) / Math.max(8, event.timeStamp - drag.lastAt);
-    drag.lastX = event.clientX;
-    drag.lastAt = event.timeStamp;
-    const delta = Math.max(-.96, Math.min(.96, (drag.startX - event.clientX) / drag.travel));
-    position.current = drag.startPosition + delta;
-    if (frame.current === null) {
-      frame.current = requestAnimationFrame(() => { frame.current = null; paint(position.current); });
-    }
-  }
-
-  function endDrag(event: PointerEvent<HTMLDivElement>, cancelled = false) {
-    const drag = gesture.current;
-    if (!drag || drag.id !== event.pointerId) return;
-    gesture.current = null;
-    setDragging(false);
-    const distance = position.current - drag.startPosition;
-    const speed = event.timeStamp - drag.lastAt < 90 ? drag.velocity : 0;
-    const moved = Math.abs(event.clientX - drag.startX) > 10;
-    const step = !cancelled && moved && (Math.abs(distance) > .16 || Math.abs(speed) > .4)
-      ? Math.sign(distance || -speed) : 0;
-    settle(Math.round(drag.startPosition) + step);
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
-  }
-
   function choose(index: number) {
     const active = modulo(target.current, slides.length);
     let distance = modulo(index - active, slides.length);
@@ -266,10 +209,10 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
   }
 
   function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-    if (slides.length < 2) return;
-    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+    if (slides.length < 2 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key === "ArrowRight") {
       event.preventDefault(); settle(target.current + 1);
-    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+    } else if (event.key === "ArrowLeft") {
       event.preventDefault(); settle(target.current - 1);
     } else if (event.key === "Home" || event.key === "End") {
       event.preventDefault(); choose(event.key === "Home" ? 0 : slides.length - 1);
@@ -281,17 +224,18 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
       <div className={styles.viewport}>
         <div id={galleryId} className={styles.stage} style={{ aspectRatio: stageRatio }} role="group" aria-roledescription="carousel"
           aria-label={label}
-          aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Home End"
+          aria-keyshortcuts="ArrowLeft ArrowRight Home End"
           aria-busy={!imagesReady}
-          tabIndex={0} data-dragging={dragging || undefined}
-          onPointerDown={startDrag} onPointerMove={moveDrag}
-          onPointerUp={event => endDrag(event)} onPointerCancel={event => endDrag(event, true)}
-          onLostPointerCapture={event => endDrag(event, true)} onKeyDown={onKeyDown}>
+          onKeyDown={onKeyDown}>
           {slides.map((slide, index) => (
             <figure key={slide.id} className={styles.window} aria-hidden={index !== selected}
               ref={node => { windows.current[index] = node; }}
               style={windowPose(index, 0, slides.length, variant)}>
-              <ImageFrame slide={slide} imageRef={node => { images.current[index] = node; }} eager />
+              <button className={styles.imageTrigger} type="button" disabled={index !== selected}
+                tabIndex={index === selected ? 0 : -1} aria-label={`Enlarge ${slide.label}`} aria-haspopup="dialog"
+                onClick={() => viewer.current?.open()}>
+                <ImageFrame slide={slide} imageRef={node => { images.current[index] = node; }} eager />
+              </button>
             </figure>
           ))}
         </div>
@@ -320,14 +264,8 @@ function ImageShowcaseGallery({ slides, label, variant = "stack",
           ))}
           </div>
         </div>}
-        <button className={`${styles.fullView} ${actionStyles.interactive}`} type="button"
-          aria-label={`View full: ${label}`} aria-haspopup="dialog" onClick={() => viewer.current?.open()}>
-          <ActionLabel icon="expand">View full</ActionLabel>
-        </button>
       </div>
-      <ImageViewer ref={viewer} slide={current} getSource={() => windows.current[selected] ?? null} onOpenChange={setDialogOpen}
-        onPrevious={slides.length > 1 ? () => settle(target.current - 1) : undefined}
-        onNext={slides.length > 1 ? () => settle(target.current + 1) : undefined} />
+      <ImageViewer ref={viewer} slide={current} getSource={() => images.current[selected] ?? null} onOpenChange={setDialogOpen} />
     </div>
   );
 }

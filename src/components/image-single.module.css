@@ -3,7 +3,6 @@
 .preview { display: block; width: 100%; padding: .5rem .6rem 0; border: 0; background: transparent; color: var(--muted); text-align: left; cursor: zoom-in; }
 .mount { display: block; perspective: 75rem; }
 .mount > span { transform: rotateX(3deg) rotateY(var(--turn)) rotateZ(var(--tilt)); transform-origin: 50% 55%; transition: transform 320ms ease; }
-.action { display: flex; justify-content: flex-end; min-height: var(--action-height); margin-top: .75rem; }
 .preview:focus-visible { outline: 1px solid var(--brand-orange); outline-offset: 3px; }
 @media (hover: hover) {
   .preview:hover .mount > span { transform: translateY(-4px) rotateX(0) rotateY(0) rotateZ(0); }
