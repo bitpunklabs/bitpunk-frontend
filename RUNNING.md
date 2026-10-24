@@ -112,7 +112,7 @@ The privacy policy blocks artwork/design paths, private configuration, credentia
 
 ### About: persona and Bitpunk Run
 
-About opens with the shared “Behind the mask.” marble hero and winged sculpture, followed by Jake's introduction on the left and the interactive “This is fine” comic on the right. On narrow phones, the comic follows the text. The game is the final section; its smaller heading reads “A true punk never stops running...”. The Thinking export remains in the homepage's closing CTA, beside About Bitpunk.
+About opens with the shared “Behind the mask.” marble hero and winged sculpture, followed by Jake's introduction on the left and the interactive “This is fine” comic on the right. On narrow phones, the comic follows the text. The game is the final section; its smaller heading reads “A true punk never stops running”, followed by “Punk's not dead. Just down bad...”. The Thinking export remains in the homepage's closing CTA, beside About Bitpunk.
 
 The owner-editable introduction lives in `src/lib/about.ts`, ending with the italic “Stay wired. Something’s always brewing.”. X, Substack, TradingView and GitHub links use the shared destinations, platform marks and arrow/hover treatment, and open the public profiles in a new tab. Body paragraphs use shared typography, muted text colour and `--paragraph-gap`; the closing line uses `--type-copy-emphasis`.
 
