@@ -6,7 +6,7 @@ import { SiteFrame } from "@/components/site-frame";
 import { MarketTicker } from "@/components/market-ticker";
 import { getSiteUrl } from "@/lib/seo";
 import { getHomeArtwork } from "@/lib/scene-assets";
-import { brandSlogan } from "@/lib/brand-copy";
+import { brandSlogan, brandTitle } from "@/lib/brand-copy";
 import "./globals.css";
 import "./typography.css";
 import "./marble-chrome.css";
@@ -36,14 +36,14 @@ const emphasis = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "Bitpunk — Independent market research.",
+    default: brandTitle,
     template: "%s — Bitpunk",
   },
   description: brandSlogan,
   openGraph: {
     type: "website",
     siteName: "Bitpunk",
-    title: "Bitpunk — Independent market research.",
+    title: brandTitle,
     description: brandSlogan,
   },
   twitter: { card: "summary_large_image" },
