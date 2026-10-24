@@ -1,4 +1,5 @@
 import { destinations } from "./showcase";
+import { brandDescription } from "./brand-copy";
 
 export type ResearchPost = {
   id: string;
@@ -25,15 +26,15 @@ export type ResearchChannel = {
   posts: readonly ResearchPost[];
 };
 
-/** Public profile copy reviewed on 23 October 2026. No audience or account metadata. */
+/** Owner-approved public profile copy. No audience or account metadata. */
 export const platformProfiles = {
   x: {
     name: "bitpunk", handle: "bitpunklabs",
-    bio: "Open research and market tools on U.S. equities & crypto.\nExplore the work at ↓",
+    bio: `${brandDescription}\nExplore the work at ↓`,
   },
   substack: {
-    name: "bitpunklabs", handle: "bitpunklabs",
-    bio: "Open research and market tools on U.S. equities & crypto. Explore the works at bitpunk.io",
+    name: "bitpunk", handle: "bitpunk",
+    bio: `${brandDescription} Explore the works at bitpunk.io`,
   },
   tradingview: {
     name: "Bitpunk", handle: "bitpunk_labs",

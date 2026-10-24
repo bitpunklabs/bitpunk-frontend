@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { brandSlogan } from "@/lib/brand-copy";
 import "./globals.css";
 import "./typography.css";
 
@@ -20,7 +21,7 @@ const emphasis = localFont({
   adjustFontFallback: "Times New Roman",
   preload: false,
 });
-const description = "Research, indicators and open source. Where market ideas take shape.";
+const description = brandSlogan;
 export const metadata: Metadata = {
   metadataBase: new URL("https://bitpunk.io"),
   title: "Bitpunk — Coming soon.",

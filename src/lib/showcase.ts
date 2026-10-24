@@ -17,7 +17,7 @@ export const destinations = {
   github: "https://github.com/bitpunklabs",
   universe: "https://github.com/bitpunklabs/ticker-universe-builder",
   website: "https://github.com/bitpunklabs/bitpunk-frontend",
-  substack: publicUrl(process.env.NEXT_PUBLIC_SUBSTACK_PROFILE_URL) ?? "https://substack.com/@bitpunklabs",
+  substack: publicUrl(process.env.NEXT_PUBLIC_SUBSTACK_PROFILE_URL) ?? "https://substack.com/@bitpunk",
   substackPublication: publicUrl(process.env.NEXT_PUBLIC_BLOG_URL) ?? "https://bitpunklabs.substack.com/",
   tradingview: publicUrl(process.env.NEXT_PUBLIC_TRADINGVIEW_URL) ?? "https://tradingview.com/u/bitpunk_labs/",
   discord: publicUrl(

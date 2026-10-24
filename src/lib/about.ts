@@ -10,7 +10,7 @@ export const aboutContent = {
   introduction: aboutProfile.name ? `Hi, I’m ${aboutProfile.name}, the person behind Bitpunk — a small corner of the internet for big questions and better bets.` : "Hi, meet the person behind Bitpunk — a small corner of the internet for big questions and better bets.",
   paragraphs: [
     aboutProfile.marketExperience || "I’m curious about markets, the forces shaping them, and what we can learn by digging a little deeper. I trade, research, and build things along the way.",
-    "Not every idea holds up. Not every effort pays off. Markets have a funny way of keeping you humble. The aim isn’t to predict every move, but to make better decisions, understand the risks, and stay open to changing my mind.",
+    "Not every idea holds up. Not every effort pays off. Markets have a funny way of keeping you humble. The aim isn’t to predict every move, but to make better decisions, understand the risks, and stay open to changing the mind.",
   ],
   signoff: `${aboutProfile.motivation || "Stay wired. Something’s always brewing."}${aboutProfile.personalDetail ? ` ${aboutProfile.personalDetail}` : ""}`,
 };

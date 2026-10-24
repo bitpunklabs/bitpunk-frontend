@@ -6,6 +6,7 @@ import { SiteFrame } from "@/components/site-frame";
 import { MarketTicker } from "@/components/market-ticker";
 import { getSiteUrl } from "@/lib/seo";
 import { getHomeArtwork } from "@/lib/scene-assets";
+import { brandSlogan } from "@/lib/brand-copy";
 import "./globals.css";
 import "./typography.css";
 import "./marble-chrome.css";
@@ -38,14 +39,12 @@ export const metadata: Metadata = {
     default: "Bitpunk — Independent market research.",
     template: "%s — Bitpunk",
   },
-  description:
-    "Research, indicators and open-source tools for a clearer view of the market.",
+  description: brandSlogan,
   openGraph: {
     type: "website",
     siteName: "Bitpunk",
     title: "Bitpunk — Independent market research.",
-    description:
-      "Research, indicators and open-source tools for a clearer view of the market.",
+    description: brandSlogan,
   },
   twitter: { card: "summary_large_image" },
   icons: {

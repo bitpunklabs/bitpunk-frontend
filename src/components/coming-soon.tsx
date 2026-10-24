@@ -4,6 +4,7 @@ import { PlatformIcon } from "@/components/platform-icon";
 import { Wordmark } from "@/components/wordmark";
 import type { HomeArtwork } from "@/lib/scene-assets";
 import { destinations } from "@/lib/showcase";
+import { brandDescription, brandTagline } from "@/lib/brand-copy";
 import styles from "./coming-soon.module.css";
 
 const variants = [
@@ -57,7 +58,7 @@ export function ComingSoon({ variant, artwork, review = false }: {
       </picture>
       <div className={styles.atriumContent}>
         <div className={styles.atriumBrand}>{wordmark}</div>
-        <p className={styles.brandLine}>Research, indicators and open source.<br />{" "}Where market ideas take shape.</p>
+        <p className={styles.brandLine}>{brandDescription}<br />{" "}{brandTagline}</p>
         <div className={styles.atriumAnnouncement}>
           <h1>Coming <em>soon.</em></h1>
           <FollowLink />

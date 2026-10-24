@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Wordmark } from "@/components/wordmark";
+import { brandDescription, brandTagline } from "@/lib/brand-copy";
 import styles from "./marble-scene.module.css";
 import { getHomeArtwork, type SceneCrop } from "@/lib/scene-assets";
 
@@ -122,8 +123,8 @@ export function MarbleScene() {
           </span>
         </div>
         <h1 id="home-title" className={styles.description}>
-          <span>Research, indicators and open source.</span>{" "}
-          <span>Where market ideas take shape.</span>
+          <span>{brandDescription}</span>{" "}
+          <span>{brandTagline}</span>
         </h1>
       </div>
       <div className={styles.scene}>

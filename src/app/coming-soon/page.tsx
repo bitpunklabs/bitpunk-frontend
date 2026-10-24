@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { ComingSoon, isComingSoonVariant } from "@/components/coming-soon";
 import { getHomeArtwork } from "@/lib/scene-assets";
+import { brandSlogan } from "@/lib/brand-copy";
 
 export const metadata: Metadata = {
   title: "Coming soon",
-  description: "Research, indicators and open source. Where market ideas take shape. Coming soon from Bitpunk.",
+  description: `${brandSlogan} Coming soon from Bitpunk.`,
   robots: { index: false, follow: false },
 };
 

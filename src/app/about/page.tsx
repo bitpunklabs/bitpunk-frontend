@@ -31,7 +31,7 @@ export default function AboutPage() {
               <p><em className={styles.signoff}>{aboutContent.signoff}</em></p>
               <nav className={styles.channels} aria-label="Follow Jake">
                 <PageAction href={destinations.x ?? "https://x.com/bitpunklabs"} external quiet><span className={styles.platform}><PlatformIcon name="X" />X</span></PageAction>
-                <PageAction href={destinations.substack ?? "https://substack.com/@bitpunklabs"} external quiet><span className={styles.platform}><PlatformIcon name="Substack" />Substack</span></PageAction>
+                <PageAction href={destinations.substack ?? "https://substack.com/@bitpunk"} external quiet><span className={styles.platform}><PlatformIcon name="Substack" />Substack</span></PageAction>
                 <PageAction href={destinations.tradingview} external quiet><span className={styles.platform}><PlatformIcon name="TradingView" />TradingView</span></PageAction>
                 <PageAction href={destinations.github} external quiet><span className={styles.platform}><PlatformIcon name="GitHub" />GitHub</span></PageAction>
                 <ContactLink label="Email" icon showAddress />

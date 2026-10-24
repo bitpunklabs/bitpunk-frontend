@@ -86,7 +86,7 @@ export const homeUpdates: readonly HomeUpdate[] = [
         href: new URL("#published-scripts", destinations.tradingview).href,
         embed: tradingViewIdeaEmbed(process.env.NEXT_PUBLIC_TRADINGVIEW_IDEA_URL, process.env.NEXT_PUBLIC_TRADINGVIEW_IDEA_EMBED_URL),
         title: "Open-source chart studies.",
-        summary: "Open tools for exploring trends, pullbacks and price behaviour.",
+        summary: "Open-source technical analysis across price-action, momentum, volume and volatility.",
         body: ["Chart studies you can inspect, test and adapt. Explore the collection on TradingView."],
       },
     ],

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { destinations } from "@/lib/showcase";
 import { getChannelArtwork } from "@/lib/scene-assets";
+import { brandSlogan } from "@/lib/brand-copy";
 import { ActionLabel } from "./action-label";
 import { PageAction, marbleStyles } from "./marble-page";
 import { PlatformIcon } from "./platform-icon";
@@ -50,7 +51,7 @@ function GitHubSection() {
           <picture className={styles.banner}>
             <source media="(prefers-reduced-motion: reduce)" srcSet={banner.staticSrc} />
             <Image src={banner.src} width={banner.width} height={banner.height} unoptimized
-              alt="BITPUNK — Research, indicators and open source. Where market ideas take shape." />
+              alt={`BITPUNK — ${brandSlogan}`} />
           </picture>
           <span className={styles.profileFooter}>
             <Image {...artwork.avatar} alt="" unoptimized />
